@@ -8,8 +8,12 @@ document.addEventListener('DOMContentLoaded', e => {
   }
 
   window.addEventListener('keydown', e => {
-    if (e.key==='ArrowLeft') prevPage();
-    if (e.key==='ArrowRight' || e.key===' ') nextPage();
+    if (e.key==='ArrowLeft' || e.key==='PageUp') prevPage();
+    if (e.key==='ArrowRight' || e.key==='PageDown' || e.key===' ') nextPage();
+
+    // 8bitdo controller
+    if (e.key==='d' || e.key==='e') prevPage();
+    if (e.key==='f' || e.key==='c') nextPage();
   });
 
   function nextPage(e) {
