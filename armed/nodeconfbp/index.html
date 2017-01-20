@@ -6,23 +6,202 @@
 
   <link href="https://fonts.googleapis.com/css?family=Oswald|Russo+One&amp;subset=latin-ext" rel="stylesheet">
   <link rel="stylesheet" href="./res/main.css">
+
+<style>
+main {
+  counter-reset: slide;
+}
+main>section:after {
+  counter-increment: slide;
+  content: counter(slide);
+  position: absolute;
+  z-index: 100;
+  bottom: 0; right: 2vw;
+  font-size: 15vh;
+  color: rgba(100,100,100,.1);
+  font-family: 'Impact', sans-serif;
+}
+
+h1:empty { visibility: hidden }
+h2:empty { visibility: hidden }
+
+h1 a, h2 a {
+  color: blueviolet;
+  text-decoration: none;
+}
+
+main>section:nth-child(1) h1 {
+  background: none;
+  text-shadow: 1px 1px 10px black;
+  text-align: center;
+  width: 100%;
+  font-size: 3em;
+  top: 12vh;
+}
+main>section:nth-child(1) img { visibility: hidden; }
+main>section:nth-child(1) {
+  background-image: url('../../pic/baela-on-vacation.jpg');
+  background-position: center bottom;
+  background-size: cover;
+}
+main>section:nth-child(1) blockquote {
+  background: none;
+  text-shadow: 1px 1px 2px black;
+}
+
+main>section:nth-child(2) img { visibility: hidden; }
+main>section:nth-child(2) {
+  background-image: url('../../pic/tinker.jpg');
+  background-position: center top;
+  background-size: cover;
+}
+
+main>section:nth-child(3) {
+  background-image: url('../../pic/and.jpg');
+  background-position: center 50%;
+  background-size: cover;
+}
+main>section:nth-child(3) h1 {
+  background: none;
+  text-shadow: 1px 1px 10px black;
+  width: 100%;
+  font-size: 2em !important;
+  top: 16vh;
+}
+
+main>section:nth-child(11) p { visibility: hidden; }
+main>section:nth-child(11) {
+  background-image: url('http://blog.nextthing.co/wp-content/uploads/2016/12/minecraft-2-1024x576.jpg');
+  background-position: center top;
+  background-size: cover;
+}
+main>section:nth-child(11) h1 {
+  background: none;
+  text-shadow: 1px 1px 10px black;
+  text-align: center;
+  width: 100%;
+  font-size: 2em;
+  top: 80vh;
+}
+
+main>section:nth-child(14) {
+  background: white;
+}
+main>section:nth-child(14) blockquote {
+  background: none;
+  text-shadow: 1px 1px 10px black;
+  text-align: center;
+  width: 100%;
+  font-size: 2em;
+  margin: 0;
+  top: 70vh;
+}
+
+main>section:nth-child(18) {
+  background-image: url('https://s3.amazonaws.com/technicalmachine-assets/launch/animation-files/tessel2.png');
+  background-position: center;
+  background-size: 50vh;
+  background-repeat: no-repeat;
+}
+
+main>section:nth-child(22) h1 {
+  text-shadow: 1px 1px 10px black;
+  width: 100%;
+  font-size: 30vh !important;
+  line-height: 30vh;
+  text-align: center;
+}
+
+main>section:nth-child(23) {
+  padding-top: 10vh;
+  background: white;
+}
+main>section:nth-child(23) h1 {
+  background: none;
+  text-shadow: 1px 1px 10px black;
+  text-align: center;
+  width: 100%;
+  font-size: 1.5em;
+  top: 80vh;
+  position: absolute;
+}
+
+main>section:nth-child(27) p {
+  position: absolute !important;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  top: 70vh;
+  left: 0;
+}
+main>section:nth-child(27) p img:last-child {
+  width: auto;
+  height: auto;
+  max-height: 30vh;
+  display: block;
+  margin: auto;
+}
+main>section:nth-child(27) {
+  background-image: url('../../pic/datacenter.jpg');
+  background-position: center top;
+  background-size: cover;
+}
+main>section:nth-child(27) h2 {
+  margin: 0;
+  padding: 4vh 15vw;
+  height: 35vh;
+}
+
+main>section:nth-child(28) h1 {
+  font-size: 1em !important;
+}
+
+main>section:nth-child(30) {
+ background-color: #333;
+  background-image: url('  https://raw.githubusercontent.com/jerryscript-project/jerryscript/master/LOGO.png');
+  background-position: center 30%;
+  background-size: 30vw;
+  background-repeat: no-repeat;
+}
+main>section:nth-child(30) h1 {
+  background: none;
+  text-shadow: 1px 1px 10px black;
+  width: 100%;
+  font-size: 2em !important;
+  top: 35vh;
+}
+
+main>section:nth-child(34) {
+  background-image: url('http://blog.seanmartell.com/wp-content/uploads/2012/03/logo_0065_66.png');
+  background-color: black;
+  background-position: center 5vh;
+  background-repeat: no-repeat;
+}
+main>section:nth-child(34) h1:first-child {
+  margin: 0;
+  position: absolute;
+  max-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 44vh;
+  font-size: 3em;
+  line-height: 1.6em;
+}
+
+</style>
 </head>
 
 <body>
   <main><section>
 <h1>Hi NodeConf Budapest!</h1>
-<p><img src="../../pic/trudi-nodeconfbp.jpg" alt=""></p>
+<p><img src="../../pic/baela-on-vacation.jpg" alt=""></p>
 <blockquote>
 <p>NodeConf Budapest, January 20, 2017</p>
 </blockquote>
 </section>
 
 <section>
-<h1>ARMed and dangerous</h1>
-</section>
-
-<section>
-<h1>About me</h1>
+<h1>About Flaki</h1>
 <p><img src="../../pic/tinker.jpg" alt=""></p>
 <blockquote>
 <ul>
@@ -35,7 +214,15 @@
 </section>
 
 <section>
+<h1>ARMed and dangerous</h1>
+</section>
+
+<section>
 <h1>ARM &#x2764; node.js</h1>
+</section>
+
+<section>
+<h1></h1>
 <div class="hero"><a target="_blank" href="https://medium.com/@nodesource/node-and-arm-b5e3eebf449"><img src="../img/medium_com_nodesource_node_and_arm_b5e3eebf449.jpg" alt=""></a></div>
 <blockquote>
 <p>A lot of things have happened since&#x2026;</p>
@@ -52,11 +239,11 @@
 </section>
 
 <section>
-<h1>Raspberry Pi</h1>
+<h1>Your go-to IoT workhorse</h1>
 </section>
 
 <section>
-<h2>IoT Workhorse: the Raspberry Pi 3</h2>
+<h2>the Raspberry Pi 3</h2>
 <p><img src="http://www.hwsw.hu/kepek/hirek/2016/02/Pi3Breakout.png" alt=""></p>
 <blockquote>
 <ul>
@@ -116,11 +303,11 @@ GPIO ports!</p>
 </section>
 
 <section>
-<h2>But this is MIPS</h2>
+<h2>But Dude, this is MIPS</h2>
 </section>
 
 <section>
-<h2>Why?</h2>
+<h2>Why are we talking about the Tessel 2?</h2>
 <blockquote>
 <p>580MHz MediaTek MT7620N MIPS24KEc, 64MB RAM, built-in wireless</p>
 </blockquote>
@@ -142,7 +329,7 @@ access point mode</p>
 </section>
 
 <section>
-<h1>So where to go from here?</h1>
+<h2>So where to go from here?</h2>
 </section>
 
 <section>
@@ -177,8 +364,7 @@ access point mode</p>
 
 <section>
 <h2>That&#x2019;s TWO personal datacenters for the price of a MBP!</h2>
-<p><img src="https://kingofwallpapers.com/datacenter/datacenter-002.jpg" alt="">
-<img src="http://www.cameraegg.org/wp-content/uploads/2016/10/macbook-pro-touch-bar.png" alt=""></p>
+<p><img src="http://www.cameraegg.org/wp-content/uploads/2016/10/macbook-pro-touch-bar.png" alt=""></p>
 </section>
 
 <section>
@@ -191,30 +377,35 @@ access point mode</p>
 </section>
 
 <section>
-<h2>JerryScript</h2>
+  <h1>JerryScript</h1>
+</section>
+
+<section>
+<h2></h2>
 <div class="hero"><a target="_blank" href="http://jerryscript.net/"><img src="../img/jerryscript_net.jpg" alt=""></a></div>
 <blockquote>
-<div class="hero"><a target="_blank" href="http://www.slideshare.net/SamsungOSG/jerryscript-an-ultralighteweight-javascript-engine-for-the-internet-of-things"><img src="../img/www_slideshare_net_SamsungOSG_jerryscript_an_ultralighteweight_javascript_engine_for_the_internet_of_things.jpg" alt="3KB base RAM footprint, no AST etc"></a></div>
+<p><a target="_blank" href="http://www.slideshare.net/SamsungOSG/jerryscript-an-ultralighteweight-javascript-engine-for-the-internet-of-things"><img src="../img/www_slideshare_net_SamsungOSG_jerryscript_an_ultralighteweight_javascript_engine_for_the_internet_of_things.jpg" alt="3KB base RAM footprint, no AST etc">Introduction JerryScript</a></p>
 </blockquote>
 </section>
 
 <section>
-<h2>BBC micro:bit</h2>
-<div class="hero"><a target="_blank" href="http://microbit.org/"><img src="../img/microbit_org.jpg" alt=""></a></div>
+<h2></h2>
+<div class="hero"><a target="_blank" href="http://microbit.org/"><img src="../img/microbit_org.jpg" alt="bbc micro:bit"></a></div>
 </section>
 
 <section>
-<h2>JavaScript in embedded devices</h2>
-<div class="hero"><a target="_blank" href="https://www.youtube.com/watch?v=3HLRwcVqgFE"><img src="../img/www_youtube_com_watch_v_3HLRwcVqgFE.jpg" alt=""></a></div>
+<h2>Hear more about JavaScript in embedded devices</h2>
+<div class="hero"><a target="_blank" href="https://www.youtube.com/watch?v=3HLRwcVqgFE"><img src="https://i.ytimg.com/vi/3HLRwcVqgFE/maxresdefault.jpg" alt=""></a></div>
 </section>
 
 <section>
-<h1>Thank you!</h1>
-<blockquote>
-<p><img src="http://blog.seanmartell.com/wp-content/uploads/2012/03/logo_0065_66.png" alt=""></p>
-</blockquote>
-<p>&lt;h1&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Thank you!&lt;br&gt;&lt;br&gt;&lt;small&gt;@slsoftworks&lt;br&gt;flaki.github.io/talks/web-or-bust/hwsw/&lt;/small&gt;&lt;/h1&gt;</p>
-</section></main>
+<h1>Thank you!<br>
+  <small>@slsoftworks</small><br>
+  <small><a href="https://flaki.github.io/talks/armed/nodeconfbp/">flaki.github.io/talks/armed/nodeconfbp/</a></small>
+</h1>
+</section>
+
+</main>
 
   <script src="./res/main.js"></script>
   <script>
