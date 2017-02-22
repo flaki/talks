@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Firefox OS - from a consumer point-of-view</title>
+
+		<meta name="description" content="Firefox OS from a consumer point of view">
+		<meta name="author" content="István Szmozsánszky (Flaki) &amp; Kálmán Szalai (KAMI)">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="font/FiraSans.css">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<style type="text/css">
+			body {
+				background-color:black;
+				background-image: url(i/rpdark-background1920x1200.jpg);
+				background-position: center bottom;
+				background-repeat: no-repeat;
+			}
+
+			.center {
+				text-align: center;
+			}
+			.reveal {
+				font-family: FiraSans, sans-serif;
+			}
+			.reveal p,
+			.reveal ul > li {
+				font-weight: 300;
+			}
+			.reveal ul > li {
+				list-style-type: square; 
+			}
+			.reveal ul.boxes > li {
+				list-style: none;
+				display: inline-block;
+				width: 30%;
+				font-size: smaller;
+				text-align: center;
+			}
+			.reveal ul.boxes li img {
+				width: 100%;
+			}
+		</style>
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+
+<section>
+
+<section>
+	<h1>Firefox OS</h1>
+	<h2>from a developer's point of view</h2>
+	<p>&nbsp;</p>
+	<p class="center">
+		Kálmán Szalai <a href="https://twitter.com/KAMI911KAMI">@KAMI911KAMI</a> &amp;<br>
+		István Szmozsánszky <a href="https://twitter.com/slsoftworks">@slsoftworks</a>
+	</p>
+	<p>&nbsp;</p>
+	<p class="center">
+		Budapest, 29/05/2014
+	</p>
+</section>
+
+<section>
+</section>
+
+<section>
+<h1>Why Firefox OS?</h1>
+
+</section>
+
+<section>
+	<h3>Firefox OS development<br>=</h3><h2>cutting edge web development.</h2>
+	<p>&nbsp;</p>
+	<ul>
+		<li>Next-generation JavaScript features (ECMAScript 6+)
+		<li>Experimental APIs for platform-parity
+		<li>Open Web APIs for accessing hardware &amp; device resources
+	</ul>
+</section>
+</section>
+
+
+<section>
+	<section>
+
+		<h2>ECMAScript &amp; TC39</h2>
+
+		<p>ECMAScript's evolution is a joint effort, led by the TC39 commitee of browser vendors and other industry experts.</p>
+
+		<ul>
+		<li><a href="Current draft https://people.mozilla.org/%7Ejorendorff/es6-draft.html">ES6 Draft</a> expected to finalize before the end of year
+			<br>(ECMA approval target: December, 2014)
+		<li>ECMAScript rapid iteration (proposed) roadmap:
+			<br><a href="http://esdiscuss.org/topic/es6-es7-es8-and-beyond-a-proposed-roadmap">ES6/7/8 and onward</a>
+		<li>New ECMAScript versions will come in "rapid" iterations (approx. one a new version every year)
+			<br><a href="https://github.com/lukehoban/ecmascript-asyncawait">Active ES7 Proposals </a>
+		</ul>
+	</section>
+
+	<section>
+		<h2>Browser adoption</h2>
+
+		<p align="center">
+			Chrome, Firefox already rather good (even on stable versions).
+		</p>
+		<p align="center">
+			<a href="https://twitter.com/kangax/status/456219547968614400">
+				<img src="i/kangax.jpg" alt="Jeez, @Mozilla adding ES6 features faster than I can update compat table #firstworldproblems">
+			</a>
+		</p>
+		<p align="center">
+			<a href="http://kangax.github.io/es5-compat-table/es6/">ES6 Compatibility tables by Kangax</a>
+		</p>
+
+	</section>
+
+	<section>
+		<h2>Browser adoption</h2>
+
+		<p align="center">
+			Majority of ES6 features coming to IE12!
+		</p>
+		<p align="center">
+			<a href="https://twitter.com/addyosmani/status/471750507397386240">
+				<img src="i/ie12.jpg" alt="YES! IE implementing ES6 Promises, default & rest parameters, iterators, arrow funcs & more http://status.modern.ie/?sort=status  pic.twitter.com/Dak8JteAIN">
+			</a>
+		</p>
+
+	</section>
+
+	<section>
+		<h2>node.js support</h2>
+
+		<p>&nbsp;</p>
+		<p align="center">
+			<a href="https://twitter.com/addyosmani/status/471750507397386240">Node.js already sports a lot of ES6 features (currently in the unstable v0.11.x branch)</a>
+		</p>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>ES6 features</h2>
+
+		<p>&nbsp;</p>
+		<p align="center">There are a quite a few, <a href="https://github.com/lukehoban/es6features">see Luke Hoban's repo</a>!
+
+	</section>
+
+	<section>
+		<h2>Syntax enhancements</h2>
+			
+		<p><em>"Syntactic sugar"</em></p>
+		<ul>
+			<li><a href="https://github.com/lukehoban/es6features#default--rest--spread">Rest, default parameters, spread</a>
+			<li><a href="https://github.com/lukehoban/es6features#enhanced-object-literals">Object literal enhancements</a>
+			<li><a href="https://github.com/lukehoban/es6features#destructuring">Destructuring</a>
+			<li><a href="https://github.com/lukehoban/es6features#arrows">Arrow functions</a>
+		</ul>
+	</section>
+
+	<section>
+		<h2>Promises &amp; Generators</h2>
+
+		<ul>
+			<li>Empowering asynchronous tasks
+			<li><a href="http://promises-aplus.github.io/promises-spec/">Promises/A</a> compilance
+			<li>The solution against "callback hell"
+		</ul>
+
+		<p align="center">
+			Promises + Generators + http://taskjs.org/<br>=<br><a href="https://github.com/lukehoban/ecmascript-asyncawait">ES7 async/await</a>
+		</p>
+
+		<p>&nbsp;</p>
+		<p class="center"><a href="https://gist.github.com/flaki/96fd91dfdd5276f84cdd">Promises on Firefox OS (hungarian)</a></p>
+	</section>
+
+	<section>
+		<h2>Classes</h2>
+		<p>&nbsp;</p>
+		<ul>
+			<li>For easier prototype-based OO class creation, see<a href="https://github.com/lukehoban/es6features#classes">the feature explainer</a>
+		</ul>
+	</section>
+
+	<section>
+		<h2>Modules</h2>
+		<p>&nbsp;</p>
+		<ul>
+			<li>The "swiss army knife" of module semantics - <a href="http://www.2ality.com/2013/07/es6-modules.html">an intro by Dr. Axel Rauschmayer</a>
+		</ul>
+	</section>
+	<section>
+		<h2>Want to use ES6 now?</h2>
+
+		<p class="center">
+			<a href="https://github.com/google/traceur-compiler">Traceur compiler (ES6 to ES5 transpiler)</a>
+		</p>
+
+		
+		<p>&nbsp;</p>
+		<h3>
+			On Firefox OS?
+		</h3>
+
+		<p class="center">
+			<a href="https://github.com/flaki/es6boilerplate">ES6 AppSkeleton project on GitHub</a>
+
+			<br><br><a href="http://flaki.github.io/es6boilerplate/app/index.html">Try it out</a>
+		</p>
+	</section>
+</section>
+<section>
+	<section>
+
+		<h2>
+			Service Workers
+		</h2>
+
+		<p class="center">
+			<a href="http://alistapart.com/article/application-cache-is-a-douchebag">
+			Why? Because the Application Cache is a Douchebag
+			</a>
+		</p>
+
+		<p>
+			First public draft just out - read it, hear it, embrace it!
+			<br>http://www.w3.org/TR/2014/WD-service-workers-20140508/
+			<br>http://vimeo.com/94347623
+			<br>http://jakearchibald.com/2014/service-worker-first-draft/
+		</p>
+
+
+		<p class="center">
+			<a href="https://jakearchibald.github.io/isserviceworkerready/">When can I use it?</a>
+		</p>
+
+	</section>
+	<section>
+		<h2>
+			Web Components
+		</h2>
+
+		<p>
+			Why? Encapsulate all the things! (into self-contained, reusable packages)
+			<br>http://www.youtube.com/watch?v=JNjnv-Gcpnw
+		</p>
+
+		<p>
+			Testdrive it now - because it's only going to get better going forward!
+			<br>http://www.x-tags.org/
+			<br>http://www.polymer-project.org/
+			<br>http://www.polymer-project.org/docs/start/usingelements.html
+		</p>
+
+		<p>
+			Browser support rising steadily, polyfills readily available!
+			<br>http://jonrimmer.github.io/are-we-componentized-yet/
+		</p>
+
+	</section>
+	<section>
+		<h2>Open Web Apps &amp; Open Web API-s</h2>
+
+		<p>
+			Open Web Apps - ongoing standardization process of the Application Manifest
+			<br>http://w3c.github.io/manifest/
+		</p>
+
+
+		<p>
+			Several APIs for accessing device hardware (Geolocation, sensors, storage) and resources (contact list, files, network).
+			<br>https://developer.mozilla.org/en-US/Apps/Reference
+		</p>
+
+	</section>
+</section>
+<section>
+	<section>
+		<h1>Web as The (mobile) Platform</h1>
+
+		<p>&nbsp;</p>
+		<p align="center">
+			<a href="https://hacks.mozilla.org/2013/12/write-elsewhere-run-on-firefox/">If you have an index.html, you have (almost) got a Firefox OS app!</a>
+		</p>
+
+	</section>
+	<section>
+		<h2>
+			Firefox for Android as an Open Web App runtime on Android:
+		</h2>
+
+		<p>
+			https://hacks.mozilla.org/2014/03/better-integration-for-open-web-apps-on-android/
+		</p>
+		<ul>
+			<li>Your Firefox OS web app running on any Android device
+			<li>Seamless integration (menu icon &amp; separate app in tasklist etc.)
+			<li>Install apps from the Firefox Marketplace
+		</ul>
+
+	</section>
+	<section>
+		<h2>
+			A truly cross-platform app development experience!
+		</h2>
+
+		<p class="center">
+			<a href="https://hacks.mozilla.org/2014/02/building-cordova-apps-for-firefox-os/">Phonegap/Cordova compatibility!</a>
+		</p>
+		<h3>
+			(Stay tuned for Piotr Zalewa's talk next!)
+		</h3>
+
+		<p>
+	Creating HTML5 Apps with WinJS for Firefox OS (&amp; Windows Phone!)
+	https://www.youtube.com/watch?v=SbsiBsC6BE8
+		</p>
+
+		<p>
+			Intel XDK compatibility coming soon!
+			https://hacks.mozilla.org/2014/05/app-framework-and-firefox-os/
+		</p>
+
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>The Web Platform is a living standard</h2>
+		<h3>Follow (quite literally) the conversation!</h3>
+
+		<p>&nbsp;</p>
+		<p class="center">
+			The ECMAScript/TC39 mailing list:<br><a href="http://esdiscuss.org">esdiscuss.org</a>
+		</p>
+		<p>
+			Mailing list digest by Domenic Denicola: <a href="http://twitter.com/esdiscuss">@esdiscuss</a>
+		</p>
+		<p>
+			TC39 Meeting Notes by Rick Waldron <a href="https://github.com/rwaldron/tc39-notes/">meeting notes</a>
+		</p>
+	</section>
+	
+	<section>
+		<h3>Browser folks:</h3>
+		<p>&nbsp;</p>
+		<p>
+			Mozilla Principal Evangelist: <a href="http://twitter.com/codepo8">@codepo8</a> Chris Heilmann
+			<br>Chrome Developer Relations: <a href="http://twitter.com/paul_irish">@paul_irish</a> Paul Irish
+			<br>Product manager for IE: <a href="http://twitter.com/jacobrossi">@jacobrossi</a> Jacob Rossi
+		</p>
+	</section>
+	
+	<section>
+		<h3>Close to the bleeding edge:</h3>
+		<p>&nbsp;</p>
+
+		<p>
+			Promises &amp; ES6: <a href="http://twitter.com/domenic">@domenic</a> Domenic Denicola 
+			<br>Service Workers: <a href="http://twitter.com/jaffathecake">@jaffathecake</a> Jake Archibald
+			<br>Web Components: <a href="http://twitter.com/angelinamagnum">@angelinamagnum</a> Angelina Fabbro &amp; <a href="http://twitter.com/addyosmani">@addyosmani</a> Addy Osmani
+		</p>
+	</section>
+</section>
+
+
+<section>
+	<section>
+		<h1>Thank you!</h1>
+	</section>
+</section>
+
+
+</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				touch: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+		<script>
+			// All links open in new tab
+			[].forEach.call(document.querySelectorAll("a[href]"),function(a){a.addEventListener('click',function(e){e.preventDefault();window.open(e.currentTarget.href)})});
+		</script>
+	</body>
+</html>

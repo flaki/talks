@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Játékkészítés Open Web technológiákkal - by Flaki @ Mozilla Hétvége - 2013.04.06.</title>
+
+		<meta name="description" content="Játékkészítés Open Web technológiákkal, HTML5/JS környezetben - Szmozsánszky István (Flaki) előadása a Mozilla Hétvégén, Budapesten (2013.04.06.)">
+		<meta name="author" content="Szmozsánszky István / Flaki">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			img.flaki {
+				width: 5em; height: 5em;
+			}
+
+			img.transparent {
+				background: none !important; border: none !important; box-shadow: none !important;
+			}
+			li {
+				margin: .2em !important;
+			}
+			h3:last-child>a {
+				margin-top: .25em;
+				font-size: 80%;
+			}
+		</style>
+		<script type="text/javascript">
+		function addAutoLoadIFrame(ifid,ifsrc) {
+			
+			window.addEventListener('load',function(event) {
+				Reveal.addEventListener( 'slidechanged', function( event ) {
+					if (event.previousSlide.id===(ifid+"slide")) document.getElementById(ifid).src="";
+					if ( event.currentSlide.id===(ifid+"slide")) document.getElementById(ifid).src=ifsrc;
+				});
+			});
+		}
+		</script>
+
+</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>HTML5? Gyerekjáték!</h1>
+					<h3>Játékkészítés Open Web technológiákkal<br />HTML5/JS környezetben</h3>
+					<p>
+						<small>Elõadó: <a href="http://flaki.hu">Szmozsánszky István</a> / <a href="http://twitter.com/slsoftworks">@slsoftworks</a></small>
+					</p>
+				</section>
+
+				<section>
+					<p>
+						<img src="img/gulu_badge.png" class="transparent" style="height: 5em;" />
+						<h2>Szmozsánszky István - <em>Flaki</em></h2>
+
+						<h3>Webfejlesztõ @ <a href="http://hl-system.hu/" style="vertical-align: -20%">HL-System Kft.</a></h3>
+
+						<ul>
+							<li>Webfejlesztés (frontend/backend)
+							<li>Mobil alkalmazásfejlesztés (Android/Firefox OS)
+							<li>Indie játékfejlesztés
+						</ul>
+
+						<h3 style="margin-top: .5em;">A diák elérhetõek itt:<br />
+							<a href="http://slides.flaki.hu/mozhetvege13/">http://slides.flaki.hu/mozhetvege13/</a>
+						</h3>
+					</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<h2>Mik azok a HTML5 játékok?</h2>
+							<img class="transparent" src="img/html5-3d-500.png" alt="HTML5" style="height: 10em;">
+						<ul>
+							<li>HTML5 + CSS3 + JavaScript
+							<li>Új Open Web API-k, új lehetőségek (ezekről <a href="#/4">még lesz szó</a>)
+							<li>Kiterjesztett hardver-hozzáférés, <a href="#/3">hardveres gyorsítás</a>
+						</ul>
+						<a href="#" class="image navigate-down">
+						</a>
+					</section>
+					<section>
+						<h2>Miért jó ez nekünk?</h2>
+						<ul>
+							<li>Nyílt, folyamatosan fejlődő technológia
+							<li>Ingyenes: fejlesztés, terjesztés, hozzáférés
+							<li>Minden további extra plugin nélkül működik (kivéve <a href="#" class="navigate-down">mikor nem</a>)
+							<li>Platform-független technológia
+						</ul>
+					</section>
+					<section>
+						<h2>Mi az, ami még hiányzik?</h2>
+						<h3>Azért sajnos mégsem teljesen platform-független:</h3>
+						<ul>
+							<li>Internet Explorer: IE10 előtt gyengécske feature-support
+							<li>WP7.5 - a mobil IE is folytatja a nagytestvér "hagyományát"
+							<li>ICS előtti Android verziók stock browsere (néhány esetben ezen a <a href="https://play.google.com/store/apps/details?id=org.mozilla.firefox">Fennec</a> segíthet)
+							<li>DRM nem megoldott (<a href="https://github.com/mishoo/UglifyJS">obfuszkálás és/vagy minify</a> segíthet)
+						</ul>
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h1>Az Alapok</h1>
+						<h2>Kép & Hang</h2>
+					</section>
+					<section>
+						<h2>Kép & Hang</h2>
+						<h3>Canvas</h3>
+						<ul>
+							<li>Alapvető 2D megjelenítés
+							<li>Megszokott grafikus primitívek (pont, vonal, négyzet, kör, ív...)
+							<li>Hardveres gyorsítás
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en/HTML/Canvas">https://developer.mozilla.org/en/HTML/Canvas</a></h3>
+					</section>
+					<section>
+						<h2>Kép & Hang</h2>
+						<h3>Canvas: Silk</h3>
+						<img src="img/silk-720p.jpg" alt="Silk" style="height: 10em" />
+						<h3><a href="http://weavesilk.com/">http://weavesilk.com/</a></h3>
+					</section>
+					<section id="drawliveslide">
+						<h2>Kép & Hang</h2>
+						<h3>Canvas: DrawLive</h3>
+						<div style="background-image:url(img/nexus4-720p.png); background-size: contain; background-repeat: no-repeat; background-position: center; height: 13em;">
+							<iframe id="drawlive" width="320" height="480" style="transform: scale(.62); margin-left: 2.9em; margin-top: .2em;"></iframe>
+						</div>
+						<h3><a href="http://www.flaki.hu/ocsi/drawlive/">http://www.flaki.hu/ocsi/drawlive/</a></h3>
+						<script type="text/javascript">addAutoLoadIFrame("drawlive","http://www.flaki.hu/ocsi/drawlive/");</script>
+					</section>
+
+					<section>
+						<h2>Kép & Hang</h2>
+						<h3>WebGL</h3>
+						<ul>
+							<li>Open GL technológián alapuló 3D megjelenítés
+							<li>Szintén a megszokott primitívákat használja
+							<li>Hardveres grafikus gyorsítás
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en/HTML/WebGL">https://developer.mozilla.org/en/HTML/WebGL</a></h3>
+					</section>
+					<section id="blossomslide">
+						<h2>Kép & Hang</h2>
+						<h3>WebGL: Blossom Demo</h3>
+						<iframe id="blossom" width="480" height="480"></iframe>
+						<h3><a href="http://www.bongiovi.tw/experiments/webgl/blossom/">http://www.bongiovi.tw/experiments/webgl/blossom/</a></h3>
+						<script type="text/javascript">addAutoLoadIFrame("blossom","http://www.bongiovi.tw/experiments/webgl/blossom/");</script>
+					</section>
+					<section>
+						<h2>Kép & Hang</h2>
+						<h3>WebGL: Trigger Rally</h3>
+						<img src="img/triggerrally.jpg" alt="Trigger Rally" style="height: 10em" />
+						<h3><a href="http://triggerrally.com/">http://triggerrally.com/</a></h3>
+					</section>
+					<section>
+						<h2>Kép & Hang</h2>
+						<h3>WebGL: HexGL</h3>
+						<img src="img/hexgl.jpg" alt="HexGL" style="height: 10em" />
+						<h3><a href="http://hexgl.bkcore.com/">http://hexgl.bkcore.com/</a></h3>
+					</section>
+
+					<section>
+						<h2>Kép & Hang</h2>
+						<h3>Audio & Audio Data</h3>
+						<ul>
+							<li>Sztenderd HTML5 Audio és <a href="https://developer.mozilla.org/en/Introducing_the_Audio_API_Extension">Mozilla kiterjesztések</a>
+							<li>Vorbis majd <a href="https://hacks.mozilla.org/2012/09/its-opus-it-rocks-and-now-its-an-audio-codec-standard/">Opus</a> nyílt forráskódú kodekek
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en/HTML/WebGL">https://developer.mozilla.org/en/HTML/WebGL</a></h3>
+					</section>
+					<section id="visualizerslide">
+						<h2>Kép & Hang</h2>
+						<h3>Audio: Visualizer</h3>
+						<iframe id="visualizer" width="480" height="480"></iframe>
+						<h3><a href="http://robhawkes.github.com/webgl-html5-audio-visualiser/">http://robhawkes.github.com/webgl-html5-audio-visualiser/</a></h3>
+						<script type="text/javascript">addAutoLoadIFrame("visualizer","http://robhawkes.github.io/webgl-html5-audio-visualiser/");</script>
+					</section>
+
+				</section>
+
+
+				<section>
+					<section>
+						<h1>Hardware és Extrák</h1>
+						<h2>További WebAPI-k</h2>
+					</section>
+
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Fullscreen API</h3>
+						<ul>
+							<li>Bizonyos játékokhoz alapvető elvárás a minél átfogóbb játékélmény ("immersive experience")
+							<li>Az API-n keresztül kérheti az alkalmazás a teljes képernyős módot, de a felasználó megtagadhatja azt
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode">https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode</a></h3>
+					</section>
+
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Multitouch</h3>
+						<ul>
+							<li>Az érintőképernyős eszközök többérintéses képességeinek kihasználására jött létre
+							<li>Az IE itt is keresztbetesz (WP 7.5 nem támogat semmiféle érintéses (Touch) vagy hagyományos egér (Mouse) eventet
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en-US/docs/DOM/Touch_events">https://developer.mozilla.org/en-US/docs/DOM/Touch_events</a></h3>
+					</section>
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Multitouch: Draggabilly</h3>
+						<ul>
+							<li>Egységesíti az egeres és touch rendszerek API-jait
+							<li>Könnyíti a kezelést, támogatja a multitouchot
+							<li>Próbáljátok ki mobilon/tableten:
+						</ul>
+						<h3><a href="http://draggabilly.desandro.com/">http://draggabilly.desandro.com/</a></h3>
+					</section>
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Touch Cycle</h3>
+							<img class="transparent" src="img/touchcycle.jpg" alt="Touch Cycle" style="height: 8em;">
+						<p>
+							Full multitouch Tron-szimulátor akár négy játékosnak egyetlen telefonon/tablet képernyőjén,<br />
+							<a href="https://hacks.mozilla.org/2013/03/announcing-the-winners-of-the-february-2013-dev-derby/">a februári Mozilla Dev Derby első helyezettje!</a>
+						</p>
+						<h3><a href="https://developer.mozilla.org/fr/demos/detail/touchcycle">https://developer.mozilla.org/fr/demos/detail/touchcycle</a></h3>
+					</section>
+
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Bemenet: Pointer Lock</h3>
+						<ul>
+							<li>A már említett "immersive experience"-hez szükéges API-k
+							<li>Főleg FPS/TPS/Arcade jellegű játékok igénylik
+							<li>Egérmutató lehorgonyzását végzi a zavartalan játékélmény érdekében
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en-US/docs/WebAPI/Pointer_Lock">https://developer.mozilla.org/en-US/docs/WebAPI/Pointer_Lock</a></h3>
+					</section>
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Bemenet: Gamepad API</h3>
+						<ul>
+							<li>Konzolos játékvezérlők kezelése webalkalmazásokban
+							<li>A legkülönfélébb játékokhoz alkalmazható
+							<li>Elég gyenge támogatottság (csak Firefox (experimental), de a hamarosan Chrome is implementálja)
+						</ul>
+						<h3><a href="https://wiki.mozilla.org/GamepadAPI">https://wiki.mozilla.org/GamepadAPI</a></h3>
+					</section>
+
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Hálózat: WebSockets</h3>
+						<ul>
+							<li>TCP/IP csatlakozást tesz lehetővé webalkalmazásoknak
+							<li>Low-level hozzáférést nyújt a hálózati réteghez (így nem vagyunk <a href="https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest" title="XMLHTTPRequest">XHR</a>-re korlátozva)
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en-US/docs/WebSockets">https://developer.mozilla.org/en-US/docs/WebSockets</a></h3>
+					</section>
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Hálózat: WebRTC</h3>
+						<ul>
+							<li>A WebRTC data streamek használhatók webalkalmazások közötti bináris adatkapcsolatra
+							<li>Segítségével multiplayer játékok is létrehozhatók
+							<li>Leegyszerűsíti a peer-to-peer multiplayer játékok írását
+							<li>Szintén erősen experimental, kis támogatottság (de javul!)
+						</ul>
+						<h3><a href="https://hacks.mozilla.org/2013/03/webrtc-data-channels-for-great-multiplayer/">https://hacks.mozilla.org/2013/03/webrtc-data-channels-for-great-multiplayer/</a></h3>
+					</section>
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>BrowserQuest</h3>
+						<img src="img/browserquest.jpg" alt="BrowserQuest" style="height: 8em" />
+						<p>
+							Multiplayer online RPG teljes egészében HTML5-ben írva.
+						</p>
+						<h3><a href="https://hacks.mozilla.org/2012/03/browserquest/">https://hacks.mozilla.org/2012/03/browserquest/</a></h3>
+					</section>
+
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Offline: AppCache</h3>
+						<ul>
+							<li>Az offline működés megvalósítására hozták létre
+							<li>Az AppCache manifest segítségével offline használatra tárolhatjuk alkalmazásunk fájljait (Képek, HTML/JS/CSS fájlok)
+							<li>Alapvető offline képességet valósít meg, dinamikus alkalmazásokhoz más technológiákra is szükség van (Local Storage, IndexedDB)
+							<li><a href="http://alistapart.com/article/application-cache-is-a-douchebag">Használata fokozott odafigyelést igényel</a>
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en-US/docs/HTML/Using_the_application_cache">https://developer.mozilla.org/en-US/docs/HTML/Using_the_application_cache</a></h3>
+					</section>
+					<section>
+						<h2>További WebAPI-k</h2>
+						<h3>Offline: Storage, IndexedDB, WebSQL</h3>
+						<ul>
+							<li>Adatokat tárolhatunk offline használatra (perzisztens módon) az eszközön
+							<li>Dinamikus Offline alkalmazások megvalósítását teszi lehetővé (pl. térképek letöltése, találkozók tárolása stb.)
+							<li><a href="http://csimms.botonomy.com/2011/05/html5-storage-wars-localstorage-vs-indexeddb-vs-web-sql.html">Még javában dúl a harc a szabványok közt</a> (IndexedDB vs. WebSQL)
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en-US/docs/DOM/Storage">https://developer.mozilla.org/en-US/docs/DOM/Storage</a></h3>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Teljesítmény</h1>
+						<h2>Elég gyorsak vagyunk mindehhez?</h2>
+					</section>
+
+					<section>
+						<h2>Teljesítmény</h2>
+						<h3>HTML5 Mítoszok</h3>
+						<ul>
+							<li>Nagyon sok mítosz kering a HTML5 alkalmassága körül, teljesítmény szempontjából támadják
+							<li><a href="https://twitter.com/codepo8/">Christian Heilmann</a> a Mozilla vezető Developer Evangelist (gyk.: a fejlesztőkkel való kapcsolattartás, Open Web Technológiák népszerűsítője) fejlesztője sok kérdést megválaszol a lenti blogbejegyzésben:
+						</ul>
+						<h3><a href="https://hacks.mozilla.org/2012/11/html5-mythbusting/">https://hacks.mozilla.org/2012/11/html5-mythbusting/</a></h3>
+					</section>
+
+					<section>
+						<h2>Teljesítmény</h2>
+						<h3>Emscripten: BananaBread</h3>
+						<img src="img/bananabread.jpg" alt="BananaBread" style="height: 8em" />
+						<p>
+							Multiplayer online web-technológiákból felépülő FPS, C-forráskódból fordítva JavaScriptre (Emscriptennel).
+						</p>
+						<h3><a href="https://developer.mozilla.org/en-US/demos/detail/bananabread">https://developer.mozilla.org/en-US/demos/detail/bananabread</a></h3>
+					</section>
+					<section>
+						<h2>Teljesítmény</h2>
+						<h3>Emscripten: DOOM</h3>
+						<img src="img/.jpg" alt="DOOM" style="height: 8em" />
+						<p>
+							Emscriptennel fordított DOOM-port JavaScript/HTML5 technológiára.
+						</p>
+						<h3><a href="https://hacks.mozilla.org/2011/06/doom-on-the-web/">https://hacks.mozilla.org/2011/06/doom-on-the-web/</a></h3>
+					</section>
+
+					<section>
+						<h2>Teljesítmény</h2>
+						<h3>Emscripten: Typed Arrays</h3>
+						<ul>
+							<li>Fix típusos tömbök, a javascript dinamikus típusú tömbjeinek helyettesítésére
+							<li>Gyorsítja a tömbök elérését, a sok memóriamunkával járó oldalak <a href="https://hacks.mozilla.org/2011/12/faster-canvas-pixel-manipulation-with-typed-arrays/">jelentős mértékben gyorsulnak</a>
+							<li>Könnyíti a gépi fordítók (pl.: Emscripten) munkáját
+						</ul>
+						<h3><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Typed_arrays">https://developer.mozilla.org/en-US/docs/JavaScript/Typed_arrays</a></h3>
+					</section>
+
+					<section>
+						<h2>Teljesítmény</h2>
+						<h3>ASM.js</h3>
+						<ul>
+							<li>Egyszerűsített JavaScript szintakszis és típusos tömbök
+							<li>Az ASM.js kód teljesen konform JavaScript <a href="https://blog.mozilla.org/luke/2013/03/21/asm-js-in-firefox-nightly/">a Firefox Nightly már tartalmazza!</a>
+							<li>A gépi fordítók is erre fordítanak, a JavaScript futtatókörnyezet pedig előrefordítással képes úgy optimalizálni, hogy <a href="http://kripken.github.io/mloc_emscripten_talk/#/19">a kód futás közben megközelítheti a natív kód teljesítményét</a>
+						</ul>
+						<h3><a href="http://asmjs.org/faq.html">http://asmjs.org/faq.html</a></h3>
+					</section>
+					<section id="bulletslide">
+						<h2>Teljesítmény</h2>
+						<h3>Bullet Demó</h3>
+							<iframe id="bullet" width="1600" height="720" style="transform:scale(.6); margin-top: -120px; margin-bottom: -160px" ></iframe>
+						<script type="text/javascript">addAutoLoadIFrame("bullet","http://kripken.github.io/ammo.js/examples/new/ammo.html");</script>
+						<h3><a href="http://kripken.github.io/ammo.js/examples/new/ammo.html">http://kripken.github.io/ammo.js/examples/new/ammo.html</a></h3>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h1>Támogatottság</h1>
+						<h2>Mely platformok támogatják mindezt?</h2>
+					</section>
+
+					<section>
+						<h2>HTML5 játékok célplatformjai</h2>
+						<h3>A lista folyamatosan bővül!</h3>
+						<ul>
+							<li>A legtöbb asztali böngésző friss változata (IE10, Firefox, Safari, Chrome - Nightly/Canary buildek ajánlottak)
+							<li>Mobile Safari, Chrome Mobile, Blackberry 10
+							<li>A legtöbb gyári Android böngésző (ICS/Jelly Bean ajánlot)
+							<li>Firefox for Android (Nightly ajánlott)
+							<li><a href="http://www.polygon.com/2013/3/27/4155152/nintendo-app-web-devs-wii-u-javascript">Nintendo Wii U</a>
+							<li>...no és természetesen a Firefox OS!
+						</ul>
+						<h3><a href="http://caniuse.com/">http://caniuse.com/</a></h3>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Eyecandy</h1>
+						<h2>Szemcukor, avagy itt tartunk most</h2>
+						
+					</section>
+					<section id="unrealslide">
+						<h2>Eyecandy</h2>
+						<h3>Unreal Engine 3 Demó</h3>
+							<iframe id="unreal" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+							<p>
+								EPIC Games Unreal 3 grafikai motor JavaScriptre portolva.
+							</p>
+						<script type="text/javascript">addAutoLoadIFrame("unreal","http://www.youtube.com/embed/XsyogXtyU9o");</script>
+						<h3><a href="https://blog.mozilla.org/blog/2013/03/27/mozilla-is-unlocking-the-power-of-the-web-as-a-platform-for-gaming/">https://blog.mozilla.org/blog/2013/03/27/mozilla-is-unlocking-the-power-of-the-web-as-a-platform-for-gaming/</a></h3>
+					</section>
+					<section id="cuttheropeslide">
+						<h2>Eyecandy</h2>
+						<h3>Firefox OS - Cut The Rope</h3>
+							<video id="cuttherope" width="640" height="360" class="vidly-js vidly-skin" poster="http://s.vid.ly/default_poster.jpg" src="http://vid.ly/6v9w4y?content=video#t=600,634" controls><source src="http://vid.ly/6v9w4y?content=video#t=600,634" type="video/webm" /></video>
+							<p>
+								Valós idejű fizika a Cut The Rope játékban Firefox OS-en.
+							</p>
+						<h3><a href="https://air.mozilla.org/jay-sullivan-mwc/">https://air.mozilla.org/jay-sullivan-mwc/</a></h3>
+					</section>
+
+					<section>
+						<h2>Eyecandy</h2>
+						<h3>Flash vs HTML5 - Waste Invaders</h3>
+						<img src="img/wasteinvaders.jpg" alt="" style="height: 10em" />
+						<p>
+							Mutatós parallax shooter - Flash és HTML5 változaban is.
+						</p>
+						<h3><a href="http://flashvhtml.com/">http://flashvhtml.com/</a></h3>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h1>Induljon a játék!</h1>
+						<a href="http://nightly.mozilla.org/">
+							<img src="img/fennec.png" alt="Fennec" class="transparent" style="height: 4em;"/><br />
+							<img src="img/qr_fennecnightly.png" alt="Download: Fennec Nightly" style="height: 8em;" /><br />
+							Fennec (Firefox for Android) Nightly
+						</a>
+					</section>
+					<section>
+						<h1>Induljon a játék!</h1>
+						<a href="http://playbiolab.com/">
+							<img src="img/biolab.png" alt="Biolab" class="transparent" style="height: 4em;"/><br />
+							<img src="img/qr_biolab.png" alt="Play: Biolab" style="height: 8em;" /><br />
+							Biolab HTML5 platformer/kalandjáték
+						</a>
+					</section>
+					<section>
+						<h1>Induljon a játék!</h1>
+						<a href="http://www.goodboydigital.com/runpixierun/">
+							<img src="img/pixie.png" alt="Pixie Run" class="transparent" style="height: 4em;"/><br />
+							<img src="img/qr_pixierun.png" alt="Play: Pixie Run" style="height: 8em;" /><br />
+							Pixie Run HTML5 casual/ügyességi játék
+						</a>
+					</section>
+					<section>
+						<h1>Induljon a játék!</h1>
+						<a href="http://flashvhtml.com/html">
+							<img src="img/wasteinvaders.png" alt="WasteInvaders" class="transparent" style="height: 2em;"/><br />
+							<img src="img/qr_wasteinvaders.png" alt="Play: WasteInvaders" style="height: 8em;" /><br />
+							WasteInvaders HTML5 akció/shooter
+						</a>
+					</section>
+				</section>
+
+				<section>
+					<h1>Kezdõdhet a kódolás!</h1>
+					<ul>
+						<li><a href="http://slideshare.net/robhawkes/open-web-games-with-html5-javascript-11428870">Rob Hawkes slidejai a HTML5 játékfejlesztésről</a>
+						<li><a href="https://hacks.mozilla.org/2012/03/developing-a-simple-html5-space-shooter/">Tutorial: Egy egyszerű lövöldözős játék webtechnológiákkal.</a>
+						<li><a href="http://developer.mozilla.org/">Mozilla fejlesztői oldal, rengeteg információval, dokumentációval, leírásokkal.</a>
+						<li><a href="http://hacks.mozilla.org/">Mozilla blog: fejlesztőktől, fejlesztőknek.</a>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Köszönöm<br />a figyelmet!</h1>
+					<h2>Kellemes kódolást, hekkelést, jó szórakozást!</h2>
+					<br />
+					<h3>&copy; 2013.04.06 <a href="http://twitter.com/slsoftworks" style="vertical-align: -20%">Flaki</a></h3>
+     <p><a href="mailto:sz.istvan@hl-system.com">sz.istvan@hl-system.com</a> &middot; <a href="http://slides.flaki.hu/mozhetvege13/">slides.flaki.hu/mozhetvege13</a></p>
+					<br />
+					<p style="font-size: 70%">
+						Készült a <a href="http://www.rvl.io">rvl.js</a> ingyenes prezentációs HTML5 keretrendszer felhasználásával
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Vanilla JS</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Szmozsánszky István (Flaki)">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/night-hu.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? (window.location.search.match( /print-pdf-notes/gi ) ? 'notes' : 'pdf') : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<!-- Custom scripts & styles -->
+		<script type="text/javascript" src="/scripts.js"></script>
+		<style type="text/css">
+			.reveal section>h1 {
+				-moz-hyphens: none;
+			}
+			.reveal section>h1:not(.s) {
+				font-size: 2.8em;
+				line-height: 1.05em;
+				text-transform: uppercase;
+			}
+			.reveal section>h1.s {
+				font-size: 2.2em;
+				line-height: 1.1em;
+				text-transform: uppercase;
+			}
+			.reveal section>ul {
+				list-style-type: square;
+			}
+			.reveal section>ul>li {
+				padding-left: .5em;
+				margin-bottom: .25em;
+			}
+
+			.state-background {
+				opacity: 0;
+				transition: all 1s ease 0s !important;
+			}
+			.geovideo .state-background {
+				background-image: url(img/geovideo.gif);
+				background-size: cover;
+				opacity: 1;
+			}
+			.geovideo .caption {
+				position: fixed;
+				bottom: -6.5em;
+				left: -6em;
+				right: -6em;
+				text-shadow: 4px 2px 4px black;
+				font-size: 2em !important;
+			}
+			.reveal section>footer {
+				margin-top: 1em;
+				font-size: .9em;
+				font-style: italic;
+			}
+
+			ol.citations>li {
+				font-size: .9em;
+				line-height: .9em;
+				margin-bottom: .45em;
+			}
+			ol.citations>li>em {
+				color: #B60;
+			}
+			ol.citations>li>a {
+				font-size: .8em;
+				font-family: Consolas,monospace;
+			}
+
+			.reveal section>ul>li {
+				margin-bottom: .5em;
+			}
+
+			.reveal section>table.ohg {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 1em;
+			}
+			.reveal section>table.ohg th {
+				text-align: center;
+				text-transform: uppercase;
+				padding-bottom: .33em;
+				border-bottom: .15em solid rgb(231, 173, 82);
+				width: 50%;
+			}
+			.reveal section>table.ohg td {
+				text-align: center;
+				padding: .33em .5em;
+				padding-bottom: .66em;
+				font-size: .9em; line-height: 1em;
+				vertical-align: middle;
+			}
+			.reveal section>table.ohg td:first-child {
+				border-right: .1em solid rgb(231, 173, 82);
+			}
+			.reveal section>table.compare td>h3 {
+				margin-bottom: .25em;
+			}
+			.reveal section>table.sidebyside td>h3 {
+				margin-bottom: .1em;
+			}
+			.reveal section>table.sidebyside td>p {
+				margin: 0;
+				margin-bottom: 1em;
+			}
+
+			.reveal section>img.vs {
+				border-style: none;
+				background: none;
+				vertical-align: middle;
+				margin: .5em;
+			}
+			.reveal section img.logo {
+				margin: 0 auto;
+				display: block;
+				border-style: none;
+				background: none;
+			}
+			
+			.reveal section>div {
+				border: .1em solid #432;
+				background-color: #1f1000;
+				padding: 0.5em;
+				margin: auto;
+				width: 80%;
+			}
+			.reveal section>div>em {
+				color: #FDA;
+			}
+	</style>
+
+</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+
+
+<section>
+	<h1>Vanilla JS</h1>
+	<h3>or is this really about jQuery?</h3>
+	<p><br />
+		<a href="mailto:istvan.szmozsanszky@carnationgroup.com">Szmozsánszky István</a>
+		(<a href="http://twitter.com/slsoftworks">slsoftworks</a>)
+		<br />
+		<br />Carnation
+	</p>
+</section>
+
+
+<section>
+	<h1>Vanilla JavaScript</h1>
+
+	<p>
+		<a href="http://vanilla-js.com/">http://vanilla-js.com/</a>
+	</p>
+</section>
+
+<section>
+	<h2>So what's all the fuss about</h2>
+	<h1>jQuery</h1>
+
+	<p>
+		http://youmightnotneedjquery.com/
+		
+		Bugs and workarounds in jQuery
+		https://twitter.com/paul_irish/status/431584056883429376
+		https://docs.google.com/document/d/1LPaPA30bLUB_publLIMF0RlhdnPx_ePXm7oW02iiT6o/
+	</p>
+</section>
+
+<section>
+	<h1>Now really, should I use it?!</h1>
+
+	<blockquote>Stop Reading Articles That Tell You To Stop Doing Something</blockquote>
+	<p>
+		http://flippinawesome.org/2013/05/06/5-things-you-should-stop-doing-with-jquery/
+	</p>
+</section>
+
+<section>
+	<h1>What should I do then?</h1>
+
+	<h3>Stay in school!</h3>
+	<p>
+		http://kangax.github.io/es5-compat-table/
+		https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.7
+	</p>
+</section>
+
+<section>
+	<h1>ES5/ES6</h1>
+
+	<p>
+		TC39<br>
+		<a href="https://twitter.com/esdiscuss">@esdiscuss</a>
+	</p>
+</section>
+
+<section>
+	<h1>Event binding</h1>
+	<h2>Event.prototype.bind</h2>
+
+	<p>
+		http://coding.smashingmagazine.com/2014/01/23/understanding-javascript-function-prototype-bind/
+		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/arrow_functions
+	</p>
+</section>
+
+
+<section>
+	<h1></h1>
+
+	<p>
+		http://remysharp.com/2013/04/19/i-know-jquery-now-what/
+	</p>
+	<pre>
+		<code>
+			var $ = document.querySelectorAll.bind(document);
+			Element.prototype.on = Element.prototype.addEventListener;
+
+			$('#somelink')[0].on('touchstart', handleTouch);
+		</code>
+	</pre>
+</section>
+
+<section>
+	<h1>ES5 Arrays</h1>
+	<h2>Array.prototype.(map|filter|reduce)</h2>
+
+	<p>
+http://jsperf.com/makearray-from-arraylike
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+
+	</p>
+</section>
+
+<section>
+	<h1>NEXT</h1>
+	<h2>ES.next / ECMAScript 6</h2>
+
+	<p>
+		<a href="http://google.github.io/traceur-compiler/demo/repl.html#[1%2C2%2C3%2C4%2C5].reduce%28%28a%2Cb%29%3D%3Ea%2Bb%29" onclick="window.open(this.href);return false;">[1,2,3,4,5].reduce((a,b)=>a+b);</a>
+		https://github.com/google/traceur-compiler
+	</p>
+</section>
+
+<section>
+	<h1>Thanks!</h1>
+
+	<p></p>
+</section>
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					//{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

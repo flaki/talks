@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+	# Rewrite engine start
+	RewriteEngine on
+
+	# File or directory rewrite
+	RewriteCond %{REQUEST_FILENAME} -f
+	RewriteRule ^.*$ - [L]
+
+	# Login/Logout
+	RewriteRule ^(consumer|developer|networking)$ fxos_$1.html [L]
+</IfModule>
