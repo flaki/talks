@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  /* 16:9 ratio by default */
+  width: 100vw;
+  height: 56.25vw;
+  background: #f0f0f0;
+  color: #333;
+  padding: 1em;
+  font-family: sans-serif;
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+main>section {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: inherit;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+main>section.current {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+
+
+
+
+
+html {
+  font-size: 1.33em;
+
+  width: 100vw;
+  height: 100vh;
+}
+body {
+  overflow: hidden;
+  display: flex;
+  background-color: black;
+
+}
+main {
+  max-width: 1280px;
+  max-height: 720px;
+  overflow: hidden;
+}
+
+section>* {
+  position: relative;
+  z-index: 1;
+}
+section>.hero {
+  position: initial;
+}
+
+section.title,
+section>p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.title {
+  background: black;
+}
+
+img {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  max-width: 100vw;
+}
+p > img:first-child:last-child {
+  max-height: 70vh;
+  /*! left: 50vw; */
+  /*! margin-left: -50%; */
+  display: block;
+  position: relative;
+}
+
+blockquote a,
+ul a,
+ol a,
+p a {
+  font: Consolas, monospace;
+  font-weight: bold;
+  font-size: 110%;
+  line-height: 90%;
+  text-decoration: none;
+  padding: .25em;
+  color: lightblue;
+  letter-spacing: -1px;
+}
+
+h1, h2, h3 h1, h2, h3 {
+	font-family: 'Russo One', sans-serif;
+	font-weight: normal;
+	position: relative;
+	z-index: 1;
+
+	color: white;
+	background: linear-gradient(to bottom, rgba(0,0,0,.6) 10%, rgba(0,0,0,0)) transparent;
+	text-shadow: 0 1px black, 1px 2px 3px rgba(0,0,0,.2);
+	border-radius: 2px;
+
+	padding: .5em 1em;
+	margin: 10px;
+	min-width: 33vw;
+	text-align: center;
+	display: inline-block;
+	text-transform: uppercase;
+}
+
+section>blockquote, section>ul, section>ol {
+  font-family: Oswald, sans-serif;
+  position: absolute;
+  top: unset;
+  bottom: 0;
+  color: white;
+  background: rgba(0,0,0,.7);
+  padding: 1em;
+  min-width: 80%;
+  margin: 1em;
+}
+
+h1:first-child:last-child,
+h2:first-child:last-child {
+  position: relative;
+  font-size: 2.5em;
+  text-align: center;
+  max-width: 80vw;
+  flex: 1 0 0;
+}

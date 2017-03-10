@@ -1,0 +1,165 @@
+<!doctype HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>The wonders of Rust</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald|Russo+One&amp;subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="./res/main.css">
+
+  <style>
+  main>section:nth-child(1) h1 {
+    background: none;
+    text-shadow: 1px 1px 10px black;
+    text-align: center;
+    width: 100%;
+    font-size: 3em;
+    top: 40vh;
+  }
+  main>section:nth-child(1) p {
+    background: none;
+    color: white;
+    text-shadow: 1px 1px 10px black;
+    text-align: center;
+    width: 100%;
+    font-size: 1.5em;
+    top: 33vh;
+  }
+  main>section:nth-child(1) img { visibility: hidden; }
+  main>section:nth-child(1) {
+    background-image: url('../../pic/las-ferras.jpg');
+    background-position: center 20%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #BDBEC0;
+  }
+
+  main>section[data-id="about-flaki"] img { visibility: hidden; }
+  main>section[data-id="about-flaki"] {
+    background-image: url('../../pic/tinker.jpg');
+    background-position: center top;
+    background-size: cover;
+  }
+
+  main>section[data-id="thank-you"] {
+    background-image: url('http://rust-lang.hu/i/rusthungary.jpg');
+    background-color: #FFF;
+    background-position: center 5vh;
+    background-repeat: no-repeat;
+    background-size: 33vh;
+    height: 100%;
+  }
+  main>section[data-id="thank-you"] h1:first-child {
+    margin: 0;
+    max-width: 100vw;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 44vh;
+    font-size: 3em;
+    line-height: 1.6em;
+  }
+  </style>
+
+</head>
+
+<body>
+  <main><section>
+<h1>The wonders of Rust</h1>
+<p>
+  Szmozsánszky István, BSides Ljubljana 2017
+</section>
+
+<section data-id="about-flaki">
+<h1>About Flaki</h1>
+<p><img src="../../pic/tinker.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>Szmozs&#xE1;nszky Istv&#xE1;n &#x201C;Flaki&#x201D;</li>
+<li>JS dev, HW hacker, Inline Skater</li>
+<li>Skylark.ee, Mozilla, Tessel Project, Trainer @ DPC</li>
+<li><a href="https://twitter.com/slsoftworks">@slsoftworks</a></li>
+</ul>
+</blockquote>
+</section>
+
+<section>
+<h2>What is Rust?</h2>
+<div class="hero"><a target="_blank" href="https://www.youtube.com/watch?v=8EPsnf_ZYU0"><img src="../img/www_youtube_com_watch_v_8EPsnf_ZYU0.jpg" alt=""></a></div>
+<ul>
+<li>The future of systems programming</li>
+</ul>
+</section>
+
+<section>
+<h2>Alien technology</h2>
+<div class="hero"><a target="_blank" href="https://www.youtube.com/watch?v=79PSagCD_AY"><img src="../img/www_youtube_com_watch_v_79PSagCD_AY.jpg" alt=""></a></div>
+<ul>
+<li>Developed first as a side project (as all world-changing projects usually are)</li>
+<li><a href="http://venge.net/graydon/talks/intro-talk-2.pdf">Created by Graydon Hoare</a></li>
+</ul>
+</section>
+
+<section>
+<h2>Most vulnerabilities in Firefox</h2>
+<div class="hero"><a target="_blank" href="http://www.securityweek.com/mozilla-fixes-firefox-vulnerabilities-disclosed-pwn2own-2015"><img src="../img/www_securityweek_com_mozilla_fixes_firefox_vulnerabilities_disclosed_pwn2own_2015.jpg" alt=""></a></div>
+<ul>
+<li>Pwn2own</li>
+<li>Spatial/temporal (off-by-one error, use-after-free)</li>
+</ul>
+</section>
+
+<section>
+<h2>The Fix: Rust&#x2019;s Ownership model</h2>
+<div class="hero"><a target="_blank" href="https://doc.rust-lang.org/book/"><img src="../img/doc_rust_lang_org_book.jpg" alt=""></a></div>
+<ul>
+<li>compile-time integrity checking</li>
+<li>compile-time abstraction unwrapping</li>
+<li>High level&#x2013;but in a low level way</li>
+<li>zero cost abstractions</li>
+<li>Restricting <code>unsafe</code> code</li>
+</ul>
+</section>
+
+<section>
+<h2>Fearless concurrency</h2>
+<div class="hero"><a target="_blank" href="https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html"><img src="../img/blog_rust_lang_org_2015_04_10_Fearless_Concurrency_html.jpg" alt=""></a></div>
+<ul>
+<li>Concurrency in software is HARD</li>
+<li>no shared mutable state</li>
+</ul>
+</section>
+
+<section>
+<h2>You can find Rust in&#x2026;</h2>
+<div class="hero"><a target="_blank" href="https://www.rust-lang.org/vi-VN/friends.html"><img src="../img/www_rust_lang_org_vi_VN_friends_html.jpg" alt=""></a></div>
+<ul>
+<li><a href="https://hacks.mozilla.org/2016/07/shipping-rust-in-firefox/">Browser</a></li>
+<li><a href="https://news.ycombinator.com/item?id=11283758">Dropbox</a></li>
+<li><a href="https://www.reddit.com/r/rust/comments/5h3u4n/weve_gained_a_new_friend_npm/">npm</a></li>
+<li><a href="http://os.phil-opp.com/">Toy OSs</a></li>
+<li><a href="https://www.redox-os.org/">Next-gen OSs</a></li>
+<li><a href="https://www.youtube.com/watch?v=FfoXFnzZbBM">Web backends AND frontends</a></li>
+<li><a href="https://github.com/avr-rust/arduino">Hardware</a></li>
+<li><a href="https://twitter.com/jaffathecake/status/705355715414781953">Servo</a></li>
+</ul>
+</section>
+
+<section>
+<h2>Shameless plug: RustFest</h2>
+<div class="hero"><a target="_blank" href="http://2017.rustfest.eu/"><img src="../img/2017_rustfest_eu.jpg" alt=""></a></div>
+</section>
+
+<section data-id="thank-you">
+<h1>Thank you!<br>
+  <small>@slsoftworks</small><br>
+  <small><a href="http://talk.flak.is/rust/bsides-lj/">talk.flak.is/rust/bsides-lj</a></small>
+</h1>
+</section>
+
+</main>
+
+  <script src="./res/main.js"></script>
+  <script>
+    Array.from(document.querySelectorAll('h1:first-child:last-child,h2:first-child:last-child')).forEach(e => e.parentNode.classList.add('title',e.tagName));
+  </script>
+</body>
