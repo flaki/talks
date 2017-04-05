@@ -2,10 +2,10 @@
 
 document.addEventListener('DOMContentLoaded', e => {
 
-  let first = document.querySelector('main>section:first-child');
-  if (first) {
-    first.classList.add('current');
-  }
+  let initial = parseInt(window.location.hash.substr(1));
+
+  goToPage(initial || 1);
+  togglePresent();
 
   window.addEventListener('keydown', e => {
     if (e.key==='ArrowLeft' || e.key==='PageUp') prevPage();
@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', e => {
       current.classList.remove('current');
       current.nextElementSibling.classList.add('current');
     }
+
+    window.location.replace('#'+slideNumber());
   }
 
   function prevPage(e) {
@@ -30,5 +32,35 @@ document.addEventListener('DOMContentLoaded', e => {
       current.classList.remove('current');
       current.previousElementSibling.classList.add('current');
     }
+
+    window.location.replace('#'+slideNumber());
+  }
+
+  function goToPage(pg) {
+    let current = document.querySelector('main>section.current');
+    if (current) {
+      current.classList.remove('current');
+    }
+
+    let next = document.querySelector('main>section:nth-child('+parseInt(pg, 10)+')');
+    if (next) {
+      next.classList.add('current');
+    }
+
+    window.location.replace('#'+slideNumber(next));
+  }
+
+  function togglePresent() {
+    document.documentElement.classList.toggle('present');
+  }
+
+
+  function slideNumber(current) {
+    current = current || document.querySelector('main>section.current')
+    return Array.from(document.querySelector('main').children).indexOf(current)+1;
+  }
+
+  window.Slides = {
+    nextPage, prevPage, goToPage, togglePresent
   }
 });

@@ -16,8 +16,8 @@ main>section:after {
   content: counter(slide);
   position: absolute;
   z-index: 100;
-  bottom: 0; right: 2vw;
-  font-size: 15vh;
+  bottom: 0; right: 1rem;
+  font-size: 4rem;
   color: rgba(100,100,100,.1);
   font-family: 'Impact', sans-serif;
 }
@@ -30,13 +30,19 @@ h1 a, h2 a {
   text-decoration: none;
 }
 
-main>section:nth-child(1) h1 {
+#slides>section:nth-child(1) h1 {
   background: none;
   text-shadow: 1px 1px 10px black;
   text-align: center;
+
   width: 100%;
-  font-size: 3em;
-  top: 12vh;
+  margin: 0;
+  padding: 0;
+
+  position: absolute;
+  left: 0;
+  top: 15%;
+  font-size: 3rem;
 }
 main>section:nth-child(1) img { visibility: hidden; }
 main>section:nth-child(1) {
@@ -61,12 +67,18 @@ main>section:nth-child(3) {
   background-position: center 50%;
   background-size: cover;
 }
-main>section:nth-child(3) h1 {
+#slides>section:nth-child(3) h1 {
   background: none;
   text-shadow: 1px 1px 10px black;
+
   width: 100%;
-  font-size: 2em !important;
-  top: 16vh;
+  margin: 0;
+  padding: 0 1em;
+
+  position: absolute;
+  left: 0;
+  top: 64%;
+  font-size: 2rem;
 }
 
 main>section:nth-child(11) p { visibility: hidden; }
@@ -75,69 +87,86 @@ main>section:nth-child(11) {
   background-position: center top;
   background-size: cover;
 }
-main>section:nth-child(11) h1 {
+#slides>section:nth-child(11) h1 {
   background: none;
   text-shadow: 1px 1px 10px black;
   text-align: center;
+
   width: 100%;
-  font-size: 2em;
-  top: 80vh;
+  margin: 0;
+  padding: 0 1rem;
+
+  position: absolute;
+  left: 0;
+  top: 88%;
+  font-size: 2rem;
 }
 
 main>section:nth-child(14) {
   background: white;
 }
-main>section:nth-child(14) blockquote {
+#slides>section:nth-child(14) blockquote {
   background: none;
   text-shadow: 1px 1px 10px black;
   text-align: center;
+
   width: 100%;
-  font-size: 2em;
   margin: 0;
-  top: 70vh;
+  padding: 0 1rem;
+
+  position: absolute;
+  left: 0;
+  top: 88%;
+  font-size: 2rem;
 }
 
 main>section:nth-child(18) {
   background-image: url('https://s3.amazonaws.com/technicalmachine-assets/launch/animation-files/tessel2.png');
   background-position: center;
-  background-size: 50vh;
+  background-size: 30%;
   background-repeat: no-repeat;
 }
 
-main>section:nth-child(22) h1 {
+#slides>section:nth-child(22) h1 {
   text-shadow: 1px 1px 10px black;
-  width: 100%;
-  font-size: 30vh !important;
-  line-height: 30vh;
   text-align: center;
+
+  width: 100%;
+
+  font-size: 12rem;
+  line-height: 90%;
 }
 
 main>section:nth-child(23) {
-  padding-top: 10vh;
   background: white;
 }
-main>section:nth-child(23) h1 {
+#slides>section:nth-child(23) h1 {
   background: none;
   text-shadow: 1px 1px 10px black;
   text-align: center;
+
   width: 100%;
-  font-size: 1.5em;
-  top: 80vh;
+  margin: 0;
+  padding: 0 1rem;
+
   position: absolute;
+  left: 0;
+  top: 88%;
+  font-size: 1.5rem;
 }
 
 main>section:nth-child(27) p {
   position: absolute;
   margin: 0;
-  width: 100vw;
-  top: 70vh;
-  height: 30vh;
+  width: 100%;
+  bottom: -.1rem;
+  height: calc(.4 * var(--slideh));
   left: 0;
 }
 main>section:nth-child(27) p img:last-child {
   width: auto;
   height: auto;
-  max-height: 30vh;
+  max-height: 100%;
   display: block;
   margin: auto;
 }
@@ -148,8 +177,8 @@ main>section:nth-child(27) {
 }
 main>section:nth-child(27) h2 {
   margin: 0;
-  padding: 4vh 15vw;
-  height: 35vh;
+  width: 100%;
+  padding: 1rem 0 2rem;
 }
 
 main>section:nth-child(28) h1 {
@@ -160,46 +189,57 @@ main>section:nth-child(30) {
  background-color: #333;
   background-image: url('  https://raw.githubusercontent.com/jerryscript-project/jerryscript/master/LOGO.png');
   background-position: center 30%;
-  background-size: 30vw;
+  background-size: 30%;
   background-repeat: no-repeat;
 }
-main>section:nth-child(30) h1 {
+#slides>section:nth-child(30) h1 {
   background: none;
   text-shadow: 1px 1px 10px black;
+
   width: 100%;
-  font-size: 2em !important;
-  top: 35vh;
+  margin: 0;
+  padding: 0 1rem;
+
+  position: absolute;
+  left: 0;
+  top: 78%;
+  font-size: 2rem;
 }
 
 main>section:nth-child(33) h2 {
   margin: 0;
-  padding: 4vh 15vw;
-  height: 35vh;
-  top: 65vh;
+  padding: 3.5rem 15vw;
+  bottom: 0;
+  font-size: 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,.6) 10%, rgba(0,0,0,0)) transparent;
+  position: absolute;
 }
 
 main>section:nth-child(34) {
   background-image: url('http://blog.seanmartell.com/wp-content/uploads/2012/03/logo_0065_66.png');
   background-color: black;
-  background-position: center 5vh;
   background-repeat: no-repeat;
+  background-position: center 5%;
+  background-size: 20%;
 }
-main>section:nth-child(34) h1:first-child {
+#slides>section:nth-child(34) h1:first-child {
   margin: 0;
   position: absolute;
-  max-width: 100vw;
-  width: 100vw;
-  height: 100vh;
-  padding-top: 44vh;
-  font-size: 3em;
-  line-height: 1.6em;
-}
+  width: 100%;
+
+  padding-top: calc(.5 * var(--slideh));
+  font-size: 2rem;
+  line-height: 150%;
+  display: block;
+  left: 0;
+  top: 0;
+}}
 
 </style>
 </head>
 
 <body>
-  <main><section>
+  <main id="slides"><section>
 <h1>Hi NodeConf Budapest!</h1>
 <p><img src="../../pic/baela-on-vacation.jpg" alt=""></p>
 <blockquote>
@@ -294,7 +334,7 @@ GPIO ports!</p>
 
 <section>
 <h2></h2>
-<p><img src="https://1.bp.blogspot.com/-SbhCVaMHWc0/VyfbbcEABYI/AAAAAAAAMHM/TJKds90awkMAr6yaPjuJme6XLH8QUW2RgCLcB/s1600/Pico8%2Bon%2BPocketCHIP%2B-%2BCeleste%2Bby%2BMatt%2BThorson%2B%2526%2BNoel%2BBerry%2B-%2BCredit%2BMichael%2BBucuzzo.jpg" alt=""></p>
+<div class="hero"><a target="_blank" href="https://getchip.com/pages/pocketchip"><img src="https://1.bp.blogspot.com/-SbhCVaMHWc0/VyfbbcEABYI/AAAAAAAAMHM/TJKds90awkMAr6yaPjuJme6XLH8QUW2RgCLcB/s1600/Pico8%2Bon%2BPocketCHIP%2B-%2BCeleste%2Bby%2BMatt%2BThorson%2B%2526%2BNoel%2BBerry%2B-%2BCredit%2BMichael%2BBucuzzo.jpg" alt=""></a></div>
 <blockquote>
 <p><a href="https://gist.github.com/flaki/24928ca46b30d8f3d481d47fb0d1e702">Hands-on&#x2026;</a></p>
 </blockquote>
@@ -370,7 +410,7 @@ access point mode</p>
 </section>
 
 <section>
-<h2>That&#x2019;s TWO personal datacenters for the price of a MBP!</h2>
+<h2>That&#x2019;s TWO personal datacenters<br>for the price of a MBP!</h2>
 <p><img src="http://www.cameraegg.org/wp-content/uploads/2016/10/macbook-pro-touch-bar.png" alt=""></p>
 </section>
 

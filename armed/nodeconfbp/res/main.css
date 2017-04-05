@@ -2,18 +2,24 @@
   box-sizing: border-box;
 }
 
+html {
+  /* 16:9 ratio by default */
+  --slidew: calc(100vw - 17px); /* scrollbar... */
+  --slideh: calc(var(--slidew) / 16 * 9);
+
+  font-size: calc(var(--slidew) / 50);
+}
+
 html, body {
   margin: 0;
   padding: 0;
 }
 
 main {
-  /* 16:9 ratio by default */
-  width: 100vw;
-  height: 56.25vw;
+  width: var(--slidew);
+
   background: #f0f0f0;
   color: #333;
-  padding: 1em;
   font-family: sans-serif;
   position: relative;
 }
@@ -24,17 +30,29 @@ h1, h2, h3, h4, h5, h6 {
 
 main>section {
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: var(--slideh);
   top: 0;
   left: 0;
-
   background-color: inherit;
+
+  /* position absolute object inside this slide */
+  position: relative;
+
+  /* hide overflow */
+  overflow: hidden;
+}
+
+
+
+.present main {
+  height: var(--slideh);
+}
+.present main>section {
+  position: absolute;
   opacity: 0;
   transition: opacity .3s ease;
 }
-
-main>section.current {
+.present main>section.current {
   opacity: 1;
   z-index: 1;
 }
@@ -43,23 +61,18 @@ main>section.current {
 
 
 
-
-
 html {
-  font-size: 1.33em;
-
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw; */
+  /* height: 100vh; */
 }
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   background-color: black;
-
 }
 main {
   max-width: 1280px;
-  max-height: 720px;
+  /* max-height: 720px; */
   overflow: hidden;
 }
 
@@ -86,10 +99,10 @@ img {
   position: absolute;
   z-index: 0;
   top: 0;
-  max-width: 100vw;
+  max-width: 100%;
 }
 p > img:first-child:last-child {
-  max-height: 70vh;
+  max-height: calc(.7 * var(--slideh));
   /*! left: 50vw; */
   /*! margin-left: -50%; */
   display: block;
@@ -100,14 +113,22 @@ blockquote a,
 ul a,
 ol a,
 p a {
-  font: Consolas, monospace;
+  font-family: Consolas, monospace;
   font-weight: bold;
-  font-size: 110%;
+  font-size: 90%;
   line-height: 90%;
   text-decoration: none;
   padding: .25em;
   color: lightblue;
   letter-spacing: -1px;
+}
+
+blockquote ul, blockquote ol,
+blockquote p {
+  margin: 0 .5rem;
+}
+blockquote ul, blockquote ol {
+  padding-left: 1rem;
 }
 
 h1, h2, h3 h1, h2, h3 {
@@ -121,9 +142,9 @@ h1, h2, h3 h1, h2, h3 {
 	text-shadow: 0 1px black, 1px 2px 3px rgba(0,0,0,.2);
 	border-radius: 2px;
 
-	padding: .5em 1em;
-	margin: 10px;
-	min-width: 33vw;
+	padding: .5rem 1rem;
+	margin: 1rem;
+	min-width: 33%;
 	text-align: center;
 	display: inline-block;
 	text-transform: uppercase;
@@ -144,8 +165,19 @@ section>blockquote, section>ul, section>ol {
 h1:first-child:last-child,
 h2:first-child:last-child {
   position: relative;
-  font-size: 2.5em;
+  font-size: 2.5rem;
   text-align: center;
-  max-width: 80vw;
   flex: 1 0 0;
+}
+
+
+/* Print (pdf-export) specific rules */
+@media print {
+  html {
+    --slidew: 383.3mm;
+  }
+
+	#slides>* {
+    page-break-after: always;
+  }
 }
