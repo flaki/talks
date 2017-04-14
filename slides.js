@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', e => {
   let initial = parseInt(window.location.hash.substr(1));
 
   goToPage(initial || 1);
-  togglePresent();
+  //togglePresent();
 
   window.addEventListener('keydown', e => {
     if (e.key==='ArrowLeft' || e.key==='PageUp') prevPage();
@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', e => {
     // 8bitdo controller
     if (e.key==='d' || e.key==='e') prevPage();
     if (e.key==='f' || e.key==='c') nextPage();
+
+    // Presentation
+    if (e.key==='Enter' || e.key==='Escape') togglePresent();
   });
 
   function nextPage(e) {

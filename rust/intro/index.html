@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <title>The wonders of Rust</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
   <link href="https://fonts.googleapis.com/css?family=Oswald|Russo+One&amp;subset=latin-ext" rel="stylesheet">
-  <link rel="stylesheet" href="/slides.css">
+  <link rel="stylesheet" href="../../slides.css">
 
   <style>
   main>section:nth-child(1) h1 {
@@ -47,15 +49,14 @@
     background-position: center 5%;
     background-repeat: no-repeat;
     background-size: 20%;
-    height: 100%;
   }
   main>section[data-id="thank-you"] h1:first-child {
     margin: 0;
     max-width: 100%;
     width: 100%;
     height: 100%;
-    padding-top: 44%;
-    font-size: 3rem;
+    padding-top: calc(.5 * var(--slideh));
+    font-size: 2rem;
     line-height: 160%;
   }
   </style>
@@ -63,6 +64,7 @@
 </head>
 
 <body>
+  <div id="measure"></div>
   <main><section>
 <h1>Why Rust?</h1>
 <p>
@@ -172,7 +174,7 @@
 
 </main>
 
-  <script src="/slides.js"></script>
+  <script src="../../slides.js"></script>
   <script>
     Array.from(document.querySelectorAll('h1:first-child:last-child,h2:first-child:last-child')).forEach(e => e.parentNode.classList.add('title',e.tagName));
   </script>

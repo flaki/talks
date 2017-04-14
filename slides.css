@@ -18,7 +18,7 @@ html, body {
 main {
   width: var(--slidew);
 
-  background: #f0f0f0;
+  /* background: #f0f0f0; */
   color: #333;
   font-family: sans-serif;
   position: relative;
@@ -40,6 +40,9 @@ main>section {
 
   /* hide overflow */
   overflow: hidden;
+
+  /* for not .present-ed views */
+  margin-bottom: 1rem;
 }
 
 
@@ -71,9 +74,10 @@ body {
   background-color: black;
 }
 main {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   /* max-height: 720px; */
-  overflow: hidden;
+  /* overflow: hidden; */
+  width: 100%;
 }
 
 section>* {
@@ -177,7 +181,11 @@ h2:first-child:last-child {
     --slidew: 383.3mm;
   }
 
-	#slides>* {
+	#slides>*:not(:last-child) {
     page-break-after: always;
+  }
+
+  h1, h2 {
+    filter: drop-shadow(0.1rem 0.1rem .25rem black);
   }
 }
