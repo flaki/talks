@@ -57,7 +57,6 @@ app.get(&#39;*&#39;, function (req, res, next) {
 // Print the user ID
 app.get(&#39;/user/:id&#39;, function (req, res, next) {
   console.log(&#39;User Request:&#39;, req.params.id);
-
   res.end(req.params.id);
 });
 
@@ -72,7 +71,7 @@ app.listen(3000, () =&gt; console.log(&#39;Server started.&#39;));
   // Serve content
   res.send(&#39;Contentstuff&#39;);
   // Serve file from filesystem
-  res.sendFile(&#39;path/to/file.html&#39;);
+  res.sendFile(&#39;/needs/absolute/path/to/file.html&#39;);
   // Forbidden status, end immediately
   res.status(403).end();
   // Serve JSON object
@@ -114,27 +113,32 @@ app.get(/(ham)?burg(er)*/, (req,res) =&gt; { … });
 <li><a href="http://expressjs.com/en/starter/basic-routing.html">http://expressjs.com/en/starter/basic-routing.html</a></li>
 </ul>
 </div></section>
-<section><h3><p>Processing a request</p>
+<section><h3><p>Processing request data</p>
 </h3><div class="slide-body"><ul>
-<li><code>npm install --save body-parser</code></li>
-<li><code>npm install --save cookie-parser</code></li>
+<li>Built-in: <code>req.query</code> - <code>/main?foo=1</code></li>
+<li>Built-in: <code>req.params</code> - <code>/main/:foo</code></li>
+<li>Non-core: <code>req.body</code>, <code>req.cookies</code></li>
 </ul>
-<p>```javascript
+<pre><code class="lang-javascript">// npm install --save body-parser
 app.use(require(&#39;body-parser&#39;));
-app.use(require(&#39;body-parser&#39;));</p>
-<p>app.all(&#39;/body&#39;,    (req,res) =&gt; res.send(req.body));
-app.all(&#39;/cookies&#39;, (req,res) =&gt; res.json(req.cookie));
-app.all(&#39;/params&#39;,  (req,res) =&gt; res.json(req.param));</p>
+// npm install --save cookie-parser
+app.use(require(&#39;cookie-parser&#39;));
+
+app.all(&#39;/q&#39;,       (req,res) =&gt; res.json(req.query));
+app.all(&#39;/params&#39;,  (req,res) =&gt; res.json(req.param));
+app.all(&#39;/body&#39;,    (req,res) =&gt; res.send(req.body));
+app.all(&#39;/cookies&#39;, (req,res) =&gt; res.json(req.cookies));
+</code></pre>
 <ul>
+<li><a href="http://expressjs.com/en/4x/api.html#req">http://expressjs.com/en/4x/api.html#req</a></li>
 <li><a href="https://www.npmjs.com/package/body-parser">https://www.npmjs.com/package/body-parser</a></li>
 <li><a href="https://www.npmjs.com/package/cookie-parser">https://www.npmjs.com/package/cookie-parser</a></li>
-<li><a href="http://expressjs.com/en/4x/api.html#req">http://expressjs.com/en/4x/api.html#req</a></li>
 </ul>
 </div></section>
 <section><h3><p>Serving static files</p>
-</h3><div class="slide-body"><pre><code class="lang-javascript">app.use(express.static(&#39;./public_html&#39;));
+</h3><div class="slide-body"><pre><code class="lang-javascript">app.use(express.static(__dirname + &#39;/public_html&#39;));
 </code></pre>
-<pre><code class="lang-javascript">app.use(&#39;/photos&#39;, express.static(&#39;./uploads/photos&#39;));
+<pre><code class="lang-javascript">app.use(&#39;/photos&#39;, express.static(__dirname + &#39;/uploads/photos&#39;));
 </code></pre>
 <ul>
 <li><a href="http://expressjs.com/en/starter/static-files.html">http://expressjs.com/en/starter/static-files.html</a></li>
