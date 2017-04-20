@@ -1,0 +1,256 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<meta name="author" content="Flaki @ DPC">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../reveal/css/reveal.css">
+		<link rel="stylesheet" href="../reveal/css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../style/tomorrow-night.css">
+
+		<!-- Customizations -->
+		<link rel="stylesheet" href="../style/reveal-custom.css">
+		<link rel="stylesheet" href="../style/reveal-custom-print.css">
+
+		<!--[if lt IE 9]>
+		<script src="../reveal/lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<title>Express</title><link rel="stylesheet" href="../style/markdown-dark.css"/>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<div class="slides"><section><h1><p>Express</p>
+</h1><div class="slide-body"></div></section>
+<section><section><h2><p>Getting started with Express</p>
+</h2><div class="slide-body"><pre><code class="lang-javascript">const app = require(&#39;express&#39;)();
+
+app.get(&#39;*&#39;, (req,res) =&gt; res.send(&#39;Hello Express!&#39;));
+
+app.listen(3000, () =&gt; console.log(&#39;Server started.&#39;));
+</code></pre>
+<ul>
+<li><a href="https://expressjs.com/en/starter/hello-world.html">https://expressjs.com/en/starter/hello-world.html</a></li>
+</ul>
+</div></section>
+</section>
+<section><section><h2><p>Middleware</p>
+</h2><div class="slide-body"></div></section>
+<section><h3><p>Using middleware</p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">const express = require(&#39;express&#39;);
+const app = express();
+
+// Log requests
+app.get(&#39;*&#39;, function (req, res, next) {
+  console.log(Date.now(), req.method, req.originalUrl);
+  next();
+})
+
+// Print the user ID
+app.get(&#39;/user/:id&#39;, function (req, res, next) {
+  console.log(&#39;User Request:&#39;, req.params.id);
+
+  res.end(req.params.id);
+});
+
+app.listen(3000, () =&gt; console.log(&#39;Server started.&#39;));
+</code></pre>
+<ul>
+<li><a href="http://expressjs.com/en/guide/using-middleware.html">http://expressjs.com/en/guide/using-middleware.html</a></li>
+</ul>
+</div></section>
+<section><h3><p>Sending response</p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">app.get(&#39;*&#39;, (req,res) =&gt; {
+  // Serve content
+  res.send(&#39;Contentstuff&#39;);
+  // Serve file from filesystem
+  res.sendFile(&#39;path/to/file.html&#39;);
+  // Forbidden status, end immediately
+  res.status(403).end();
+  // Serve JSON object
+  res.json({ foo: &#39;bar&#39; });
+  // Serve as attachment
+  res.download(&#39;path/to/download.zip&#39;);
+  // Redirect
+  res.redirect(&#39;/home?login=successful&#39;);
+});
+</code></pre>
+<ul>
+<li><a href="http://expressjs.com/en/4x/api.html#res">http://expressjs.com/en/4x/api.html#res</a></li>
+</ul>
+</div></section>
+<section><h3><p>Handling errors</p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">function mw(error, req, res, next) {
+  if (error) {
+    return console.error(&#39;Uh-oh!&#39;, error);
+  }
+
+  next();
+}
+</code></pre>
+<ul>
+<li><a href="http://expressjs.com/en/guide/error-handling.html">http://expressjs.com/en/guide/error-handling.html</a></li>
+</ul>
+</div></section>
+</section>
+<section><section><h2><p>Routes</p>
+</h2><div class="slide-body"><pre><code class="lang-javascript">app.get(&#39;/url&#39;, (req,res) =&gt; { … });
+app.post(&#39;/url&#39;, (req,res) =&gt; { … });
+
+app.all(&#39;/url&#39;, (req,res) =&gt; { … });
+
+app.get(&#39;/user/:id&#39;, (req,res) =&gt; { … });
+app.get(/(ham)?burg(er)*/, (req,res) =&gt; { … });
+</code></pre>
+<ul>
+<li><a href="http://expressjs.com/en/starter/basic-routing.html">http://expressjs.com/en/starter/basic-routing.html</a></li>
+</ul>
+</div></section>
+<section><h3><p>Processing a request</p>
+</h3><div class="slide-body"><ul>
+<li><code>npm install --save body-parser</code></li>
+<li><code>npm install --save cookie-parser</code></li>
+</ul>
+<p>```javascript
+app.use(require(&#39;body-parser&#39;));
+app.use(require(&#39;body-parser&#39;));</p>
+<p>app.all(&#39;/body&#39;,    (req,res) =&gt; res.send(req.body));
+app.all(&#39;/cookies&#39;, (req,res) =&gt; res.json(req.cookie));
+app.all(&#39;/params&#39;,  (req,res) =&gt; res.json(req.param));</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/body-parser">https://www.npmjs.com/package/body-parser</a></li>
+<li><a href="https://www.npmjs.com/package/cookie-parser">https://www.npmjs.com/package/cookie-parser</a></li>
+<li><a href="http://expressjs.com/en/4x/api.html#req">http://expressjs.com/en/4x/api.html#req</a></li>
+</ul>
+</div></section>
+<section><h3><p>Serving static files</p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">app.use(express.static(&#39;./public_html&#39;));
+</code></pre>
+<pre><code class="lang-javascript">app.use(&#39;/photos&#39;, express.static(&#39;./uploads/photos&#39;));
+</code></pre>
+<ul>
+<li><a href="http://expressjs.com/en/starter/static-files.html">http://expressjs.com/en/starter/static-files.html</a></li>
+</ul>
+</div></section>
+<section><h3><p>Grouping routes</p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">const route = require(&#39;express&#39;).Router();
+
+route.get(&#39;/id/:id&#39;, (req,res) =&gt; { … });
+route.get(&#39;/name/:name&#39;, (req,res) =&gt; { … });
+
+module.exports = route;
+</code></pre>
+<pre><code class="lang-javascript">const userRoute = require(&#39;routes/user&#39;);
+
+// /user/:id, /user/:name etc
+app.use(&#39;/user&#39;, userRoute);
+</code></pre>
+</div></section>
+</section>
+<section><section><h2><p>Templating with <code>Pug</code></p>
+</h2><div class="slide-body"></div></section>
+<section><h3><p>Set up for Express</p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">app.set(&#39;views&#39;, &#39;./views/&#39;);
+app.set(&#39;view engine&#39;, &#39;pug&#39;);
+</code></pre>
+</div></section>
+<section><h3><p>Using Pug with <code>render()</code></p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">router.get(&#39;/&#39;, (req,res) =&gt; {
+  res.render(&#39;index&#39;, {
+    greet: &#39;Visitor&#39;
+  })
+})
+</code></pre>
+<ul>
+<li><a href="https://expressjs.com/en/guide/using-template-engines.html">https://expressjs.com/en/guide/using-template-engines.html</a></li>
+</ul>
+</div></section>
+<section><h3><p>Using Pug templates</p>
+</h3><div class="slide-body"><pre><code class="lang-jade">html
+  head
+    title Hello, #{greet}!
+  body
+    h1 Greetings,
+      em= greet
+    p.center
+      a(href=&quot;/home&quot;) continue
+</code></pre>
+<ul>
+<li><a href="https://pugjs.org/api/getting-started.html">https://pugjs.org/api/getting-started.html</a></li>
+<li><a href="http://learnjade.com/playground/">http://learnjade.com/playground/</a></li>
+<li><a href="http://html2jade.org/">http://html2jade.org/</a></li>
+</ul>
+</div></section>
+</section>
+<section><section><h2><p>REST APIs with <code>Restify</code></p>
+</h2><div class="slide-body"></div></section>
+<section><h3><p>Restify server</p>
+</h3><div class="slide-body"><pre><code class="lang-javascript">const restify = require(&#39;restify&#39;);
+const server = restify.createServer();
+
+server.get(&#39;/hello/:name&#39;, respond);
+server.head(&#39;/hello/:name&#39;, respond);
+
+server.listen(8080, () =&gt; console.log(&#39;%s started on :8080&#39;, server.name));
+
+function respond(req, res, next) {
+  res.send(&#39;hello &#39; + req.params.name);
+  next();
+}
+</code></pre>
+<ul>
+<li><a href="http://restify.com/">http://restify.com/</a></li>
+</ul>
+</div></section>
+</section>
+<section><!-- Fin --></section></div>
+		</div>
+
+		<script src="../reveal/lib/js/head.min.js"></script>
+		<script src="../reveal/js/reveal.js"></script>
+
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: false,
+				center: false,
+
+				transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+				width: 1440,
+				height: 960,
+
+				// Factor of the display size that should remain empty around the content
+				margin: 0.1,
+
+				// Bounds for smallest/largest possible scale to apply to content
+				minScale: 0.2,
+				maxScale: 1.5,
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal/plugin/notes/notes.js', async: true },
+
+					{ src: '/lib/watermark.js', async: true }
+				]
+			});
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,117 @@
+.reveal .slides {
+  text-align: left;
+  margin-top: -6vh;
+}
+.reveal section img {
+  background: none;
+  border: none;
+}
+.slide-body li {
+  margin-bottom: .1em;
+  line-height: 1.1;
+}
+.reveal .editor {
+  overflow-y: scroll;
+  max-height: 600px;
+  width: 100%;
+}
+.reveal pre code {
+	white-space: pre;
+	font-size: 1.2em;
+}
+
+
+@keyframes hover-cube {
+  0%   { transform: rotate( 15deg) translateY(0px)  translateX( 20px); filter: blur(0); }
+  10%  { filter: blur(20px); }
+  20%  { transform: rotate(-5deg) translateY(60px) translateX(-10px); filter: blur(0); }
+  40%  { transform: rotate( 20deg) translateY(20px) translateX(-15px);}
+  60%  { transform: rotate( 30deg) translateY(55px) translateX( -5px); }
+  80%  { transform: rotate( 10deg) translateY(10px)  translateX( 25px); filter: saturate(100%) brightness(100%); }
+  90%  { filter: saturate(150%) brightness(110%); }
+  100% { transform: rotate( 0deg) translateY(40px) translateX( 10px); filter: saturate(100%) brightness(100%); }
+}
+.slide-body img[src*="js-cube"] {
+  box-shadow: none;
+  animation: hover-cube;
+  animation-duration: 27s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+
+/* Watermark */
+.reveal .watermark {
+	position: absolute;
+
+  font-size: 16px;
+  bottom: 12px;
+	left: 12px;
+
+  opacity: .5;
+}
+
+.reveal .watermark > * {
+	display: inline-block;
+	vertical-align: middle;
+	color: white;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.reveal .watermark > img {
+  height: 18px;
+}
+
+.slides > section:last-child .watermark {
+	display: none;
+}
+
+/* Full-width watermark */
+.reveal .watermark.full {
+    padding-right: 40%;
+    background: white none repeat scroll 0% 0%;
+    opacity: 0.85;
+}
+.reveal .watermark.full > img {
+    height: auto;
+}
+
+.reveal .watermark.full > i {
+  position: absolute;
+  color: #454;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: right;
+  right: 10%;
+  top: 50%;
+  margin-top: -10px !important;
+}
+
+
+.reveal .watermark-bg {
+  background: url(../source/img/dpc.png);
+  background-position: right center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  font-size: 20px;
+  padding: 48px 12px 0;
+  text-shadow: 1px -1px 1px black;
+  text-align: right;
+
+  opacity: .15;
+}
+
+.reveal section+.slide-background .watermark-bg {
+  display: none !important;
+}
+
+
+.reveal pre code {
+  max-height: initial !important;
+  /* font-size: .9em !important; */
+  font-size: 2em;
+  line-height: 1.2em;
+}
