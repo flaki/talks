@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', e => {
 
   function togglePresent() {
     document.documentElement.classList.toggle('present');
+    document.documentElement.mozRequestFullScreen();
   }
 
 
