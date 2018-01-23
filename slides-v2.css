@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* 16:9 ratio by default */
+  --slidew: calc(100vw - 17px); /* scrollbar... */
+  --slideh: calc(var(--slidew) / 16 * 9);
+
+  font-size: calc(var(--slidew) / 50);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+
+  background-color: black;
+}
+
+main {
+  width: var(--slidew);
+
+  color: #333;
+  font-family: sans-serif;
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  position: relative;
+  margin-top: 0;
+}
+
+main>section {
+  width: 100%;
+  height: var(--slideh);
+  top: 0;
+  left: 0;
+  background-color: inherit;
+
+  /* position absolute object inside this slide */
+  position: relative;
+
+  /* hide overflow */
+  overflow: hidden;
+
+  /* for not .present-ed views */
+  margin-bottom: 1rem;
+}
+
+
+
+.present main {
+  height: var(--slideh);
+}
+.present main>section {
+  position: absolute;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.present main>section.current {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+
+/* Print (pdf-export) specific rules */
+@media print {
+  html {
+    --slidew: 383.3mm;
+  }
+
+	#slides>*:not(:last-child) {
+    page-break-after: always;
+  }
+
+  h1, h2 {
+    filter: drop-shadow(0.1rem 0.1rem .25rem black);
+  }
+}
+
+
+/* Default background image settings */
+picture.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--slideh);
+}
+picture.bg > img {
+  width: 100%;
+  height: 100%;
+}
+
+picture.bg > img,
+picture.bg.cover > img {
+  object-fit: cover;
+}
+
+picture.bg.contain > img {
+  object-fit: contain;
+}
+
+picture.bg.fill > img {
+  object-fit: fill;
+}

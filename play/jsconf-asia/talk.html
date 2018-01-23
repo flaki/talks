@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>JavaScript &lt;3 Microcontrollers</title>
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/showdown.js"></script>
+  <script src="/slides-v2.js"></script>
+</head>
+
+<body>
+<script>
+const mdConverter = new showdown.Converter({
+  openLinksInNewWindow: true,
+  simpleLineBreaks: true,
+})
+
+const showSlides = fetch('talk.md').then(r => r.text()).then(md => {
+  //document.body.textContent = md;
+  let pmd = preprocessMd(md)
+  let mdToHtml = pmd.length ? pmd.map(s => s.markdown ? mdConverter.makeHtml(s.markdown) : s).join('\n') : mdConverter.makeHtml(pmd)
+  document.body.innerHTML = `<main>${mdToHtml}</main>`
+  window.$md = md
+  window.$pmd = pmd
+  window.$html = mdToHtml
+})
+
+function preprocessMd(text) {
+  // Remove custom CSS & JS from the source and add them to the code
+  // TODO: code embedded in slides
+  const rx = /```(js|css)([\s\S]+?)```/gm
+
+  text = text.replace(rx, (match, type, content) => {
+    console.log(type, content)
+    switch (type) {
+      case 'css':
+        document.head.insertAdjacentHTML('beforeend', `<style>${content}</style>`)
+        break
+      case 'js':
+        let newJs = document.createElement('script')
+        newJs.textContent = content
+        document.body.appendChild(newJs)
+        break
+    }
+    return ''
+  })
+
+  // Slice up to individual slides
+  let rxSections = /^[\r\n\s]*\[\]\(#(\w+)\)/
+
+  let sections = text.split(/^---+$/m)
+    .map(markdown => {
+      let [ match, sectionId ] = rxSections.exec(markdown) || []
+
+      if (sectionId) {
+        markdown = markdown.replace(match,'')
+      }
+
+      return [
+        `<section ${sectionId ? 'id='+sectionId : ''}>`,
+        { markdown },
+        `</section>`
+      ]
+    }
+  )
+
+  // Flatten
+  return sections.reduce((a,b) => (b.length ? a.push(...b) : a.push(b), a), [])
+}
+</script>
+</body>
