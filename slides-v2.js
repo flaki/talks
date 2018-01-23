@@ -15,6 +15,18 @@ document.addEventListener('DOMContentLoaded', e => {
 
   initialize()
 
+  document.body.addEventListener('dblclick', e => togglePresent())
+  document.body.addEventListener('click', e => {
+    if (e.originalTarget.nodeName !== 'A') {
+      if (e.pageX < window.innerWidth/2) {
+        prevPage()
+      } else {
+        nextPage()
+      }
+    }
+    console.log(e.originalTarget)
+  })
+
   window.addEventListener('keydown', e => {
     if (e.key==='ArrowLeft' || e.key==='PageUp') prevPage();
     if (e.key==='ArrowRight' || e.key==='PageDown' || e.key===' ') nextPage();
@@ -32,6 +44,9 @@ document.addEventListener('DOMContentLoaded', e => {
     if (current && current.nextElementSibling) {
       current.classList.remove('current');
       current.nextElementSibling.classList.add('current');
+
+      // for non-presenting mode
+      current.nextElementSibling.scrollIntoView()
     }
 
     window.location.replace('#'+slideNumber());
@@ -42,6 +57,9 @@ document.addEventListener('DOMContentLoaded', e => {
     if (current && current.previousElementSibling) {
       current.classList.remove('current');
       current.previousElementSibling.classList.add('current');
+
+      // for non-presenting mode
+      current.previousElementSibling.scrollIntoView()
     }
 
     window.location.replace('#'+slideNumber());
@@ -57,6 +75,9 @@ document.addEventListener('DOMContentLoaded', e => {
     if (next) {
       next.classList.add('current');
     }
+
+    // for non-presenting mode
+    next.scrollIntoView()
 
     window.location.replace('#'+slideNumber(next));
   }
