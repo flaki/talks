@@ -22,12 +22,33 @@
 > István Szmozsánszky _"Flaki"_  
 > [@slsoftworks](https://twitter.com/slsoftworks)
 
+---
+[](#whoami)
+
+<picture class=bg>
+![Flaki, tinkering](/pic/tinker.jpg)
+</picture>
+
+<div id=tinker>
+  <img alt="JavaScript" src="/pic/js.png">
+  <h3>JavaScript developer/trainer</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla Tech Speaker</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project member</h3>
+</div>
+
+---
+
+# Thanks a bunch!
 
 ---
 
 ### Reading list:
 
----
+
 
 ```css
 .main {
@@ -114,6 +135,38 @@ section>blockquote, section>ul, section>ol {
   font-size: 1.1rem;
 }
 
+
+#tinker {
+  position: absolute;
+  bottom: 0;
+  margin: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tinker > * {
+  margin: 0 0 1vw 0;
+}
+
+#tinker img {
+  width: 3rem;
+  height: 3rem;
+  margin-left: 25vw;
+}
+#tinker h3 {
+  margin-left: 1em;
+  margin-right: 6em;
+  padding: .75rem 1rem 0.25rem 1rem
+}
+
+#tinker img[src="/pic/ts.png"] {
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.33);
+  width: 2.8rem;
+  height: 2.8rem;
+  padding-left: .1rem;
+}
 ```
 
 ```js
