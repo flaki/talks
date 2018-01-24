@@ -17,14 +17,22 @@ document.addEventListener('DOMContentLoaded', e => {
 
   document.body.addEventListener('dblclick', e => togglePresent())
   document.body.addEventListener('click', e => {
-    if (e.originalTarget.nodeName !== 'A') {
+    // TODO: have proper tap areas for this
+    if (e.originalTarget.nodeName === 'DETAILS') {
+      e.originalTarget.open = !e.originalTarget.open
+      return
+    }
+
+    if (e.originalTarget.nodeName !== 'A'
+      && e.originalTarget.parentNode.nodeName !== 'A' // a>img
+      && e.originalTarget.parentNode.parentNode.nodeName !== 'A' // a>picture>img
+    ) {
       if (e.pageX < window.innerWidth/2) {
         prevPage()
       } else {
         nextPage()
       }
     }
-    console.log(e.originalTarget)
   })
 
   window.addEventListener('keydown', e => {
@@ -37,12 +45,17 @@ document.addEventListener('DOMContentLoaded', e => {
 
     // Presentation
     if (e.key==='Enter' || e.key==='Escape') togglePresent();
+
+    // Live webcam view
+    if (e.key==='v') toggleLiveView(e);
+
   });
 
   function nextPage(e) {
-    let current = document.querySelector('main>section.current');
+    let current = document.querySelector('main>section.current') || document.querySelector('main>section:first-child');
     if (current && current.nextElementSibling) {
       current.classList.remove('current');
+      console.log('remove next')
       current.nextElementSibling.classList.add('current');
 
       // for non-presenting mode
@@ -53,9 +66,10 @@ document.addEventListener('DOMContentLoaded', e => {
   }
 
   function prevPage(e) {
-    let current = document.querySelector('main>section.current');
+    let current = document.querySelector('main>section.current') || document.querySelector('main>section:first-child');
     if (current && current.previousElementSibling) {
       current.classList.remove('current');
+      console.log('remove prev')
       current.previousElementSibling.classList.add('current');
 
       // for non-presenting mode
@@ -66,18 +80,26 @@ document.addEventListener('DOMContentLoaded', e => {
   }
 
   function goToPage(pg) {
+    console.log(pg)
     let current = document.querySelector('main>section.current');
     if (current) {
       current.classList.remove('current');
+      console.log('remove goto')
     }
 
-    let next = document.querySelector('main>section:nth-child('+parseInt(pg, 10)+')');
-    if (next) {
-      next.classList.add('current');
+    let next = document.querySelector('main>section:nth-child('+(parseInt(pg, 10)||1)+')');
+    console.log(next)
+    if (!next) {
+      console.log('Slide not found: ', pg)
+      return
     }
+    next.classList.add('current');
+    next.className="wtf"
+    console.log(next, next.className)
 
     // for non-presenting mode
     next.scrollIntoView()
+    console.log(slideNumber(next))
 
     window.location.replace('#'+slideNumber(next));
   }
@@ -86,11 +108,37 @@ document.addEventListener('DOMContentLoaded', e => {
     document.documentElement.classList.toggle('present');
   }
 
+  function toggleLiveView(e) {
+    if (e.altKey) {
+      return showWebcam().then(_ => document.documentElement.classList.add('live-view'))
+    }
+
+    document.documentElement.classList.toggle('live-view')
+  }
+
 
   function slideNumber(current) {
     current = current || document.querySelector('main>section.current')
     return Array.from(document.querySelector('main').children).indexOf(current)+1;
   }
+
+
+  function showWebcam() {
+    return navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+    .then(function(stream) {
+      const video = document.querySelector('body>video') || document.createElement('video')
+
+      video.srcObject = stream
+      video.onloadedmetadata = function(e) {
+        document.body.prepend(video)
+        video.play()
+      }
+    })
+    .catch(function(err) {
+      console.log(err.name + ": " + err.message)
+    })
+  }
+
 
   window.Slides = {
     nextPage, prevPage, goToPage, togglePresent
