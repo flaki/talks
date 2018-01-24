@@ -3,6 +3,8 @@ Fonts:
 - Oswald 200-700
 - Advent Pro 100-700
 - Open Sans Condensed 300, 700
+- Caveat (handwriting) 300, 700
+- Share Tech Mono 400
 */
 
 /* oswald-200 - latin_latin-ext */
@@ -167,4 +169,38 @@ Fonts:
   src: local('Open Sans Condensed Bold'), local('OpenSansCondensed-Bold'),
        url('/fonts/open-sans-condensed-v12-latin_latin-ext-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
        url('/fonts/open-sans-condensed-v12-latin_latin-ext-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
+
+/* caveat-regular - latin_latin-ext */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Caveat Regular'), local('Caveat-Regular'),
+       url('/fonts/caveat-v4-latin_latin-ext-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/caveat-v4-latin_latin-ext-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* caveat-700 - latin_latin-ext */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Caveat Bold'), local('Caveat-Bold'),
+       url('/fonts/caveat-v4-latin_latin-ext-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/caveat-v4-latin_latin-ext-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
+
+/* share-tech-mono-regular - latin */
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Share Tech Mono'), local('ShareTechMono-Regular'),
+       url('/fonts/share-tech-mono-v7-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/share-tech-mono-v7-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
