@@ -1,8 +1,6 @@
 [](#opening)
+!.bg[Baela says hi](/pic/baela-hwsw.jpg)
 
-<picture class=bg>
-![Baela says hi](/pic/baela-hwsw.jpg)
-</picture>
 
 # Hello, JSConf Asia!
 
@@ -10,10 +8,8 @@
 
 ---
 [](#title)
+!.bg[Microchips & JS](http://www.bab.se/~babse/wp-content/uploads/2013/11/h62.jpg)
 
-<picture class=bg>
-![Microchips & JS](http://www.bab.se/~babse/wp-content/uploads/2013/11/h62.jpg)
-</picture>
 
 # Javascript on Hardware
 ## The stuff you always wanted to know but never dared to ask
@@ -24,10 +20,8 @@
 
 ---
 [](#whoami)
+!.bg[Flaki, tinkering](/pic/tinker.jpg)
 
-<picture class=bg>
-![Flaki, tinkering](/pic/tinker.jpg)
-</picture>
 
 <div id=tinker>
   <img alt="JavaScript" src="/pic/js.png">
@@ -41,13 +35,124 @@
 </div>
 
 ---
+!.bg[Ryan Dahl introducing Node.js at JSConf EU 2009](../img/ryandahl.png)
+
+### 2009
+
+> On the picture: Ryan Dahl at JSConf EU 2009 when he announced version 0.1.17 of Node.js
+
+---
+!.bg.centered[Node.js](../img/nodejs-logo.svg)
+
+
+---
+!.bg.contain[JavaScript World Domination by Flaki](../img/jsdomination.jpg)
+
+
+---
+!.bg[](../img/nodebots.png)
+
+---
+!.bg[Nodebots Johnny 5](../img/nodebots1.png)
+
+### Nodebots
+
+
+---
+!.bg[Nodebots Johnny 5](../img/nodebots-j5.jpg)
+
+## Node-robotics with Johnny Five
+
+
+---
+!.bg[](../img/nodeboats.png)
+
+### Nodeboats...
+
+
+---
+!.bg[](../img/nodecopter.jpg)
+
+### Node (quadro-)copters...
+
+
+---
+!.bg.centered[](../img/jsconf-2014.png)
+
+
+---
+!.bg[](../img/noderockets.gif)
+
+
+---
+!.bg[](../img/noderockets1.jpg)
+
+### Node rockets!
+
+
+---
+Firmata
+
+---
+Suz
+
+---
+
+Espruino
+
+---
+!.bg.centered[](../img/v8-logo.png)
+
+
+---
+!.bg.centered[](../img/v7-logo.png)
+
+
+---
+!.bg.centered[](../img/what-is-v7.png)
+
+
+---
+mujs
+---
+
+Samsung
+
+---
+
+Jerryscript
+
+---
+Microbit
+
+---
+
+Jsconf2015/Pebble/Fitbit
+
+---
+
+Clouduboy
+
+---
+
+Demo (Compile, Flash, Fitbit)
+
+---
 
 # Thanks a bunch!
 
 ---
 
 ### Reading list:
-
+- [Suz Hinton (noopkat) about Firmata & Arduinos](https://vimeo.com/129003513)
+- [Samsung exploring JS on microcontrollers](http://www.slideshare.net/seoyounghwang77/js-onmicrocontrollers)
+- [Samsung's IoT pitch at the April 2014 TC39 meeting](http://tc39.github.io/tc39-notes/2014-04_apr-8.html#presentation-by-samsung-representatives)
+- [Samsung's TC39 presentation](https://esdiscuss.org/notes/2014-04/ecma-tc39-talk-samsung.pdf)
+- [It's JavaScript on the freakin' watch!](https://developer.pebble.com/blog/2016/08/15/introducing-rockyjs-watchfaces/)
+- [Heiko Behrens on Rocky.js/Pebble.js](https://gist.github.com/HBehrens/1a91b97e1e98a6a09c5f)
+- [Heiko announces Pebble.js at JSConf 2015](https://www.youtube.com/watch?v=2TslKh1tdm4)
+- [Julien Crouzet's article about function inlining in node.js/v8 Turbofan](https://top.fse.guru/nodejs-a-quick-optimization-advice-7353b820c92e)
+- [Joe McCann - Tuning Node (dotJS 2014)](https://www.youtube.com/watch?v=FXyM1yrtloc)
 
 
 ```css
@@ -101,9 +206,17 @@ h1, h2, h3 {
 	font-family: 'Oswald', sans-serif;
 	font-weight: 600;
 
-	min-width: 33%;
 	text-align: center;
 	text-transform: uppercase;
+}
+
+/* title h3 */
+section > h3 {
+  display: inline-block;
+
+  margin-left: 50vw;
+  transform: translateX(-50%);
+  min-width: 33%;
 }
 
 section>blockquote, section>ul, section>ol {
@@ -157,7 +270,6 @@ section>blockquote, section>ul, section>ol {
 #tinker h3 {
   margin-left: 1em;
   margin-right: 6em;
-  padding: .75rem 1rem 0.25rem 1rem
 }
 
 #tinker img[src="/pic/ts.png"] {
