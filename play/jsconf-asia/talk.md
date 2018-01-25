@@ -1,8 +1,8 @@
 [](#opening)
-!.bg[Baela says hi](/pic/baela-hwsw.jpg)
+!.bg[Baela says hi](/pic/baela-jsconfasia.jpg)
 
 
-# Hello, JSConf Asia!
+# Hello there, JSConf Asia!
 
 > Last updated: 2018-01-25
 
