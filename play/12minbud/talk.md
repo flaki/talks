@@ -1,5 +1,5 @@
 [](#opening)
-!.bg[Baela says hi](/pic/baela-jsconfasia.jpg)
+!.bg[Baela says hi](/pic/baela-12mins.jpg)
 
 
 # Hiyya, 12min.me Budapest!
