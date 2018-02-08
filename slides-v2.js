@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', e => {
     let current = document.querySelector('main>section.current') || document.querySelector('main>section:first-child');
     if (current && current.nextElementSibling) {
       current.classList.remove('current');
-      console.log('remove next')
       current.nextElementSibling.classList.add('current');
 
       // for non-presenting mode
@@ -69,7 +68,6 @@ document.addEventListener('DOMContentLoaded', e => {
     let current = document.querySelector('main>section.current') || document.querySelector('main>section:first-child');
     if (current && current.previousElementSibling) {
       current.classList.remove('current');
-      console.log('remove prev')
       current.previousElementSibling.classList.add('current');
 
       // for non-presenting mode
@@ -80,26 +78,20 @@ document.addEventListener('DOMContentLoaded', e => {
   }
 
   function goToPage(pg) {
-    console.log(pg)
     let current = document.querySelector('main>section.current');
     if (current) {
       current.classList.remove('current');
-      console.log('remove goto')
     }
 
     let next = document.querySelector('main>section:nth-child('+(parseInt(pg, 10)||1)+')');
-    console.log(next)
     if (!next) {
       console.log('Slide not found: ', pg)
       return
     }
     next.classList.add('current');
-    next.className="wtf"
-    console.log(next, next.className)
 
     // for non-presenting mode
     next.scrollIntoView()
-    console.log(slideNumber(next))
 
     window.location.replace('#'+slideNumber(next));
   }

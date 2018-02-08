@@ -120,7 +120,8 @@ Suz's whole talk from Web Rebels 2015  is one of the most accessible & fun intro
 ## Flaki meets the hardware world
 
 ---
-### Jon McKay
+!.bg.centered[](../img/jon-mckay-embedded-nodejs.png)
+### Jon McKay on the Perks & Perils of Node.js on a Microcontroller
 
 ---
 [](#.white-background)
@@ -287,6 +288,7 @@ It took Samsung a year to complete the initial version of JerryScript, which the
 [](#.white-background)
 !.bg.centered[](../img/microbit.png)
 
+
 ### Preparing yout for a digital age with the BBC Micro:bit
 
 ---
@@ -296,16 +298,72 @@ It took Samsung a year to complete the initial version of JerryScript, which the
 ### The MakeCode Editor on the Microbit
 
 ---
+!.bg.centered[](../img/jsconf-2015.png)
 
-Jsconf2015/Pebble/Fitbit
+<details>
+JSConf 15, but also JSConfIS (Iceland), which is funny because this presentation was given at both conferences
+</details>
 
 ---
+!.bg.centered[](../img/pebble.jpg)
 
-Clouduboy
+### Pebble's Rocky.js / Pebble.js announcement
 
 ---
+[](#.white-background)
+!.bg.contain[](../img/tictoc.png)
 
-Demo (Compile, Flash, Fitbit)
+### Pebble's smartwatch watchfaces are JS+HTML5!
+
+> They managed to run a JS/HTML5 watchface, powered by JerryScript without _it being less efficient than the C code_!
+
+---
+!.bg.contain[](../img/fitbit-ionic.jpg)
+
+### ...and Fitbit took over right where Pebble left off
+
+---
+[](#.big)
+## I hear 2018 is gonna be the year of the cloud!
+
+---
+!.bg.align-top[](../img/custom-arduboy.jpg)
+
+### So how do you put JS on _these_?
+
+<details>
+mjs gets close, but not exactly. You'll need something of a very different approach.
+</details>
+
+---
+[](#.white-background)
+!.bg.centered.drop-shadow[](../img/clouduboy3-html5.jpg)
+
+## Introducing: Clouduboy
+
+<details>
+Clouduboy is a lot of things. A library for creating tiny pixelgraphic images (PIF) and games (MicroCanvas). An online IDE for Arduino-based gaming devices. A compiler to turn JavaScript games to C++ ones and put them onto those tiny microcontrollers
+</details>
+
+---
+[](#.big.slim)
+
+## That cobbled-together mess. Not very exciting?
+
+---
+!.bg.contain[](../img/ruhrjs.jpg)
+
+### How about this?
+
+> The Arduboy is based on the same chipset and peripherals than the one you just saw. It just _looks nicer_ ;)
+
+---
+!.bg.cover[](../img/tinyarcade.gif)
+
+### Or this one?
+
+> The Tiny Arcade is slightly different. It has a much more powerful ARM MCU (same as the Micro:bit!) & color screen!
+
 
 ---
 [](#keepplaying)
@@ -314,6 +372,16 @@ Demo (Compile, Flash, Fitbit)
 # Thanks a bunch!
 
 #### [talk.flak.is/play/jsconf-asia](http://talk.flak.is/play/jsconf-asia/)
+
+<span class=tweet>
+![Clouduboy](../img/clouduboy-icon-large.png)
+@clouduboy
+</span>
+
+<span class=tweet>
+![Flaki](/pic/flaki.png)
+@slsoftworks
+</span>
 
 <div class="message">Keep playing!</div>
 
@@ -417,6 +485,9 @@ section>blockquote, section>ul, section>ol {
 }
 
 
+section {
+  background: black;
+}
 .white-background {
   background: white;
 }
@@ -429,12 +500,18 @@ section>blockquote, section>ul, section>ol {
 	align-items: center;
 	width: 100%;
 	height: 100%;
+  padding: 1em;
 }
 .big h1 {
   font-size: 6rem;
 }
 .big h2 {
   font-size: 4rem;
+}
+.slim h1,
+.slim h2 {
+  font-weight: 300;
+  letter-spacing: -.05em;
 }
 
 
@@ -514,6 +591,7 @@ section>blockquote, section>ul, section>ol {
   border: .1em solid hotpink;
   padding: .2em .5em .1em;
   border-radius: .5em;
+  background: black;
 }
 
 #keepplaying picture {
@@ -539,6 +617,37 @@ section>blockquote, section>ul, section>ol {
   text-shadow: 1px 1px black,1px -2px black, -3px 2px black, 3px 4px black, 4px 5px black;
   text-indent: -.5ch;
   width: 100%;
+}
+
+p .tweet {
+  display: block;
+  position: absolute;
+  bottom: 2rem;
+  left: 10vw;
+
+  border: .25rem solid hotpink;
+  border-radius: 1.25rem;
+  background: black;
+
+  font-family: Share Tech Mono;
+  font-weight: bold;
+  letter-spacing: -.05rem;
+  color: white;
+  text-align: center;
+  line-height: 1.5rem;
+  padding-bottom: .2rem;
+}
+
+p+p .tweet {
+  left: auto;
+  right: 10vw;
+}
+
+.tweet img {
+  display: block;
+  width: 16vw;
+  border: .4rem solid transparent;
+  border-radius: 1em;
 }
 ```
 

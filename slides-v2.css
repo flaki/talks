@@ -45,7 +45,7 @@ main>section {
   height: var(--slideh);
   top: 0;
   left: 0;
-  background-color: inherit;
+  /*background-color: inherit;*/
 
   /* position absolute object inside this slide */
   position: relative;
@@ -70,7 +70,7 @@ main>section>p:first-child {
 .present main>section {
   position: absolute;
   opacity: 0;
-  transition: opacity .3s ease;
+  /*transition: opacity .3s ease;*/
 }
 .present main>section.current {
   opacity: 1;
@@ -140,6 +140,10 @@ picture.bg.drop-shadow > img {
   object-fit: initial;
 }
 
+picture.bg.align-top > img {
+  object-position: center top;
+}
+
 
 
 /* Webcam live-view config */
@@ -156,7 +160,8 @@ html.live-view main {
   opacity: .8;
 }
 main>section.current {
-  transition: transform 1.5s ease, opacity .3s ease;
+  /*transition: transform 1.5s ease, opacity .3s ease;*/
+  transition: transform 1.5s ease;
 }
 html.live-view main>section.current {
   transform: translate(-44vw, -44vh) scale(.1);
