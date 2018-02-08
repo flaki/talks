@@ -120,6 +120,9 @@ picture.bg.contain > img {
 picture.bg.fill > img {
   object-fit: fill;
 }
+picture.bg.top > img {
+  object-position: top;
+}
 
 picture.bg.centered > img {
   object-fit: scale-down;
