@@ -1,17 +1,33 @@
-const mdConverter = new showdown.Converter({
-  openLinksInNewWindow: true,
-  simpleLineBreaks: true,
-})
+let mdConverter;
 
-const showSlides = fetch('talk.md').then(r => r.text()).then(md => {
-  //document.body.textContent = md
-  let pmd = preprocessMd(md)
-  let mdToHtml = pmd.length ? pmd.map(s => s.markdown ? mdConverter.makeHtml(s.markdown) : s).join('\n') : mdConverter.makeHtml(pmd)
-  document.body.innerHTML = `<main>${mdToHtml}</main>`
-  window.$md = md
-  window.$pmd = pmd
-  window.$html = mdToHtml
+const showdownInit = new Promise((resolve, reject) => {
+  const s = document.createElement('script');
+  s.src = '/showdown.js';
+  s.onload = resolve;
+  s.onerror = reject;
+  document.head.appendChild(s);
 })
+  .then(_ => {
+    mdConverter = new showdown.Converter({
+      openLinksInNewWindow: true,
+      simpleLineBreaks: true,
+    })
+  })
+  .catch(e => console.log(e))
+
+const showSlides = showdownInit
+  .then(_ => fetch('talk.md'))
+  .then(r => r.text())
+  .then(md => {
+    //document.body.textContent = md
+    let pmd = preprocessMd(md)
+    let mdToHtml = pmd.length ? pmd.map(s => s.markdown ? mdConverter.makeHtml(s.markdown) : s).join('\n') : mdConverter.makeHtml(pmd)
+    document.body.innerHTML = `<main>${mdToHtml}</main>`
+    window.$md = md
+    window.$pmd = pmd
+    window.$html = mdToHtml
+  })
+  .catch(e => console.log(e))
 
 function extractIdAndClasses(tags) {
   let id, classes = []
