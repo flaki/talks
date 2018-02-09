@@ -1,3 +1,7 @@
+```css
+@import url("/s/themes/pinky.css");
+```
+
 [](#opening)
 !.bg[Baela says hi](/pic/baela-jsconfasia.jpg)
 
@@ -10,6 +14,17 @@
 [](#title)
 !.bg[Microchips & JS](http://www.bab.se/~babse/wp-content/uploads/2013/11/h62.jpg)
 
+```css
+#title h1 {
+  font-size: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#title h2 {
+  font-size: 1.1rem;
+}
+```
 
 # Javascript on Hardware
 ## The stuff you always wanted to know but never dared to ask
@@ -22,6 +37,9 @@
 [](#whoami)
 !.bg[Flaki, tinkering](/pic/tinker.jpg)
 
+```css
+@import url("/s/tinker.css");
+```
 
 <div id=tinker>
   <img alt="JavaScript" src="/pic/js.png">
@@ -48,6 +66,14 @@ Pictured: Ryan Dahl at JSConf EU 2009 when he announced version 0.1.17 of Node.j
 !.bg.centered[Node.js](../img/nodejs-logo.svg)
 
 ## Let There Be Node!
+
+```css
+#nodejs {
+  background-image: url(../img/jsconfeu-2009.png);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+```
 
 ---
 !.bg.contain[JavaScript World Domination by Flaki](../img/jsdomination.jpg)
@@ -145,6 +171,21 @@ Standards support used to be bad but improved a lot and now it's "good enough". 
 Gordon din't just go "I want to create this thing". He wanted people to use it, to make it as accessible, easy-to-use and ubiquitous as possible. There's a documentary by Michael Moore, "Where to invade next", in which he travels around the world and "annexes" great ideas in other nations (free education, avoidance of using guns by the police, etc.) by planting the US flag - caring and catering for your users is an idea definitely worth stealing.
 </details>
 
+```css
+#mmoore {
+	background: url(../img/steal-this-idea.jpg);
+	width: 16vw;
+	height: 12vw;
+	background-size: contain;
+	background-repeat: no-repeat;
+	transform: rotate(28deg);
+	position: absolute;
+	top: 1vh;
+	left: 75vw;
+	mix-blend-mode: multiply;
+}
+```
+
 ---
 [](#.white-background)
 !.bg.centered[Puck.js](../img/espruino-puck-js.jpg)
@@ -215,6 +256,7 @@ I'm not saying everyone should micro-optimize, or that everyone should know how 
 
 <details>
 From te bunch of ex-Googlers at an irish company, we probably shouldn't be of this rather impressive achievement. But it *still* wasn't enough...
+</details>
 
 ---
 [](#.white-background)
@@ -369,6 +411,10 @@ Clouduboy is a lot of things. A library for creating tiny pixelgraphic images (P
 [](#keepplaying)
 !.bg[](../img/play.gif)
 
+```css
+@import url("/s/keep-playing.css");
+```
+
 # Thanks a bunch!
 
 #### [talk.flak.is/play/jsconf-asia](http://talk.flak.is/play/jsconf-asia/)
@@ -402,254 +448,6 @@ Clouduboy is a lot of things. A library for creating tiny pixelgraphic images (P
 - [Julien Crouzet's article about function inlining in node.js/v8 Turbofan](https://top.fse.guru/nodejs-a-quick-optimization-advice-7353b820c92e)
 - [Joe McCann - Tuning Node (dotJS 2014)](https://www.youtube.com/watch?v=FXyM1yrtloc)
 
-
-```css
-.main {
-  color: hotpink;
-}
-
-p > img:first-child:last-child {
-  max-height: calc(.7 * var(--slideh));
-  /*! left: 50vw; */
-  /*! margin-left: -50%; */
-  display: block;
-  position: relative;
-}
-
-blockquote a,
-ul a,
-ol a,
-p a {
-  font-family: Consolas, monospace;
-  font-weight: bold;
-  font-size: 80%;
-  line-height: 80%;
-  text-decoration: none;
-  padding: .25em;
-  color: #777;
-}
-
-blockquote ul, blockquote ol,
-blockquote p {
-  margin: 0 .5rem;
-}
-blockquote ul, blockquote ol {
-  padding-left: 1rem;
-}
-
-.box,
-h1, h2, h3 {
-  display: block;
-
-  color: hotpink;
-  background: linear-gradient(to bottom, rgba(255,255,255,1) 10%, rgba(255,255,255,0.85)) transparent;
-  text-shadow: 0 .03em #555;
-
-  padding: .5rem 1rem;
-  margin: 1rem;
-
-}
-
-h1, h2, h3 {
-	font-family: 'Oswald', sans-serif;
-	font-weight: 600;
-
-	text-align: center;
-	text-transform: uppercase;
-}
-
-/* title h3 */
-section > h3 {
-  display: inline-block;
-
-  left: 50vw;
-  transform: translateX(-50%);
-  margin-left: 0;
-  min-width: 33%;
-}
-
-section>blockquote, section>ul, section>ol {
-  font-family: 'Open Sans Condensed', sans-serif;
-  font-weight: 300;
-
-  position: absolute;
-  top: unset;
-  bottom: 0;
-  right: 0;
-  color: white;
-
-  min-width: 40%;
-  background: rgba(0,0,0,.85);
-  padding: .6em;
-  margin: 1em;
-}
-
-
-section {
-  background: black;
-}
-.white-background {
-  background: white;
-}
-
-.big h1,
-.big h2 {
-	background: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-  padding: 1em;
-}
-.big h1 {
-  font-size: 6rem;
-}
-.big h2 {
-  font-size: 4rem;
-}
-.slim h1,
-.slim h2 {
-  font-weight: 300;
-  letter-spacing: -.05em;
-}
-
-
-#title h1 {
-  font-size: 3rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#title h2 {
-  font-size: 1.1rem;
-}
-
-
-#tinker {
-  position: absolute;
-  bottom: 0;
-  margin: 1rem;
-
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#tinker > * {
-  margin: 0 0 1vw 0;
-}
-
-#tinker img {
-  width: 3rem;
-  height: 3rem;
-  margin-left: 25vw;
-}
-#tinker h3 {
-  margin-left: 1em;
-  margin-right: 6em;
-}
-
-#tinker img[src="/pic/ts.png"] {
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.33);
-  width: 2.8rem;
-  height: 2.8rem;
-  padding-left: .1rem;
-}
-
-
-#nodejs {
-  background-image: url(../img/jsconfeu-2009.png);
-  background-repeat: no-repeat;
-  background-position: bottom right;
-}
-
-
-#mmoore {
-	background: url(../img/steal-this-idea.jpg);
-	width: 16vw;
-	height: 12vw;
-	background-size: contain;
-	background-repeat: no-repeat;
-	transform: rotate(28deg);
-	position: absolute;
-	top: 1vh;
-	left: 75vw;
-	mix-blend-mode: multiply;
-}
-
-
-#keepplaying h4 {
-  text-align: center;
-  padding: 2em 0;
-}
-#keepplaying h4>a {
-  text-decoration: none;
-  color: white;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 2rem;
-  border: .1em solid hotpink;
-  padding: .2em .5em .1em;
-  border-radius: .5em;
-  background: black;
-}
-
-#keepplaying picture {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-#keepplaying picture>img {
-  object-fit: contain;
-  width: 50vh;
-  height: auto;
-  margin-bottom: 6vh;
-  border-radius: 1rem;
-}
-
-#keepplaying div.message {
-  font-family: 'Caveat';
-  font-size: 3rem;
-  color: hotpink;
-  text-align: center;
-  top: 78vh;
-  position: absolute;
-  text-shadow: 1px 1px black,1px -2px black, -3px 2px black, 3px 4px black, 4px 5px black;
-  text-indent: -.5ch;
-  width: 100%;
-}
-
-p .tweet {
-  display: block;
-  position: absolute;
-  bottom: 2rem;
-  left: 10vw;
-
-  border: .25rem solid hotpink;
-  border-radius: 1.25rem;
-  background: black;
-
-  font-family: Share Tech Mono;
-  font-weight: bold;
-  letter-spacing: -.05rem;
-  color: white;
-  text-align: center;
-  line-height: 1.5rem;
-  padding-bottom: .2rem;
-}
-
-p+p .tweet {
-  left: auto;
-  right: 10vw;
-}
-
-.tweet img {
-  display: block;
-  width: 16vw;
-  border: .4rem solid transparent;
-  border-radius: 1em;
-}
-```
 
 ```js
 console.log('Slides locked & loaded!')

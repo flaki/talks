@@ -1,0 +1,70 @@
+#keepplaying h4 {
+  text-align: center;
+  padding: 2em 0;
+}
+#keepplaying h4>a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2rem;
+  border: .1em solid hotpink;
+  padding: .2em .5em .1em;
+  border-radius: .5em;
+  background: black;
+}
+
+#keepplaying picture {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+#keepplaying picture>img {
+  object-fit: contain;
+  width: 50vh;
+  height: auto;
+  margin-bottom: 6vh;
+  border-radius: 1rem;
+}
+
+#keepplaying div.message {
+  font-family: 'Caveat';
+  font-size: 3rem;
+  color: hotpink;
+  text-align: center;
+  top: 78vh;
+  position: absolute;
+  text-shadow: 1px 1px black,1px -2px black, -3px 2px black, 3px 4px black, 4px 5px black;
+  text-indent: -.5ch;
+  width: 100%;
+}
+
+p .tweet {
+  display: block;
+  position: absolute;
+  bottom: 2rem;
+  left: 10vw;
+
+  border: .25rem solid hotpink;
+  border-radius: 1.25rem;
+  background: black;
+
+  font-family: Share Tech Mono;
+  font-weight: bold;
+  letter-spacing: -.05rem;
+  color: white;
+  text-align: center;
+  line-height: 1.5rem;
+  padding-bottom: .2rem;
+}
+
+p+p .tweet {
+  left: auto;
+  right: 10vw;
+}
+
+.tweet img {
+  display: block;
+  width: 16vw;
+  border: .4rem solid transparent;
+  border-radius: 1em;
+}
