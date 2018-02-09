@@ -1,6 +1,16 @@
+```meta
+title: JavaScript 💖 Microcontrollers
+description: JavaScript on Microcontrollers? How? And most importantly why? Flaki @ JSConf Asia 2018
+keywords: javascript, microcontrollers, iot, clouduboy, flaki, jerryscript, espruino, nodejs
+social_image: http://talk.flak.is/pic/baela-jsconfasia.jpg
+canonical_url: http://talk.flak.is/play/jsconf-asia/
+```
+
 ```css
 @import url("/s/themes/pinky.css");
 ```
+
+
 
 [](#opening)
 !.bg[Baela says hi](/pic/baela-jsconfasia.jpg)

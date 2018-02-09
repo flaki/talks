@@ -5,7 +5,7 @@ const showdownInit = new Promise((resolve, reject) => {
   s.src = '/showdown.js';
   s.onload = resolve;
   s.onerror = reject;
-  document.head.appendChild(s);
+  document.body.appendChild(s); // we don't want this to show up in the generated body
 })
   .then(_ => {
     mdConverter = new showdown.Converter({
@@ -51,6 +51,17 @@ function extractToElementAttributes(tags) {
   return (attr.id ? ` id="${attr.id}"` :'') + (attr.classes && attr.classes.length ? ` class="${attr.classes.join(' ')}"` :'')
 }
 
+function parseMeta(s) {
+  return JSON.parse(
+    '{\n'
+     +s.trim()
+       .replace(/"/g,'\\"')
+       .replace(/^(\w+):\s+/gm, '"$1": "')
+       .replace(/\n/g,'",')
+     +'"\n}'
+   )
+}
+
 function preprocessMd(text) {
   // Transform !#id.class1.class2 to <picture>...</picture> format
   text = text.replace(/!((?:#[\w\-]+)?(?:\.[\w\-]+)*)(\[[^\]]*\]\([^\)]*\))(?:\s*=>\s*(http[\S]+))?/g, (match, tags, image, link) => {
@@ -66,19 +77,45 @@ function preprocessMd(text) {
     return ret
   })
 
-  // Remove custom CSS & JS from the source and add them to the code
+  // Remove custom CSS & JS and metadata from the source and add them to the code
   // TODO: code embedded in slides
-  const rx = /```(js|css)([\s\S]+?)```/gm
+  const rx = /```(js|css|meta)([\s\S]+?)```/gm
 
   text = text.replace(rx, (match, type, content) => {
     switch (type) {
       case 'css':
         document.head.insertAdjacentHTML('beforeend', `<style>${content}</style>`)
         break
+
       case 'js':
         let newJs = document.createElement('script')
         newJs.textContent = content
         document.body.appendChild(newJs)
+        break
+
+      case 'meta':
+        let metaObj = parseMeta(content)
+        console.log(metaObj)
+        if ('title' in metaObj) {
+          document.querySelector('title').textContent = metaObj.title
+          document.querySelector('meta[name="twitter:title"]').setAttribute('content', metaObj.title)
+          document.querySelector('meta[property="og:title"]').setAttribute('content', metaObj.title)
+        }
+        if ('description' in metaObj) {
+          document.querySelector('meta[name="description"]').setAttribute('content', metaObj.description)
+          document.querySelector('meta[name="twitter:description"]').setAttribute('content', metaObj.description)
+          document.querySelector('meta[property="og:description"]').setAttribute('content', metaObj.description)
+        }
+        if ('keywords' in metaObj) {
+          document.querySelector('meta[name="keywords"]').setAttribute('content', metaObj.keywords)
+        }
+        if ('social_image' in metaObj) {
+          document.querySelector('meta[name="twitter:image:src"]').setAttribute('content', metaObj.social_image)
+          document.querySelector('meta[property="og:image"]').setAttribute('content', metaObj.social_image)
+        }
+        if ('canonical_url' in metaObj) {
+          document.querySelector('meta[property="og:url"]').setAttribute('content', metaObj.canonical_url)
+        }
         break
     }
     return ''
