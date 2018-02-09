@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', e => {
 
   document.body.addEventListener('dblclick', e => togglePresent())
   document.body.addEventListener('click', e => {
+    // Only apply in presentation mode
+    if (!isPresenting()) return
+
     // TODO: have proper tap areas for this
     if (e.originalTarget.nodeName === 'DETAILS') {
       e.originalTarget.open = !e.originalTarget.open
@@ -49,6 +52,8 @@ document.addEventListener('DOMContentLoaded', e => {
     // Live webcam view
     if (e.key==='v') toggleLiveView(e);
 
+    // Show source of processed/generated slide deck in new window
+    if (e.key==='x') exportSlides(e);
   });
 
   function nextPage(e) {
@@ -96,18 +101,47 @@ document.addEventListener('DOMContentLoaded', e => {
     window.location.replace('#'+slideNumber(next));
   }
 
-  function togglePresent() {
-    document.documentElement.classList.toggle('present');
+  function isPresenting() {
+    return document.documentElement.classList.contains('present');
+  }
+  function togglePresent(e) {
+    document.documentElement.classList.toggle('present', e === 'off' ? false : undefined);
   }
 
   function toggleLiveView(e) {
+    if (e === 'off') {
+      document.documentElement.classList.toggle('live-view', false)
+      return
+    }
+
     if (e.altKey) {
+      e.preventDefault()
       return showWebcam().then(_ => document.documentElement.classList.add('live-view'))
     }
 
     document.documentElement.classList.toggle('live-view')
   }
 
+  function exportSlides(e) {
+    if (e.altKey) {
+      e.preventDefault()
+
+      togglePresent('off')
+      toggleLiveView('off')
+      goToPage(1)
+
+      const w = window.open('')
+      if (w) {
+        w.document.write('<pre>&lt;!doctype html&gt;\n'+document.documentElement.outerHTML.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre>')
+
+        const range = w.document.createRange();
+        range.selectNode(w.document.body);
+        w.getSelection().addRange(range);
+
+        w.document.execCommand('copy')
+      }
+    }
+  }
 
   function slideNumber(current) {
     current = current || document.querySelector('main>section.current')
