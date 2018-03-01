@@ -50,6 +50,12 @@ h1, h2, h3 {
 	text-transform: uppercase;
 }
 
+.top-left-title h1,
+.top-left-title h2,
+.top-left-title h3 {
+  display: inline-block;
+}
+
 /* title h3 */
 section > h3 {
   display: inline-block;
@@ -104,4 +110,14 @@ section {
 .slim h2 {
   font-weight: 300;
   letter-spacing: -.05em;
+}
+
+.big.link h2 {
+	text-shadow: .05em .05em black,.05em -.05em black,-.05em .05em black,-.05em -.05em black,0 -.05em black,0 .05em black;
+	text-transform: none;
+	font-size: 5rem;
+}
+.big.link h2 a {
+  text-decoration: none;
+  color: inherit;
 }

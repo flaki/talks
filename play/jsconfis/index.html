@@ -1,0 +1,267 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>JavaScript 💖 Microcontrollers</title>
+	<meta name="description" content="2,560 bytes ought to be enough for anyone! — running JavaScript on a microcontroller. Flaki @ JSConf Iceland 2018">
+	<meta name="keywords" content="javascript, microcontrollers, iot, clouduboy, flaki, jerryscript, espruino, nodejs">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="JavaScript 💖 Microcontrollers">
+	<meta name="twitter:description" content="2,560 bytes ought to be enough for anyone! — running JavaScript on a microcontroller. Flaki @ JSConf Iceland 2018">
+	<meta name="twitter:image:src" content="http://talk.flak.is/pic/baela-jsconfis.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/play/jsconfis/">
+
+	<meta property="og:title" content="JavaScript 💖 Microcontrollers">
+	<meta property="og:description" content="2,560 bytes ought to be enough for anyone! — running JavaScript on a microcontroller. Flaki @ JSConf Iceland 2018">
+	<meta property="og:image" content="http://talk.flak.is/pic/baela-jsconfis.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<style>
+@import url("/s/themes/pinky.css");
+</style><style>
+@import url("/s/tinker.css");
+</style><style>
+#workshoppromo {
+  background-color: #a0a0fe;
+}
+#workshoppromo picture img {
+  padding-top: 6vh;
+  padding-bottom: 60vh;
+}
+</style><style>
+@import url("/s/keep-playing.css");
+</style></head>
+
+<body><main><section id="opening" class="top-left-title current">
+<p><picture class="bg">
+<img src="/pic/baela-jsconfis.jpg" alt="Baela says hi">
+</picture></p>
+<h2 id="halljsconficeland">Halló, JSConf Iceland!</h2>
+<blockquote>
+  <p>Last updated: 2018-03-01</p>
+</blockquote>
+</section>
+<section id="title">
+<p><picture class="bg top">
+<img src="../img/ftw-dino.jpg" alt="Microchips &amp; JS">
+</picture></p>
+<h1 id="2560bytes">2,560 bytes</h1>
+<h2 id="oughttobeenoughforanyone">ought to be enough for anyone</h2>
+<blockquote>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+<p></p><details>
+  <a href="https://www.computerworld.com/article/2534312/operating-systems/the--640k--quote-won-t-go-away----but-did-gates-really-say-it-.html" target="_blank">Doesn't matter really if the quote is true, really - it's a meme/story that's, at this point, stuck with us.</a>. Picture by: <em><a href="https://commons.wikimedia.org/w/index.php?curid=46809082" target="_blank">Thomas Nguyen - Own work, CC BY-SA 4.0</a></em>
+</details><p></p>
+</section>
+<section id="whoami">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<div id="tinker">
+  <img alt="JavaScript" src="/pic/js.png">
+  <h3>JavaScript developer/trainer</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla Tech Speaker</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project member</h3>
+</div>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/tessel.png" alt="">
+</picture></p>
+<h3 id="itallstartedonasunnysummerafternoon">It all started on a sunny summer afternoon…</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/flaki-tessel-at-budapest-js.jpg" alt="">
+</picture></p>
+<h2 id="flakimeetsthehardwareworld">Flaki meets the hardware world</h2>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/jon-mckay-embedded-nodejs.png" alt="">
+</picture></p>
+<h2 id="ontheperksperilsofnodejsonamicrocontroller">On the Perks &amp; Perils of Node.js on a Microcontroller</h2>
+<blockquote>
+  <p>from Technical Machine (Tessel) co-founder Jon McKay</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/espruino.jpg" alt="The Espruino Pico">
+</picture></p>
+<h3 id="running_actual_javascriptonthedevice">Running <em>actual</em> JavaScript on the device</h3>
+<blockquote>
+  <p>The Espruino sported its own compiler to run JavaScript, on-device</p>
+</blockquote>
+<p></p><details>
+Standards support used to be bad but improved a lot and now it's "good enough". Espruino has been ported to several other devices since, one of the most well-known is the ESP 8266 which is a wifi-enabled microcontroller board!
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/samsung-js-onmicrocontrollers-summary.jpg" alt="">
+</picture></p>
+<h3 id="samsungsexplorationsofjsonembedded">Samsung's explorations of JS on embedded</h3>
+<p></p><details><br>
+Samsung engineers attended a TC39 (the comitee responsible for JavaScript's standardization) meeting in early 2014 to advocate for a standardization of a "JavaScript-subset", that would be more suitable to be run on microcontrollers. Samsung was met with general skepticims about building an ES-compliant JS engine (even with restrictions) in the multiple-kilobytes-range.<p></p>
+<p>Of course the negativity of TC-39 didn't stop Samsung from trying and the same year they have started research, exploring the possibilities of adopting such an embeddedded JS engine. Stripping the open source JavaScript Core engine from the superfluous bits turned out to be too much of a hassle, compared to using something that was built with embeddability in mind (e.g. the Duktape engine). Despite (or maybe because of) the findings of this research, Samsung ended up starting development on their very own JS engine…<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/jerryscript.png" alt="">
+</picture></p>
+<h3 id="jerryscript">JerryScript</h3>
+<blockquote>
+  <p>JerryScript can run on devices with less than 64 KB RAM and &lt;200 KB of flash, it is fully ES5.1-compliant &amp; heavily optimized.</p>
+</blockquote>
+<p></p><details>
+It took Samsung a year to complete the initial version of JerryScript, which they subsequently open-sourced and released to the public. It took about another year for the codebase to stabilize, but today it's one of the best (and most widely adopted) embedded JS engines besides Espruino (especially with companies building their own embedded products, such as…)
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/microbit.png" alt="">
+</picture></p>
+<h3 id="preparingyoutforadigitalagewiththebbcmicrobit">Preparing yout for a digital age with the BBC Micro:bit</h3>
+</section>
+<section class="big slim">
+<h2 id="javascriptpowerediot">JavaScript-powered IoT</h2>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/pebble.jpg" alt="">
+</picture></p>
+<h3 id="pebblesrockyjspebblejsannouncement">Pebble's Rocky.js / Pebble.js announcement</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/tictoc.png" alt="">
+</picture></p>
+<h3 id="developerergonomymatters">Developer Ergonomy Matters!</h3>
+<blockquote>
+  <p>Pebble managed to run a JS/HTML5 watchface, powered by JerryScript without <em>it being less efficient than the C code</em>!</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/fitbit-ionic.jpg" alt="">
+</picture></p>
+<h3 id="andfitbittookoverrightwherepebbleleftoff">…and Fitbit took over right where Pebble left off</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg">
+<img src="../img/smaller.jpg" alt="We need to go smaller">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg align-top">
+<img src="../img/custom-arduboy.jpg" alt="">
+</picture></p>
+<h3 id="sohowdoyouputjson_these_">So how do you put JS on <em>these</em>?</h3>
+<p></p><details>
+mjs gets close, but not exactly. You'll need something of a very different approach.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/clouduboy3-html5.jpg" alt="">
+</picture></p>
+<h2 id="introducingclouduboy">Introducing: Clouduboy</h2>
+<p></p><details>
+Clouduboy is a lot of things. A library for creating tiny pixelgraphic images (PIF) and games (MicroCanvas). An online IDE for Arduino-based gaming devices. A compiler to turn JavaScript games to C++ ones and put them onto those tiny microcontrollers
+</details><p></p>
+</section>
+<section class="big slim">
+<h2 id="turnyourjsintoc">Turn your JS into C++!</h2>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/ruhrjs.jpg" alt="">
+</picture></p>
+<h3 id="soitwillrunonthis">So it will run on this…</h3>
+<blockquote>
+  <p>The Arduboy is based on the same chipset and peripherals than the one you just saw. It just <em>looks nicer</em> ;)</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg cover">
+<img src="../img/tinyarcade.gif" alt="">
+</picture></p>
+<h3 id="oreventhis">…or even this!</h3>
+<blockquote>
+  <p>The Tiny Arcade is slightly different. It has a much more powerful ARM MCU (same as the Micro:bit!) &amp; color screen!</p>
+</blockquote>
+</section>
+<section id="give-it-a-go" class="big">
+<h1 id="itsjusttheweb">It's Just The Web!</h1>
+</section>
+<section class="big link">
+<p><picture class="bg">
+<img src="../img/offline-dino.png" alt="">
+</picture></p>
+<h2 id="cldbydinocldbydino"><a href="//cld.by/dino" target="_blank">cld.by/dino</a></h2>
+</section>
+<section class="big link">
+<p><picture class="bg">
+<img src="../img/spaceinvaders.gif" alt="">
+</picture></p>
+<h2 id="cldbyinvaderscldbyinvaders"><a href="//cld.by/invaders" target="_blank">cld.by/invaders</a></h2>
+</section>
+<section id="workshoppromo" class="big link">
+<p><picture class="bg centered">
+<img src="//clouduboy.org/igi-workshop/clouduboy-iceland.png" alt="">
+</picture></p>
+<h2 id="cldbyworkshopcldbyworkshop"><a href="//cld.by/workshop" target="_blank">cld.by/workshop</a></h2>
+<blockquote>
+  <p>Next Saturday at Reykjavík University</p>
+</blockquote>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="../img/play.gif" alt="">
+</picture></p>
+<h1 id="thanksabunch">Thanks a bunch!</h1>
+<h4 id="talkflakisplayjsconfishttptalkflakisplayjsconfis"><a href="http://talk.flak.is/play/jsconfis/" target="_blank">talk.flak.is/play/jsconfis</a></h4>
+<p><span class="tweet">
+<img src="../img/clouduboy-icon-large.png" alt="Clouduboy">
+@clouduboy
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message">Keep playing!</div>
+</section>
+<section>
+<h3 id="readinglist">Reading list:</h3>
+<ul>
+<li><a href="https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070" target="_blank">JavaScript World Domination by Flaki</a></li>
+<li><a href="https://opbeat.com/community/posts/the-eternal-struggle-node-js-in-embedded-devices-by-jon-mckay/" target="_blank">Node.js on embedded devices? Why? By Jon Mckay</a></li>
+<li><a href="https://vimeo.com/129003513" target="_blank">Suz Hinton (noopkat) at Web Rebels, on firmata &amp; using an Arduino with Node.js</a></li>
+<li><a href="https://www.espruino.com/Performance" target="_blank">Espruino executes code from source (and other performance considerations)</a></li>
+<li><a href="http://www.slideshare.net/seoyounghwang77/js-onmicrocontrollers" target="_blank">Samsung exploring JS on microcontrollers</a></li>
+<li><a href="http://tc39.github.io/tc39-notes/2014-04_apr-8.html#presentation-by-samsung-representatives" target="_blank">Samsung's IoT pitch at the April 2014 TC39 meeting</a></li>
+<li><a href="https://esdiscuss.org/notes/2014-04/ecma-tc39-talk-samsung.pdf" target="_blank">Samsung's TC39 presentation</a></li>
+<li><a href="https://developer.pebble.com/blog/2016/08/15/introducing-rockyjs-watchfaces/" target="_blank">It's JavaScript on the freakin' watch!</a></li>
+<li><a href="https://gist.github.com/HBehrens/1a91b97e1e98a6a09c5f" target="_blank">Heiko Behrens on Rocky.js/Pebble.js</a></li>
+<li><a href="https://www.youtube.com/watch?v=2TslKh1tdm4" target="_blank">Heiko announces Pebble.js at JSConf 2015</a></li>
+</ul>
+</section></main></body></html>
