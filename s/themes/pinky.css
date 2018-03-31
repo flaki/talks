@@ -56,6 +56,14 @@ h1, h2, h3 {
   display: inline-block;
 }
 
+.top-right-title h1,
+.top-right-title h2,
+.top-right-title h3 {
+  display: inline-block;
+  float: right;
+}
+
+
 /* title h3 */
 section > h3 {
   display: inline-block;
@@ -80,6 +88,10 @@ section>blockquote, section>ul, section>ol {
   background: rgba(0,0,0,.85);
   padding: .6em;
   margin: 1em;
+}
+
+section>blockquote strong, section>ul strong, section>ol strong {
+  font-weight: 600;
 }
 
 

@@ -1,0 +1,425 @@
+<!doctype html>
+<html class=""><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Clouduboy 👾</title>
+	<meta name="description" content="2,560 bytes ought to be enough for anyone! — JavaScript games on a microcontrollers using Clouduboy. Presented by Flaki @ EnthusiastiCon 2018, Berlin">
+	<meta name="keywords" content="javascript, microcontrollers, iot, clouduboy, flaki, jerryscript, espruino, nodejs">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="Clouduboy 👾">
+	<meta name="twitter:description" content="2,560 bytes ought to be enough for anyone! — JavaScript games on a microcontrollers using Clouduboy. Presented by Flaki @ EnthusiastiCon 2018, Berlin">
+	<meta name="twitter:image:src" content="http://talk.flak.is/pic/ducklings-ts.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/play/ec-berlin-2018/">
+
+	<meta property="og:title" content="Clouduboy 👾">
+	<meta property="og:description" content="2,560 bytes ought to be enough for anyone! — JavaScript games on a microcontrollers using Clouduboy. Presented by Flaki @ EnthusiastiCon 2018, Berlin">
+	<meta property="og:image" content="http://talk.flak.is/pic/ducklings-ts.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<style>
+@import url("/s/themes/pinky.css");
+
+.purp { background: #a0a0fe; }
+</style><style>
+@import url("/s/tinker.css");
+</style><style>
+@keyframes bob {
+  from {
+    top: 2.75rem;
+  }
+
+  to {
+    top: 5rem;
+  }
+}
+
+#clouduboyorg {
+  background: #a0a0fe;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#clouduboyorg img {
+  width: 8rem;
+
+  position: relative;
+  animation: 2s ease-in-out infinite alternate-reverse bob;
+}
+</style><style>
+@import url("/s/keep-playing.css");
+</style></head>
+
+<body><main><section id="opening" class="top-left-title current">
+<p><picture class="bg">
+<img src="/pic/ducklings-ts.jpg" alt="Techspeakers say hi">
+</picture></p>
+<h2 id="hithereenthusiasticon">Hi there, EnthusiastiCon!! 🦆</h2>
+<blockquote style="left: 0; right: unset;">
+  <p>Last updated: 2018-03-28</p>
+</blockquote>
+</section>
+<section id="whoami" class="top-right-title">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<h2 id="istvnszmozsnszkyflakibrslsoftworks">István Szmozsánszky "Flaki" <br> @slsoftworks</h2>
+<div id="tinker">
+  <img alt="JavaScript" src="/pic/js.png">
+  <h3>JavaScript developer/trainer</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla Tech Speaker</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project member</h3>
+</div>
+</section>
+<section id="title">
+<p><picture class="bg top">
+<img src="../img/ftw-dino.jpg" alt="Microchips &amp; JS">
+</picture></p>
+<h1 id="2560bytes">2,560 bytes</h1>
+<h2 id="oughttobeenoughforanyone">ought to be enough for anyone</h2>
+<blockquote>
+  <p><small>a.k.a</small>&nbsp; <strong>JavaScript 💖 Hardware</strong> <br><br></p>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+<p></p><details><p></p>
+<p></p></details><p></p>
+</section>
+<section class="big slim">
+<h2 id="javascriptonnbspemhardwareem">JavaScript on &nbsp;<em>hardware?</em></h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/espruino.jpg" alt="The Espruino Pico">
+</picture></p>
+<h3 id="theespruino">The Espruino</h3>
+<blockquote>
+  <p>The Espruino sported its own compiler to run JavaScript, on-device</p>
+</blockquote>
+<p></p><details>
+Standards support used to be bad but improved a lot and now it's "good enough". Espruino has been ported to several other devices since, one of the most well-known is the ESP 8266 which is a wifi-enabled microcontroller board!
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/microbit.png" alt="">
+</picture></p>
+<h3 id="thebbcmicrobit">The BBC Micro:bit</h3>
+</section>
+<section class="white-background">
+<p><a href="https://makecode.microbit.org/#" target="_blank"><picture class="bg centered drop-shadow">
+<img src="../img/microbit-makecode.png" alt="The Micro:bit MakeCode visual editor">
+</picture></a></p>
+<h3 id="onlinecodeeditor">Online code editor</h3>
+<p></p><details>
+  The MakeCode Editor is a completely browser-based online editor for creating new sketches (firmware code) for the Micro:bit. It lets you code in JavaScript, or use a simple block-based language to create the functionality, and even generates the firmware that just needs to be downloaded and copied over to the device.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/jerryscript.png" alt="">
+</picture></p>
+<h3 id="poweredbyjerryscript">Powered By JerryScript</h3>
+<blockquote>
+  <p>JerryScript can run on devices with less than 64 KB RAM and &lt;200 KB of flash, it is fully ES5.1-compliant &amp; heavily optimized.</p>
+</blockquote>
+<p></p><details>
+It took Samsung a year to complete the initial version of JerryScript, which they subsequently open-sourced and released to the public. It took about another year for the codebase to stabilize, but today it's one of the best (and most widely adopted) embedded JS engines besides Espruino (especially with companies building their own embedded products, such as…)
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/tictoc.png" alt="">
+</picture></p>
+<h3 id="pebblejavascriptonafriggenwatch">Pebble: JavaScript on a friggen' watch!</h3>
+<blockquote>
+  <p>Pebble managed to run a JS/HTML5 watchface, powered by JerryScript without <em>it being less efficient than the C code</em>!</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/fitbit-ionic.jpg" alt="">
+</picture></p>
+<h3 id="andfitbittookoverrightwherepebbleleftoff">…and Fitbit took over right where Pebble left off</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/atmega32u4.jpg" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/atmega32u4-sizecomp.jpg" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/arduino-micro.png" alt="">
+</picture></p>
+<blockquote>
+  <p>16 Mhz 8-bit CPU, 2.5 Kilobytes of memory, 32 Kilobytes of program storage!</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/gameboy.png" alt="">
+</picture></p>
+<blockquote>
+  <p>Still, in a lot of ways, these microcontrollers are just as powerful (if not more) than the original Gameboy</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg align-top">
+<img src="../img/custom-arduboy.jpg" alt="">
+</picture></p>
+<h3 id="sowewillseehowtoputjson_these_">So we will see how to put JS on <em>these</em></h3>
+<p></p><details>
+Some tiny JS engines get pretty close, but still no match for these resource-constrained devices. You'll need something of a very different approach.
+</details><p></p>
+</section>
+<section id="clouduboyorg" class="big link">
+<p><img src="https://clouduboy.org/clouduboy-logo.png" alt=""></p>
+<h2 id="clouduboyorgclouduboyorg"><a href="//clouduboy.org" target="_blank">clouduboy.org</a></h2>
+</section>
+<section class="big slim">
+<h1 id="butfirst">But first…</h1>
+</section>
+<section>
+<p><picture class="bg cover">
+<img src="../img/we-have-to-go-back.jpg" alt="">
+</picture></p>
+<blockquote>
+  <p>We have to go back… to 2016</p>
+</blockquote>
+</section>
+<section class="big slim">
+<h2 id="learninghowtocode">Learning how to code</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/hcf.jpg" alt="">
+</picture></p>
+</section>
+<section>
+<p>[]()<br>
+<picture class="bg">
+<img src="../img/invaders.gif" alt="">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="hardware">Hardware</h2>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/tessel.png" alt="">
+</picture></p>
+<h3 id="itallstartedonasunnysummerafternoon">It all started on a sunny summer afternoon…</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/flaki-tessel-at-budapest-js.jpg" alt="">
+</picture></p>
+<h2 id="flakimeetsthehardwareworld">Flaki meets the hardware world</h2>
+</section>
+<section>
+<p><picture class="bg cover">
+<img src="../img/kickstarter.jpg" alt="">
+</picture></p>
+<h2 id="thencameakickstartercampaign">Then came a Kickstarter campaign…</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/arduboy-rotate.gif" alt="">
+</picture></p>
+<h3 id="thearduboy">The Arduboy</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/arduino-ide.png" alt="">
+</picture></p>
+<h3 id="creategameswiththearduinoide">Create games with the Arduino IDE</h3>
+</section>
+<section class="">
+<p><picture class="bg">
+<img src="../img/clouduboy1.jpg" alt="">
+</picture></p>
+<h3 id="theclouduboywebideisborn">The Clouduboy Web IDE is born</h3>
+<blockquote>
+  <p>Initially I started Clouduboy as a replacement for the Arduino's clunky interface when it came to writing games for the Arduboy</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/clouduboy3-html5.jpg" alt="">
+</picture></p>
+<h2 id="sowhatemisemclouduboy">So what <em>is</em> Clouduboy?</h2>
+<p></p><details>
+Clouduboy is a lot of things. A library for creating tiny pixelgraphic images (PIF) and games (MicroCanvas). An online IDE for Arduino-based gaming devices. A compiler to turn JavaScript games to C++ ones and put them onto those tiny microcontrollers
+</details><p></p>
+</section>
+<section class="big slim">
+<h2 id="withclouduboy">With Clouduboy…</h2>
+</section>
+<section class="big slim">
+<h2 id="createyourowngames">Create your own games!</h2>
+</section>
+<section class="">
+<p><picture class="bg cover">
+<img src="../img/aaa-game.jpg" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/offline-dino.png" alt="">
+</picture></p>
+<h3 id="wellrathersomethingmorelikethis">Well, rather something more like this:</h3>
+</section>
+<section class="big slim">
+<h2 id="sharethem">Share them!</h2>
+<p></p><details><br>
+<a href="https://clouduboy.github.io/microcanvas/examples/" target="_blank">MicroCanvas</a><br>
+&lt;/details<p></p>
+</details></section>
+<section class="">
+<p><picture class="bg contain">
+<img src="../img/ruhrjs.jpg" alt="">
+</picture></p>
+<h3 id="andthenputtheminyourpocket">…and then put them in your pocket!</h3>
+</section>
+<section class="big slim">
+<h2 id="learntocodewhilehavingfun">Learn to code while having fun!</h2>
+</section>
+<section class="">
+<p><picture class="bg centered">
+<img src="../img/clouduboy3-html5.jpg" alt="">
+</picture></p>
+</section>
+<section class="purp">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/microcanvas-01.png" alt="">
+</picture></p>
+</section>
+<section class="purp">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/microcanvas-02-loops.png" alt="">
+</picture></p>
+</section>
+<section class="purp">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/microcanvas-03-if.gif" alt="">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="createwholegamesinthebrowser">Create whole games in the browser!</h2>
+</section>
+<section class="purp">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/microcanvas-04-game.gif" alt="">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="createeditsprites">Create &amp; edit sprites!</h2>
+</section>
+<section class="">
+<p><picture class="bg contain">
+<img src="../img/clouduboy/clouduboy-paint.gif" alt="">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="turnjsintoarduinocode">Turn JS into Arduino code!</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/clouduboy/clouduboy-convert.gif" alt="">
+</picture></p>
+</section>
+<section class="">
+<p><picture class="bg contain">
+<img src="../img/ruhrjs.jpg" alt="">
+</picture></p>
+<h3 id="soitwillrunonthis">So it will run on this…</h3>
+<blockquote>
+  <p>The Arduboy is based on the same chipset and peripherals than the one you just saw. It just <em>looks nicer</em> ;)</p>
+</blockquote>
+</section>
+<section class="">
+<p><picture class="bg cover">
+<img src="../img/tinyarcade.gif" alt="">
+</picture></p>
+<h3 id="oreventhis">…or even this!</h3>
+<blockquote>
+  <p>The Tiny Arcade is slightly different. It has a much more powerful ARM MCU (same as the Micro:bit!) &amp; color screen!</p>
+</blockquote>
+</section>
+<section class="">
+<p><picture class="bg centered">
+<img src="../img/clouduboy/microcanvas-microbit.jpg" alt="">
+</picture></p>
+<h3 id="experimentalmicrobitsupport">Experimental Micro:bit support!</h3>
+<blockquote>
+  <p>The Micro:bit is interesting because it only has 2 buttons (space invaders requires at least three, to move and shoot) but it has built-in accelerometer - Clouduboy uses the device tilt as directional buttons!</p>
+</blockquote>
+</section>
+<section id="give-it-a-go" class="big">
+<h2 id="itsjusttheweb">It's Just The Web!</h2>
+</section>
+<section class="big link">
+<p><picture class="bg">
+<img src="../img/offline-dino.png" alt="">
+</picture></p>
+<h2 id="cldbydinocldbydino"><a href="//cld.by/dino" target="_blank">cld.by/dino</a></h2>
+</section>
+<section class="big link">
+<p><picture class="bg">
+<img src="../img/spaceinvaders.gif" alt="">
+</picture></p>
+<h2 id="cldbyinvaderscldbyinvaders"><a href="//cld.by/invaders" target="_blank">cld.by/invaders</a></h2>
+</section>
+<section id="keepplaying" class="">
+<p><picture class="bg">
+<img src="../img/play.gif" alt="">
+</picture></p>
+<h1 id="thanksabunch">Thanks a bunch!</h1>
+<h4 id="talkflakisplayecberlin2018httptalkflakisplayecberlin2018"><a href="http://talk.flak.is/play/ec-berlin-2018/" target="_blank">talk.flak.is/play/ec-berlin-2018</a></h4>
+<p><span class="tweet">
+<img src="../img/clouduboy-icon-large.png" alt="Clouduboy">
+@clouduboy
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message">Keep playing!</div>
+</section>
+<section>
+<h3 id="readinglist">Reading list:</h3>
+<ul>
+<li><a href="https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070" target="_blank">JavaScript World Domination by Flaki</a></li>
+<li><a href="https://opbeat.com/community/posts/the-eternal-struggle-node-js-in-embedded-devices-by-jon-mckay/" target="_blank">Node.js on embedded devices? Why? By Jon Mckay</a></li>
+<li><a href="https://vimeo.com/129003513" target="_blank">Suz Hinton (noopkat) at Web Rebels, on firmata &amp; using an Arduino with Node.js</a></li>
+<li><a href="https://www.espruino.com/Performance" target="_blank">Espruino executes code from source (and other performance considerations)</a></li>
+<li><a href="http://www.slideshare.net/seoyounghwang77/js-onmicrocontrollers" target="_blank">Samsung exploring JS on microcontrollers</a></li>
+<li><a href="http://tc39.github.io/tc39-notes/2014-04_apr-8.html#presentation-by-samsung-representatives" target="_blank">Samsung's IoT pitch at the April 2014 TC39 meeting</a></li>
+<li><a href="https://esdiscuss.org/notes/2014-04/ecma-tc39-talk-samsung.pdf" target="_blank">Samsung's TC39 presentation</a></li>
+<li><a href="https://developer.pebble.com/blog/2016/08/15/introducing-rockyjs-watchfaces/" target="_blank">It's JavaScript on the freakin' watch!</a></li>
+<li><a href="https://gist.github.com/HBehrens/1a91b97e1e98a6a09c5f" target="_blank">Heiko Behrens on Rocky.js/Pebble.js</a></li>
+<li><a href="https://www.youtube.com/watch?v=2TslKh1tdm4" target="_blank">Heiko announces Pebble.js at JSConf 2015</a></li>
+</ul>
+</section></main></body></html>
