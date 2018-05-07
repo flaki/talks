@@ -1,0 +1,415 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>AV1</title>
+	<meta name="description" content="The wonderful &amp; open internet video future you've never heard of. Presented by Flaki @ FOSS North 2018, Gothenburg">
+	<meta name="keywords" content="internet, video, royalty-free,">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="AV1">
+	<meta name="twitter:description" content="The wonderful &amp; open internet video future you've never heard of. Presented by Flaki @ FOSS North 2018, Gothenburg">
+	<meta name="twitter:image:src" content="http://talk.flak.is/pic/baela-disco.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/av1/fossnorth/">
+
+	<meta property="og:title" content="AV1">
+	<meta property="og:description" content="The wonderful &amp; open internet video future you've never heard of. Presented by Flaki @ FOSS North 2018, Gothenburg">
+	<meta property="og:image" content="http://talk.flak.is/pic/baela-disco.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<script type="text/javascript">// Promises 
+var _eid_promises = {}; 
+// Turn the incoming message from extension 
+// into pending Promise resolving 
+window.addEventListener("message", function(event) { 
+    if(event.source !== window) return; 
+    if(event.data.src && (event.data.src === "background.js")) { 
+        console.log("Page received: "); 
+        console.log(event.data); 
+        // Get the promise 
+        if(event.data.nonce) { 
+            var p = _eid_promises[event.data.nonce]; 
+            // resolve 
+            if(event.data.result === "ok") { 
+                if(event.data.signature !== undefined) { 
+                    p.resolve({hex: event.data.signature}); 
+                } else if(event.data.version !== undefined) { 
+                    p.resolve(event.data.extension + "/" + event.data.version); 
+                } else if(event.data.cert !== undefined) { 
+                    p.resolve({hex: event.data.cert}); 
+                } else { 
+                    console.log("No idea how to handle message"); 
+                    console.log(event.data); 
+                } 
+            } else { 
+                // reject 
+                p.reject(new Error(event.data.result)); 
+            } 
+            delete _eid_promises[event.data.nonce]; 
+        } else { 
+            console.log("No nonce in event msg"); 
+        } 
+    } 
+}, false); 
+ 
+ 
+function TokenSigning() { 
+    function nonce() { 
+        var val = ""; 
+        var hex = "abcdefghijklmnopqrstuvwxyz0123456789"; 
+        for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length)); 
+        return val; 
+    } 
+ 
+    function messagePromise(msg) { 
+        return new Promise(function(resolve, reject) { 
+            // amend with necessary metadata 
+            msg["nonce"] = nonce(); 
+            msg["src"] = "page.js"; 
+            // send message 
+            window.postMessage(msg, "*"); 
+            // and store promise callbacks 
+            _eid_promises[msg.nonce] = { 
+                resolve: resolve, 
+                reject: reject 
+            }; 
+        }); 
+    } 
+    this.getCertificate = function(options) { 
+        var msg = {type: "CERT", lang: options.lang}; 
+        console.log("getCertificate()"); 
+        return messagePromise(msg); 
+    }; 
+    this.sign = function(cert, hash, options) { 
+        var msg = {type: "SIGN", cert: cert.hex, hash: hash.hex, hashtype: hash.type, lang: options.lang}; 
+        console.log("sign()"); 
+        return messagePromise(msg); 
+    }; 
+    this.getVersion = function() { 
+        console.log("getVersion()"); 
+        return messagePromise({ 
+            type: "VERSION" 
+        }); 
+    }; 
+}</script><style>
+@import url("/s/themes/pinky.css");
+
+.purp { background: #a0a0fe; }
+</style><style>
+@import url("/s/tinker.css");
+</style><style>
+#daala h1 {
+	color: white;
+	background: black;
+	display: inline-block;
+	padding: 0;
+	width: auto;
+	margin: auto;
+	height: auto;
+	line-height: 1em;
+	vertical-align: top;
+	left: 50%;
+	margin-left: -1.5em;
+	top: 20%;
+}
+</style><style>
+.shoutout {
+  display: flex;
+}
+.shoutout h2 {
+	line-height: 1.2;
+	color: aqua;
+  background: rgba(0,0,0,.8);
+	font-weight: 400;
+}
+</style><style>
+.video::after {
+  content: 'video!'
+}
+</style><style>
+@import url("/s/keep-playing.css");
+</style></head>
+
+<body><main><section id="opening" class="top-left-title current">
+<p><picture class="bg">
+<img src="/pic/baela-disco.jpg" alt="Hi">
+</picture></p>
+<h2 id="hitherefossnorthfolks">Hi there, Foss North Folks!</h2>
+<blockquote>
+  <p>Last updated: 2018-04-23</p>
+</blockquote>
+</section>
+<section id="whoami" class="top-right-title">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<h2 id="istvnszmozsnszkyflakibrslsoftworks">István Szmozsánszky "Flaki" <br> @slsoftworks</h2>
+<div id="tinker">
+  <img alt="JavaScript" src="/pic/js.png">
+  <h3>JavaScript developer/trainer</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla TechSpeakers &amp; DevRel</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project — JS 💖 HW</h3>
+</div>
+</section>
+<section id="title">
+<p><picture class="bg">
+<img src="../img/av1-vs-h264.jpg" alt="">
+</picture></p>
+<h1 id="av1">AV1</h1>
+<h3 id="themagicalopenvideofutureoftheweb">the magical open video future of the web</h3>
+<blockquote>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+<p></p><details><p></p>
+<p></p></details><p></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/mozilla.jpg" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/royalty-free.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/daala.png" alt="">
+</picture></p>
+</section>
+<section id="daala" class="big">
+<p><picture class="bg">
+<img src="../img/daala.png" alt="">
+</picture></p>
+<h1 id="daala">Daala</h1>
+</section>
+<section class="big shoutout">
+<p><picture class="bg">
+<img src="../img/daala.png" alt="">
+</picture></p>
+<h2 id="hellipavideoformatthatsfreetoimplementuseanddistributehellip">"…a video format that's free to implement, use and distribute…"</h2>
+<p></p><details>
+https://wiki.xiph.org/Daala
+</details><p></p>
+</section>
+<section class="big shoutout">
+<p><picture class="bg">
+<img src="../img/daala.png" alt="">
+</picture></p>
+<h2 id="hellipandareferenceimplementationwithtechnicalperformancesuperiortoh265">"…and a reference implementation with technical performance superior to H.265."</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/cisco-internettraffic.png" alt="">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="manygrewdiscontentwiththestatusquohellip">Many grew discontent with the status quo…</h2>
+</section>
+<section class="big slim">
+<p><picture class="bg">
+<img src="../img/not-that-thor.jpg" alt="not thor">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/thor.png" alt="Cisco Thor">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/not-that-vp9.jpg" alt="not vp9">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/vp9-logo.png" alt="VP9">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="thisbroughtaboutbrnbspanunlikelyalliancehellip">This brought about <br>&nbsp; an unlikely alliance…</h2>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/aom-logo.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/aom-members.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/av1-vs-h264.jpg" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/av1-vs-h264.jpg" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/av1-logo.png" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/msu-comp.png" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="centered bg">
+<img src="../img/msu.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/av1-tools-overview.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/cfl1.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/cfl2.jpg" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/cfl3.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/dering2.png" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/dering-comp.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/aom-analyzer.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/aom-analyzer-shot2.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/aom-analyzer-shot1.jpg" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/aom-analyzer-abtesting.png" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/av1-analyzer.png" alt="">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="aroyaltymess">A Royal(ty) Mess</h2>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/av-codec-licensing.png" alt="">
+</picture></p>
+</section>
+<section class="big slim">
+<h2 id="okaysothisalllookstoogoodtobetruebrwhatsthecatch">Okay, so this all looks too good to be true.<br>What's the catch?</h2>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/availability.png" alt="">
+</picture></p>
+<h3 id="availability">Availability</h3>
+<p></p><details><p></p>
+<ul>
+<li>:( - It's so new, it barely exists anywhere.</li>
+<li>:| - It's already in Firefox Nightly a</li>
+<li>:) - Open source and patent-unencumbered, this helps the adoption. VLC already ships with an (experimental) AV1 decoder since the February 3.0.0 version.</li>
+</ul>
+<p>Expected that products (e.g. browsers) would be shipping support by end of year.</p>
+<p>From the industry, Netflix promises to be an early adopter, as well as Google (Youtube?).</p>
+<p>https://www.videolan.org/vlc/releases/3.0.0.html<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered dropshadow">
+<img src="../img/bitmovin-encode.png" alt="">
+</picture></p>
+<h3 id="encoding">Encoding</h3>
+<p></p><details><br>
+The encoder is currently in a state of being a "research-grade" code base.<p></p>
+<p>What this means is encoding is fairly unoptimized (50-200x slower than VP9), requires a lot of resources and time.</p>
+<ul>
+<li>:( - Live streaming, WebRTC?</li>
+<li>:| - Youtube and other pre-encoded sources</li>
+<li>:) - Netflix and streaming services with a smaller catalog.<br>
+</li></ul></details>
+
+</section>
+<section class="white-background">
+<p><picture class="bg centered dropshadow">
+<img src="../img/bitmovin.jpg" alt="">
+</picture></p>
+<h3 id="decoding">Decoding</h3>
+<p></p><details><p></p>
+<ul>
+<li>:( - No hardware support just yet, that means playback will drain battery faster compared to other formats.</li>
+<li>:) - Bitstream has evolved in close cooperation with hardware vendors, decoding hardware should be 1-2 years out, and after that it will be just as commonplace in CPUs, GPUs as any other technology. Being patent-unencumbered also helps adoption.</li>
+</ul>
+<p>1080p decoding on a conventional, consumer-grade laptop at ~25% CPU with current (fairly unoptimized codebase)<br>
+</p></details><p></p>
+</section>
+<section class="video">
+<p><picture class="bg">
+<img src="../img/negge-briefing.png" alt="">
+</picture></p>
+<h2 id="learnmore">Learn More</h2>
+<a href="https://www.youtube.com/watch?v=lEdqN22vaWs" target="_blank" style="position: absolute;top: 40vh;left: 40vw;width: 20vw;height: 20vw;"><img src="/pic/play.png" style="width: 100%;"></a>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="../img/cat-goes-into-fish-bowl.gif" alt="">
+</picture></p>
+<h1 id="thanksabunch">Thanks a bunch!</h1>
+<h4 id="talkflakisav1fossnorthhttptalkflakisav1fossnorth"><a href="http://talk.flak.is/av1/fossnorth/" target="_blank">talk.flak.is/av1/fossnorth</a></h4>
+<p><span class="tweet">
+<img src="https://pbs.twimg.com/profile_images/2631319542/aa071efb0ed133973c2ab9fea8b5f6d8_400x400.png" alt="mozhacks">
+@mozhacks
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message">Keep compressin'!</div>
+</section></main></body></html>
