@@ -328,7 +328,7 @@ Clouduboy is a lot of things. A library for creating tiny pixelgraphic images (P
 
 ---
 [](#.purp)
-!.bg.centered[](../img/clouduboy/microcanvas-03-if.gif)
+!.bg.contain[](../img/clouduboy/microcanvas-03-if.gif)
 
 
 

@@ -77,7 +77,143 @@ Objects are only allowed to have one prototype, but that prototype can have its 
 This is also called **walking the prototype chain**.
 
 ---
-## Using `Object.create()`
+### Why prototypes and not just inheritance
+
+Prototypes (while they _can be used_ to recreate classical inheritance) are much more powerful than it may seem first. Prototypes enable _Object Composition_, a way to express complex taxonomies of objects using multiple simpler abstractions.
+
+---
+
+### "Ask not who I am, but what can I do!" — Object Composition
+
+---
+### Without object composition
+
+```javascript
+function Bus() {}
+Bus.prototype = {
+  reroute: function() {}
+  refillGasoline: function() {}
+}
+
+function Tram() {}
+Tram.prototype = {
+  powerlineWattage: function() {}
+  trackObstructions: function() {}
+}
+
+// let trolleyBus = new ...?
+```
+
+Which of these taxonomies does a [Trolleybus](https://en.wikipedia.org/wiki/Trolleybus) belong to?
+
+> A Trolley bus is neither a Bus, nor a Tram. It's pretty much both, but not exactly either. It doesn't rhttps://notes.skylark.ee/#missing_documents.mdun on a track like a tram but draws power from an overhead wire. It, thus, doesn't require gasoline like a bus, but it can be rerouted as it has a battery reserve. We would need a completely new taxonomy for it, but then it would be problematic to distribute these properties in a way that minimizes repetition/copying, but doesn't give nonsensical properties to either of these object classes. Here's where Object Composition comes handy.
+
+---
+### With object composition
+
+```javascript
+function TrackboundVehicle() {}
+TrackboundVehicle.prototype = {
+    trackObstructions: function() {}
+};
+
+function RoadboundVehicle() {}
+RoadboundVehicle.prototype = {
+    reroute: function() {}
+};
+
+function GasolinePoweredVehicle() {}
+GasolinePoweredVehicle.prototype = {
+    refillGasoline: function() {}
+};
+
+function ElectricVehicle() {}
+ElectricVehicle.prototype = {
+    powerlineWattage: function() {}
+};
+```
+
+> Object composition lets us achieve a kind of multiple-inheritance by mixing & matching object **capabilities** instead of being bound by classes of object with pre-set properties and capabilities. A very  detailed explanation to Object composition and its advantages can be found [here](https://medium.com/code-monkey/object-composition-in-javascript-2f9b9077b5e6).
+
+---
+### Using `Object.assign()`
+
+```javascript
+function ComposedBus() {}
+ComposedBus.prototype = Object.assign(
+    {},
+    RoadboundVehicle.prototype,
+    GasolinePoweredVehicle.prototypeComposedBus
+);
+
+console.log(ComposedBus.Prototype)
+```
+
+`Object.assign()` lets us copy over properties of objects to a target object.
+
+> Essentially we "compose" our prototype, our Bus Archetype from various _capabilities_, like it being bound to travel on roads and using gasoline to power it. We have made composable objects and avoided having to copy these functionalities over from other classes, or having to resort to contrived and/or unintuitive taxonomies and inheritance chains.
+
+---
+### More composition examples
+
+```javascript
+function ComposedTram() {}
+ComposedTram.prototype = Object.assign(
+    {},
+    TrackboundVehicle.prototype,
+    ElectricVehicle.prototype
+);
+
+function ComposedTrolley() {}
+ComposedBus.prototype = Object.assign(
+    {},
+    RoadboundVehicle.prototype,
+    ElectricVehicle.prototype
+);
+```
+
+---
+## Deep composition with `Object.create`
+
+```javascript
+function ElectricRoadVehicle() {}
+ElectricRoadVehicle.prototype = Object.assign(
+    {}, RoadboundVehicle.prototype, ElectricVehicle.prototype
+);
+
+function ComposedNewTrolley() {}
+ComposedNewTrolley.prototype = Object.assign(
+    Object.create( ElectricRoadVehicle ),
+    PowerlineVehicle.prototype
+);
+```
+
+Creating an electric road vehicle prototype & using `Object.create()` to link it to our Trolley's prototype chain.
+
+> In this day & age it's not uncommon to have Hybrid & Electric buses in some cities. We will collect the properties of road vehicles and electric vehicles into a common prototype, `ElectricRoadVehicle`. Now we can create objects that just extend this common archetype with specific properties, like what `PowerlineVehicle` might have (e.g. connected? battery operation? battery charge etc...)
+
+---
+## On `Object.create()`
+
+```javascript
+let myProto = { useful: "prototype" }
+
+// Using new and constructor functions
+function ConstructorFunction() {}
+ConstructorFunction.prototype = myProto;
+let myObject = new ConstructorFunction();
+
+// Using Object.create()
+let myObjectCreate = Object.create(myProto);
+
+// The result is the same
+console.log( Object.getPrototypeOf(myObject) );
+console.log( Object.getPrototypeOf(myObjectCreate) );
+```
+
+`Object.create` lets us create new objects with _specific_ runtime prototypes.
+
+> In essence object.create is a shorter, more flexible way to create objects than using `new`. That said, `new` does a whole lot more (including executing a constructor function), so if that is needed it might still be useful to use `new` together with constructor functions in specific cases.
 
 
 -------------
@@ -111,7 +247,7 @@ class ClassicProto {
     // notice this method body is exactly the same as for the above
   }
 };
-
+https://notes.skylark.ee/#missing_documents.md
 var classyAnonymous = new ClassicProto();
 var classyXY = new ClassicProto();
 
@@ -155,147 +291,19 @@ alice.sayHi();
 Syntax (or syntactic) sugar means "not adding new fundamental syntax or functionality, but exposing existing functionality in a different, more ergonomic manner".
 
 ---
-### ES6 `class` syntax in older browsers
+### ES6 classes in older browsers
 - Older browsers don't understand the new syntax
 - Transpilers like Babel can translate the new syntax to the old
 - [Try it online at Babel.io](http://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=MYGwhgzhAEDC5QOoEsAuALWB7AdhVATgK7CpYHQDeAUNNMLvsaeQBQ5gC2ApgJRW060DMggA6Dj2gBeaJO4BuQQF9qgiGACeACWSt-NIfUZYQ3MSCwBzVgCJt3EJYA00WwGoR4-byV1VqmpAA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&lineWrap=true&presets=es2015-loose&prettier=true&targets=&version=6.26.0&envVersion=)
 
 ---
+### Output generated by Babel:
 
-![](../img/babel-es6classes.png)
+![](https://flaki.github.io/talks/dpc/img/babel-es6classes.png)
 
 ---
 ### Advantages of class syntax
 
 * Interoperable (across objects, authors, libraries)
-* Standardized shape
+* Standardizes shape of objects/interfaces
 * Easier to understand for OO developers
-
-
-
-********************************************************
-
-
-# Functions & Scope
-
-
-----------------------------------
-## Functions & Scope in JavaScript
-
-+ Function context / `this`
-+ Functions & methods
-+ Scopes
-+ IIFE
-+ Closure
-+ Block scope ES6
-
-
-
-********************************************************
-
-
-# Useful patterns in JavaScript
-
-
-----------------------------------
-## Useful JS & functional patterns
-
-* Sync vs Async callbacks
-* Chaining method calls
-* Asynchronous chains: Promises
-
-
----
-## Callbacks
-
----
-## Sync vs Async callbacks
-
----
-## Method chaining
-
----
-## Method chaining in jQuery
-
----
-## Promises
-
-```javascript
-let promise = new Promise(function(resolve, reject) {
-    setTimeout(function() {
-        resolve("Gone in 1s!");
-    }, 1000);
-});
-
-promise.then(function(msg) {
-    console.log(msg);
-});
-```
-
-> Promises are a new asynchronous primitive for controlling your code, and a great way to complement your APIs (a lot of new APIs in the ES and DOM specs make extensive use of promises). A *promise* represents a *token* that gets returned for an asynchronous operation. As soon as said operation finishes, the promise will present its value (or, in case the operation *failed*, the promise notifies you that the promise failed to produce an actionable value).  
-
----
-## Consuming promises
-```javascript
-fetch("http://example.com/").then(function(result) {
-    return result.json(); // <- also a promise!
-}).then(function(json) {
-    console.log(json);
-}).catch(function(error) {
-    console.error("Uh-oh!", error);
-}).finally(function() {
-    console.log("One way or another... I'm done!");
-});
-```
-
-Use `then`/`catch`/`finally` on promises (lots of libraries & DOM methods use, or _can return_ Promises).
-
-> Promises results are used by attaching event handlers to them for *promise fulfillment* (`.then()`) and *rejection* (`.catch()`). `.finally()` is a new addition to this mix, its callback will execute when the promise is *settled*, that is, *either* fulfilled or rejected.
-
-
-
-********************************************************
-
-
-# Web APIs
-
-
-------------------------
-## Commonly used Web APIs
-
-* About the DOM APIs
-* Cliend-side networking & the `fetch` API
-* The HTML5 `canvas`
-* Client-side storage
-
-
-
-********************************************************
-
-
-# Node.js
-
-
-----------
-## Node.js
-
-* Intro, Async I/O + Single Thread
-* The event loop in Node.js
-* I/O - file handling, streams
-* Web services - Express / Restify
-* Low-level networking
-
-
-
-********************************************************
-
-
-# Frontend tooling
-
-
--------------------
-## Frontend tooling
-
-* What is the usecase
-* Grunt/Gulp
-* Webpack
