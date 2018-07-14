@@ -1,0 +1,14 @@
+#moztechspeakers,
+.moztechspeakers {
+	display: block;
+	position: absolute;
+	font-size: 0;
+	left: 1rem;
+	bottom: 1rem;
+	background: url(/pic/moztechspeakers.png);
+	width: 33vw;
+	height: 20vw;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
