@@ -123,13 +123,21 @@ These days being an OSS contributor is a perk in itself in a hiring process, bes
 
 ### Lowering the barrier of entry
 
-- Firefox DevTools.HTML https://firefox-dev.tools/debugger.html/
+!.bg[](/oss/img/devtoolshtml.jpg)
+
+- [Firefox DevTools.HTML](https://firefox-dev.tools/debugger.html/)
 
 ---
+[](#.white-background)
 
 ### Open source does not make "welcoming"
 
-- Servo https://starters.servo.org/
+
+!.bg.centered[Manish Goreokar](/oss/img/servo.jpg)
+
+- Just technology does not make something welcoming
+- OSS is about _people_ (just like Soylent Green)
+- [Servo's starter issues](https://starters.servo.org/)
 
 <details>
 Technology is not the only barrier to entry. Open sourcing code does not make it welcoming automatically - without proper onboarding processes, documentation your highly anticipated contributors might fail to show up.
@@ -139,7 +147,9 @@ Technology is not the only barrier to entry. Open sourcing code does not make it
 
 ### Be welcoming and inclusive
 
-- Welcoming open source https://www.youtube.com/watch?v=AHprJNUCgQ0
+!.bg[Manish Goreokar](/oss/img/manish.jpg)
+
+- [Manish Goregaokar - "Open" as in "Welcoming": Facilitating Contributions (RustFest Zürich Opening Keynote)](https://www.youtube.com/watch?v=AHprJNUCgQ0)
 
 <details>
 I'm not going to spend too much time on explaining how to make your project welcoming and inclusive because Manish Goreokar has already done it at RustFest Zurich, so you can watch him explain what they did in the Servo organization to make this happen.
@@ -185,18 +195,27 @@ Staff: full-time employee (maybe remote)
 ---
 
 ### GitHub Education
+
+!.bg[](/oss/img/jnash.jpg)
+
 - [Joe Nash from DevRelCon London 2017](https://london-2017.devrel.net/joe-nash/)
 - "Promoting" some campus experts to be paid support contacts in their local region to help scale their Campus Experts program
 
 ---
 
 ### Auth0
+
+!.bg[](/oss/img/marting.jpg)
+
 - [Martin Gontovikas from DevRelCon London](https://london-2017.devrel.net/martin-gontovikas/)
 - Guest Author program - contributors are paid for high-quality content that is used to drive inbound traffic
 
 ---
 
 ### TechSpeakers
+
+!.bg[](/oss/img/srushtika.jpg)
+
 - Srushtika Neelakantam from Mozilla TechSpeakers
 - Thanks to her open source contributions and public skills learned [she's got into a developer evangelist role](https://hackernoon.com/they-say-im-lucky-ea4f8546cb0d) straight out of college.
 - Watch the recording of [Havi Hoffman's talk from last DevRelCon Tokyo](https://www.youtube.com/watch?v=gn88jCrD_pU) or talk to us
@@ -212,15 +231,14 @@ All of us started out as volunteer contributors. Later got more involved, starte
 OSS is good for you!
 ====================
 
-<details>
 By now I hopefully convinced you that...
 
 * OSS is good
-* OSS is good for you
+* OSS is good for **you**
 * OSS communities are great
 * supporting OSS and the communities creating them is good karma
 * ...for all parties involved
-</details>
+
 
 
 What does this all mean to me?
@@ -239,7 +257,9 @@ I want to give you some tips how to care for the communities you are leaving beh
 Are you using OSS?
 ==================
 
-- Find out which are the key open source projects your product depends on and make sure you pay it forward
+!.bg.centered.on-left[](/oss/img/outreachy.png)
+
+- Find out which are the key open source projects<br>your product depends on and make sure you pay it forward
 - Give your engineers paid time to contribute to open source
 - Support OSS projects
     - [MOSS](https://wiki.mozilla.org/MOSS#Selection_Committee)
@@ -264,6 +284,8 @@ If you love something - set it free
 ---
 
 ### MOSS
+
+!.bg[](/oss/img/whymozilla.jpg)
 
 - Mozilla believes in open source and giving back
 - [MOSS](https://www.mozilla.org/en-US/moss/) - $3 million budget to support various OSS projects
@@ -294,12 +316,17 @@ Key takeaways
 The Story
 =========
 
+!.bg[](/pic/ducklings-ts.jpg)
+
 
 Dipping your toes into OSS
 ==========================
 
+!.bg[](/oss/img/duck-paddle.gif)
+
 - Finding your posse
-- ...
+- Finding a project
+
 
 <details>
 Meetups
@@ -311,6 +338,8 @@ Firefox OS
 Keep your eyes open for opportunities
 =====================================
 
+!.bg[](/oss/img/duck-sleepy.gif)
+
 <details>
 Always be on the lookout for new opportunities and be sure to bank on them (take them or share them, ideally targeted to a relevant person)
 - MDN Fellowship
@@ -320,6 +349,9 @@ Always be on the lookout for new opportunities and be sure to bank on them (take
 
 Don't forget about your roots
 =============================
+
+!.bg[](/oss/img/duck-home.gif)
+
 
 - Build communities that will last.
 - Support people in running the communities you founded even after you
@@ -338,6 +370,9 @@ Gatekeeping vs empowering (individual)
 Ease contributor isolation
 ==========================
 
+!.bg[](/oss/img/duck-protec.gif)
+
+
 Provide connection points (co.)
 - provide access to people and resources
 - https://whatcanidoformozilla.org/
@@ -348,9 +383,12 @@ Provide connection points (co.)
 Do you really think you know it *all*?
 ======================================
 
-So You know *your* community -- but you don't know ALL communities
+!.bg[](/oss/img/duck-different.gif)
 
-But don't just visit them!
+- So You know *your* community
+- ...but you don't know ALL communities
+- You need to go to them!
+- But don't just visit them!
 
 <details>
 Communities are not disconnected from the culture. There are as many different communities and cultures, and they all function differently.
@@ -360,33 +398,78 @@ Communities are not disconnected from the culture. There are as many different c
 ---
 
 ### Live them
-- https://metafluff.com/2017/12/13/2017-summary/
+
+!.bg[](/oss/img/dietrich.jpg)
+
+- [UTC+5 and Above](https://metafluff.com/2017/12/13/2017-summary/) - Dietrich Ayala spends a year in South-East Asia
 
 ---
 
 ### Hear them
 
-Rocket user research
+!.bg[Firefox Rocket Indonesian launch event](/oss/img/firefoxrocket.jpg)
 
-https://medium.com/firefox-ux/journey-to-explore-the-indonesian-mobile-life-2567e7482555
+- [Firefox Rocket user research](https://medium.com/firefox-ux/journey-to-explore-the-indonesian-mobile-life-2567e7482555)
 
 <details>
 Mozilla has been shipping a mobile browser since 2010, surely they know mobile browser user behavior inside out by now... right? Right.
-</details>x
+</details>
+
 
 ---
 
 ### Hire them!
+
+!.bg.contain[](/oss/img/sam.png)
+
+<details>
+This would be the "we are hiring!" page - but hey, as an OSS project you are _always_ hiring!
+
+But take GitHub's announcement earlier today, and even Tomomi spoke about hiring people from local regions. They know it best (not just the language - the culture, the community etc.)
+
+</details>
 
 
 
 Killer products: Firefox vs Firefox Quantum
 ===========================================
 
+!.bg[](/oss/img/firefox-quantum.jpg)
+
 - push your product or provide useful advice (even to the detriment of "sales")
-  - your connections will thank you for it
+    - your connections will thank you for it
 - internalize the feedback and "bounce back stronger"
 - Firefox Quantum was a raging success because it's a great product and it acknowledges it's strong suits and weak spots
   - privacy is important but you have to make the product experience great
-    - make it feel great https://design.firefox.com/photon/introduction/principles.html
-    - make it (trail)blazing fast https://hacks.mozilla.org/2017/11/entering-the-quantum-era-how-firefox-got-fast-again-and-where-its-going-to-get-faster/
+    - [make it feel great](https://design.firefox.com/photon/introduction/principles.html)
+    - [make it (trail)blazing fast](https://hacks.mozilla.org/2017/11/entering-the-quantum-era-how-firefox-got-fast-again-and-where-its-going-to-get-faster/)
+
+
+
+---
+
+[](#keepplaying)
+!.bg[](/oss/img/duck-thankyou.gif)
+
+```css
+@import url("/s/keep-playing.css");
+p .tweet {
+  letter-spacing: -.15em;
+}
+```
+
+# Thanks a bunch!
+
+#### [talk.flak.is/oss/devrelcontokyo](http://talk.flak.is/oss/devrelcontokyo/)
+
+<span class=tweet>
+![Mozilla TechSpeakers](/pic/ts.png)
+@moztechspeakers
+</span>
+
+<span class=tweet>
+![Flaki](/pic/flaki.png)
+@slsoftworks
+</span>
+
+<div class="message"></div>

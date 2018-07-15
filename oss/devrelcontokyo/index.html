@@ -1,0 +1,530 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>OSS</title>
+	<meta name="description" content="Interacting with a large OSS contributor community. Flaki @ DevRelCon Tokyo 2018">
+	<meta name="keywords" content="oss, open source, sustainable open source, maintainable">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="OSS">
+	<meta name="twitter:description" content="Interacting with a large OSS contributor community. Flaki @ DevRelCon Tokyo 2018">
+	<meta name="twitter:image:src" content="http://talk.flak.is/pic/sfallhands.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/oss/devrelcontokyo/">
+
+	<meta property="og:title" content="OSS">
+	<meta property="og:description" content="Interacting with a large OSS contributor community. Flaki @ DevRelCon Tokyo 2018">
+	<meta property="og:image" content="http://talk.flak.is/pic/sfallhands.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<script type="text/javascript">// Promises
+var _eid_promises = {};
+// Turn the incoming message from extension
+// into pending Promise resolving
+window.addEventListener("message", function(event) {
+    if(event.source !== window) return;
+    if(event.data.src && (event.data.src === "background.js")) {
+        console.log("Page received: ");
+        console.log(event.data);
+        // Get the promise
+        if(event.data.nonce) {
+            var p = _eid_promises[event.data.nonce];
+            // resolve
+            if(event.data.result === "ok") {
+                if(event.data.signature !== undefined) {
+                    p.resolve({hex: event.data.signature});
+                } else if(event.data.version !== undefined) {
+                    p.resolve(event.data.extension + "/" + event.data.version);
+                } else if(event.data.cert !== undefined) {
+                    p.resolve({hex: event.data.cert});
+                } else {
+                    console.log("No idea how to handle message");
+                    console.log(event.data);
+                }
+            } else {
+                // reject
+                p.reject(new Error(event.data.result));
+            }
+            delete _eid_promises[event.data.nonce];
+        } else {
+            console.log("No nonce in event msg");
+        }
+    }
+}, false);
+
+
+function TokenSigning() {
+    function nonce() {
+        var val = "";
+        var hex = "abcdefghijklmnopqrstuvwxyz0123456789";
+        for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length));
+        return val;
+    }
+
+    function messagePromise(msg) {
+        return new Promise(function(resolve, reject) {
+            // amend with necessary metadata
+            msg["nonce"] = nonce();
+            msg["src"] = "page.js";
+            // send message
+            window.postMessage(msg, "*");
+            // and store promise callbacks
+            _eid_promises[msg.nonce] = {
+                resolve: resolve,
+                reject: reject
+            };
+        });
+    }
+    this.getCertificate = function(options) {
+        var msg = {type: "CERT", lang: options.lang, filter: options.filter};
+        console.log("getCertificate()");
+        return messagePromise(msg);
+    };
+    this.sign = function(cert, hash, options) {
+        var msg = {type: "SIGN", cert: cert.hex, hash: hash.hex, hashtype: hash.type, lang: options.lang, info: options.info};
+        console.log("sign()");
+        return messagePromise(msg);
+    };
+    this.getVersion = function() {
+        console.log("getVersion()");
+        return messagePromise({
+            type: "VERSION"
+        });
+    };
+}</script><style>
+@import url("/s/themes/simply-red.css");
+</style><style>
+#about .bg img { object-position: center 10vh }
+</style><style>
+@import url("/s/moztechspeakers.css");
+</style><style>
+@import url("/s/keep-playing.css");
+p .tweet {
+  letter-spacing: -.15em;
+}
+</style></head>
+
+<body><main><section id="opening" class="top-left-title current">
+<h1 id="ossfieldguide">OSS Field Guide</h1>
+<h3 id="hellodevrelcontokyo2018">Hello, DevRelCon Tokyo 2018!</h3>
+<p><picture class="bg">
+<img src="/pic/baela-tokyo.jpg" alt="Hello!">
+</picture></p>
+<blockquote>
+  <p>Last updated: 2018-07-13</p>
+</blockquote>
+</section>
+<section>
+<h1 id="flakisfieldguide">Flaki's Field Guide</h1>
+<h3 id="tointeractingwithalargeosscontributorcommunity">to interacting with a large OSS contributor community</h3>
+<p><picture class="bg">
+<img src="/oss/img/community.jpg" alt="Mozilla Festival">
+</picture></p>
+</section>
+<section id="about">
+<h2 id="whome">Who? Me?</h2>
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<p><span class="moztechspeakers">Mozilla TechSpeakers</span></p>
+<ul>
+<li>Istvan Szmozsanszky<ul>
+<li>or "Flaki" for short</li>
+<li><a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></li></ul></li>
+<li>Frontend trainer</li>
+<li>Consultant on Web Technologies</li>
+<li>Mozilla DevRel Emerging Technologies<ul>
+<li>WebXR / Rust / PWA / WebAssembly</li></ul></li>
+</ul>
+<p></p><details><p></p>
+<ul>
+<li>Lots of Mozilla</li>
+<li>But also the communities around Google, GitHub, OTS, Node, Nodebots, Tessel<br>
+</li></ul></details>
+
+</section>
+<section>
+<h2 id="oss">OSS?</h2>
+<ul>
+<li>Open Source Software</li>
+<li>not necessarily the textbook (a.k.a. Wikipedia) definition</li>
+</ul>
+</section>
+<section>
+<h2 id="community">Community?</h2>
+<ul>
+<li>Various stakeholders outside of your company, taking an interest in your product or some parts of it</li>
+</ul>
+</section>
+<section>
+<h1 id="youhaveacommunity">You have a community!</h1>
+<p>Any company with open an source offering has (to deal with) a community</p>
+<ul>
+<li>You might not know/care about/acknowledge them, that does not make them go away<ul>
+<li>You open sourced code you built</li>
+<li>You use/build on OSS software/modules</li>
+<li>You provide an API</li></ul></li>
+</ul>
+<p></p><details><p></p>
+<ul>
+<li>the code itself you open sourced &amp; the docs</li>
+<li>there are API wrappers that use it (sometimes in-house, sometimes 3rd party)<br>
+</li></ul></details>
+
+</section>
+<section>
+<h2 id="itsasourceofosscontributions">It's a source of OSS contributions</h2>
+<ul>
+<li>issue and bug reports</li>
+<li>security &amp; correctness review</li>
+<li>cross-platform/cross-device testing</li>
+<li>people even get a chance to contribute code/fixes back to the software you built or depend on</li>
+</ul>
+<p></p><details>
+Now don't get me wrong your, community is not simply about free work you can just exploit (although, many do exactly that)
+</details><p></p>
+</section>
+<section>
+<h2 id="supportingosscontributors">Supporting OSS contributors</h2>
+<p>Give dedicated OSS time to your engineers and employees</p>
+<ul>
+<li>provide issue triage</li>
+<li>provide contributor documentation</li>
+<li>have "good first bugs" and mentoring for new contributors</li>
+<li>upstream fixes</li>
+<li>maintain your OSS projects</li>
+</ul>
+<p></p><details><br>
+You are not just getting shit done with the help of your contributors, you are also giving back to the community by actively supporting them in growing OSS skills!<p></p>
+<p>These days being an OSS contributor is a perk in itself in a hiring process, besides the obvious skills gained from the contribution process itself.<br>
+</p></details><p></p>
+</section>
+<section>
+<h3 id="loweringthebarrierofentry">Lowering the barrier of entry</h3>
+<p><picture class="bg">
+<img src="/oss/img/devtoolshtml.jpg" alt="">
+</picture></p>
+<ul>
+<li><a href="https://firefox-dev.tools/debugger.html/" target="_blank">Firefox DevTools.HTML</a></li>
+</ul>
+</section>
+<section class="white-background">
+<h3 id="opensourcedoesnotmakewelcoming">Open source does not make "welcoming"</h3>
+<p><picture class="bg centered">
+<img src="/oss/img/servo.jpg" alt="Manish Goreokar">
+</picture></p>
+<ul>
+<li>Just technology does not make something welcoming</li>
+<li>OSS is about <em>people</em> (just like Soylent Green)</li>
+<li><a href="https://starters.servo.org/" target="_blank">Servo's starter issues</a></li>
+</ul>
+<p></p><details>
+Technology is not the only barrier to entry. Open sourcing code does not make it welcoming automatically - without proper onboarding processes, documentation your highly anticipated contributors might fail to show up.
+</details><p></p>
+</section>
+<section>
+<h3 id="bewelcomingandinclusive">Be welcoming and inclusive</h3>
+<p><picture class="bg">
+<img src="/oss/img/manish.jpg" alt="Manish Goreokar">
+</picture></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=AHprJNUCgQ0" target="_blank">Manish Goregaokar - "Open" as in "Welcoming": Facilitating Contributions (RustFest Zürich Opening Keynote)</a></li>
+</ul>
+<p></p><details>
+I'm not going to spend too much time on explaining how to make your project welcoming and inclusive because Manish Goreokar has already done it at RustFest Zurich, so you can watch him explain what they did in the Servo organization to make this happen.
+</details><p></p>
+</section>
+<section>
+<h2 id="itsanexcellentsourceforhiring">It's an excellent source for hiring</h2>
+<p>Any half-decent company with OSS contributors</p>
+<ul>
+<li>will have contributors who wished they worked for them</li>
+<li>will want to have some of those contributors to work for them</li>
+<li>it's the perfect dynamic</li>
+<li>already learned the important skills</li>
+<li>has knowledge about the company</li>
+<li>the company has information about performance &amp; skills of the contributor</li>
+<li>BUT don't work for free just in the hopes of being hired</li>
+</ul>
+<p></p><details>
+Now don't get me wrong I'm not telling you that all your HR department should do is mine your contributor community for prospective new hires…
+</details><p></p>
+</section>
+<section>
+<h2 id="itjusthappens">It just happens</h2>
+<ul>
+<li>community</li>
+<li>contributors with support</li>
+<li>paid contributor (regular payments part time or based on deliverables)</li>
+<li>staff</li>
+</ul>
+<p></p><details><p></p>
+<p><em>Community:</em> Any contributor/volunteer</p>
+<p><em>Supported contributors:</em> People getting occasional contracts, grants, an internship etc., working for you on an occasional "project" basis</p>
+<p>Paid contributor: Someone working for you, part-time or on a contract but in a long-term fashion (long-term, indefinite contracts, part-time employment, etc.)</p>
+<p>Staff: full-time employee (maybe remote)<br>
+</p></details><p></p>
+</section>
+<section>
+<h3 id="githubeducation">GitHub Education</h3>
+<p><picture class="bg">
+<img src="/oss/img/jnash.jpg" alt="">
+</picture></p>
+<ul>
+<li><a href="https://london-2017.devrel.net/joe-nash/" target="_blank">Joe Nash from DevRelCon London 2017</a></li>
+<li>"Promoting" some campus experts to be paid support contacts in their local region to help scale their Campus Experts program</li>
+</ul>
+</section>
+<section>
+<h3 id="auth0">Auth0</h3>
+<p><picture class="bg">
+<img src="/oss/img/marting.jpg" alt="">
+</picture></p>
+<ul>
+<li><a href="https://london-2017.devrel.net/martin-gontovikas/" target="_blank">Martin Gontovikas from DevRelCon London</a></li>
+<li>Guest Author program - contributors are paid for high-quality content that is used to drive inbound traffic</li>
+</ul>
+</section>
+<section>
+<h3 id="techspeakers">TechSpeakers</h3>
+<p><picture class="bg">
+<img src="/oss/img/srushtika.jpg" alt="">
+</picture></p>
+<ul>
+<li>Srushtika Neelakantam from Mozilla TechSpeakers</li>
+<li>Thanks to her open source contributions and public skills learned <a href="https://hackernoon.com/they-say-im-lucky-ea4f8546cb0d" target="_blank">she's got into a developer evangelist role</a> straight out of college.</li>
+<li>Watch the recording of <a href="https://www.youtube.com/watch?v=gn88jCrD_pU" target="_blank">Havi Hoffman's talk from last DevRelCon Tokyo</a> or talk to us</li>
+<li>Check out Ado Kukic's upcoming talk about Auth0 Ambassadors</li>
+</ul>
+<p></p><details><br>
+Or me, or Alex…<p></p>
+<p>All of us started out as volunteer contributors. Later got more involved, started speaking more with the support of Mozilla's TechSpeakers program and all of us ended up landing devrel-ish roles at various companies.<br>
+</p></details><p></p>
+</section>
+<section>
+<h1 id="ossisgoodforyou">OSS is good for you!</h1>
+<p>By now I hopefully convinced you that…</p>
+<ul>
+<li>OSS is good</li>
+<li>OSS is good for <strong>you</strong></li>
+<li>OSS communities are great</li>
+<li>supporting OSS and the communities creating them is good karma</li>
+<li>…for all parties involved</li>
+</ul>
+</section>
+<section>
+<h2 id="whatdoesthisallmeantome">What does this all mean to me?</h2>
+<p></p><details><br>
+I'm not here to convince you to hire your contributors…<p></p>
+<p>…well, that's not the <em>only</em> thing I'm here for.</p>
+<p>I want to give you some tips how to care for the communities you are leaving behind when life happens.<br>
+</p></details><p></p>
+</section>
+<section>
+<h1 id="areyouusingoss">Are you using OSS?</h1>
+<p><picture class="bg centered on-left">
+<img src="/oss/img/outreachy.png" alt="">
+</picture></p>
+<ul>
+<li>Find out which are the key open source projects<br>your product depends on and make sure you pay it forward</li>
+<li>Give your engineers paid time to contribute to open source</li>
+<li>Support OSS projects<ul>
+<li><a href="https://wiki.mozilla.org/MOSS#Selection_Committee" target="_blank">MOSS</a></li>
+<li><a href="https://opencollective.com/webpack" target="_blank">Webpack &amp; Open Collective</a></li></ul></li>
+<li>Support diversity<ul>
+<li><a href="https://wiki.gnome.org/Outreachy" target="_blank">Outreachy</a></li>
+<li><a href="https://railsgirlssummerofcode.org/" target="_blank">Rails Girls Summer of Code</a></li></ul></li>
+<li><a href="https://youtube.com/watch?v=WebKcjJJRxA" target="_blank">Sean Larkin on maintainable open source</a></li>
+</ul>
+<p></p><details><br>
+(Yes. Yes, there is a very good chance you are.)<p></p>
+<p>From what I have told you in the past 15 minutes you could probably tell, this is largely a rhetorical question - you might not even know about it, but there is a very good chance that you are indeed using OSS, so do some digging and find out how can you help.</p>
+<p>MOSS<br>
+If you love something - set it free</p>
+<ul>
+<li>but surely keep an eye on it still!</li>
+<li>Firefox OS?</li>
+</ul>
+<p></p></details><p></p>
+</section>
+<section>
+<h3 id="moss">MOSS</h3>
+<p><picture class="bg">
+<img src="/oss/img/whymozilla.jpg" alt="">
+</picture></p>
+<ul>
+<li>Mozilla believes in open source and giving back</li>
+<li><a href="https://www.mozilla.org/en-US/moss/" target="_blank">MOSS</a> - $3 million budget to support various OSS projects</li>
+<li><a href="https://mzl.la/whyopensource" target="_blank">Why Open Source (research)</a></li>
+</ul>
+<p></p><details><p></p>
+<p>So much so in fact that they have commissioned a qualitative study to explore their contributors' motivations and experiences, and are running an open source software support program with a $3 million dollar yearly budget.</p>
+<p></p></details><p></p>
+</section>
+<section>
+<h1 id="keytakeaways">Key takeaways</h1>
+<ul>
+<li><strong>For Your Company</strong><ul>
+<li>provide paid opportunities for your best contributors</li>
+<li>if you are using OSS, pay it forward</li></ul></li>
+<li><strong>For You</strong><ul>
+<li>use your granted privilege to actively help your local community and reach out to members of other communities and underrepresented groups</li>
+<li>you will become more and more disconnected from your local community — do not gatekeep, lift up other members so they can gradually replace you</li>
+<li>find connections — provide connection points</li></ul></li>
+</ul>
+</section>
+<section>
+<h1 id="thestory">The Story</h1>
+<p><picture class="bg">
+<img src="/pic/ducklings-ts.jpg" alt="">
+</picture></p>
+</section>
+<section>
+<h1 id="dippingyourtoesintooss">Dipping your toes into OSS</h1>
+<p><picture class="bg">
+<img src="/oss/img/duck-paddle.gif" alt="">
+</picture></p>
+<ul>
+<li>Finding your posse</li>
+<li>Finding a project</li>
+</ul>
+<p></p><details>
+Meetups
+Reps - Mozilla Events
+Firefox OS
+</details><p></p>
+</section>
+<section>
+<h1 id="keepyoureyesopenforopportunities">Keep your eyes open for opportunities</h1>
+<p><picture class="bg">
+<img src="/oss/img/duck-sleepy.gif" alt="">
+</picture></p>
+<p></p><details><br>
+Always be on the lookout for new opportunities and be sure to bank on them (take them or share them, ideally targeted to a relevant person)<p></p>
+<ul>
+<li>MDN Fellowship</li>
+<li>TechSpeakers<br>
+</li></ul></details>
+
+</section>
+<section>
+<h1 id="dontforgetaboutyourroots">Don't forget about your roots</h1>
+<p><picture class="bg">
+<img src="/oss/img/duck-home.gif" alt="">
+</picture></p>
+<ul>
+<li>Build communities that will last.</li>
+<li>Support people in running the communities you founded even after you</li>
+</ul>
+<p></p><details><br>
+Gatekeeping vs empowering (individual)<p></p>
+<ul>
+<li>lift others up to take your place/roles in your local communities and OSS software/contribs</li>
+<li>infect ppl with your passion, find the ones that share it</li>
+<li>it's not just about code! communities, as contributions, come in all shapes &amp; sizes<ul>
+<li>oss project contributor/translator</li>
+<li>organizer of a local event/meetup</li>
+<li>frequent poster in a local technology facebook group<br>
+</li></ul></li></ul></details>
+
+</section>
+<section>
+<h1 id="easecontributorisolation">Ease contributor isolation</h1>
+<p><picture class="bg">
+<img src="/oss/img/duck-protec.gif" alt="">
+</picture></p>
+<p>Provide connection points (co.)</p>
+<ul>
+<li>provide access to people and resources</li>
+<li>https://whatcanidoformozilla.org/</li>
+<li>how many times were you @tagged on twitter</li>
+<li>sean larkin twitter stalking a hashtag (help, but also empathy)</li>
+</ul>
+</section>
+<section>
+<h1 id="doyoureallythinkyouknowitall">Do you really think you know it <em>all</em>?</h1>
+<p><picture class="bg">
+<img src="/oss/img/duck-different.gif" alt="">
+</picture></p>
+<ul>
+<li>So You know <em>your</em> community</li>
+<li>…but you don't know ALL communities</li>
+<li>You need to go to them!</li>
+<li>But don't just visit them!</li>
+</ul>
+<p></p><details>
+Communities are not disconnected from the culture. There are as many different communities and cultures, and they all function differently.
+</details><p></p>
+</section>
+<section>
+<h3 id="livethem">Live them</h3>
+<p><picture class="bg">
+<img src="/oss/img/dietrich.jpg" alt="">
+</picture></p>
+<ul>
+<li><a href="https://metafluff.com/2017/12/13/2017-summary/" target="_blank">UTC+5 and Above</a> - Dietrich Ayala spends a year in South-East Asia</li>
+</ul>
+</section>
+<section>
+<h3 id="hearthem">Hear them</h3>
+<p><picture class="bg">
+<img src="/oss/img/firefoxrocket.jpg" alt="Firefox Rocket Indonesian launch event">
+</picture></p>
+<ul>
+<li><a href="https://medium.com/firefox-ux/journey-to-explore-the-indonesian-mobile-life-2567e7482555" target="_blank">Firefox Rocket user research</a></li>
+</ul>
+<p></p><details>
+Mozilla has been shipping a mobile browser since 2010, surely they know mobile browser user behavior inside out by now… right? Right.
+</details><p></p>
+</section>
+<section>
+<h3 id="hirethem">Hire them!</h3>
+<p><picture class="bg contain">
+<img src="/oss/img/sam.png" alt="">
+</picture></p>
+<p></p><details><br>
+This would be the "we are hiring!" page - but hey, as an OSS project you are <em>always</em> hiring!<p></p>
+<p>But take GitHub's announcement earlier today, and even Tomomi spoke about hiring people from local regions. They know it best (not just the language - the culture, the community etc.)</p>
+<p></p></details><p></p>
+</section>
+<section>
+<h1 id="killerproductsfirefoxvsfirefoxquantum">Killer products: Firefox vs Firefox Quantum</h1>
+<p><picture class="bg">
+<img src="/oss/img/firefox-quantum.jpg" alt="">
+</picture></p>
+<ul>
+<li>push your product or provide useful advice (even to the detriment of "sales")<ul>
+<li>your connections will thank you for it</li></ul></li>
+<li>internalize the feedback and "bounce back stronger"</li>
+<li>Firefox Quantum was a raging success because it's a great product and it acknowledges it's strong suits and weak spots</li>
+<li>privacy is important but you have to make the product experience great<ul>
+<li><a href="https://design.firefox.com/photon/introduction/principles.html" target="_blank">make it feel great</a></li>
+<li><a href="https://hacks.mozilla.org/2017/11/entering-the-quantum-era-how-firefox-got-fast-again-and-where-its-going-to-get-faster/" target="_blank">make it (trail)blazing fast</a></li></ul></li>
+</ul>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="/oss/img/duck-thankyou.gif" alt="">
+</picture></p>
+<h1 id="thanksabunch">Thanks a bunch!</h1>
+<h4 id="talkflakisossdevrelcontokyohttptalkflakisossdevrelcontokyo"><a href="http://talk.flak.is/oss/devrelcontokyo/" target="_blank">talk.flak.is/oss/devrelcontokyo</a></h4>
+<p><span class="tweet">
+<img src="/pic/ts.png" alt="Mozilla TechSpeakers">
+@moztechspeakers
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message"></div>
+</section></main></body></html>

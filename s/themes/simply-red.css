@@ -151,3 +151,22 @@ section {
   text-decoration: none;
   color: inherit;
 }
+
+
+section > p {
+	color: black;
+	font-weight: bold;
+	text-align: center;
+	background: white;
+	display: inline-block;
+	padding: 1em;
+	margin: auto;
+}
+
+section > p:empty {
+  display: none;
+}
+
+picture.bg.centered.on-left > img {
+  object-position: left;
+}
