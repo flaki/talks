@@ -2,7 +2,7 @@
 title: OSS
 description: Interacting with a large OSS contributor community. Flaki @ DevRelCon Tokyo 2018
 keywords: oss, open source, sustainable open source, maintainable
-social_image: http://talk.flak.is/pic/sfallhands.jpg
+social_image: http://talk.flak.is/pic/baela-tokyo.jpg
 canonical_url: http://talk.flak.is/oss/devrelcontokyo/
 ```
 
