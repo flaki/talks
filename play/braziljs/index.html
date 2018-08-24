@@ -1,0 +1,601 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>JS 💖 HW</title>
+	<meta name="description" content="Honey I Shrunk The Scripts! The secret life of JavaScript on microcontrollers — Flaki @ Brazil JS 2018">
+	<meta name="keywords" content="javascript, microcontrollers, iot, clouduboy, flaki, jerryscript, espruino, nodejs">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="JS 💖 HW">
+	<meta name="twitter:description" content="Honey I Shrunk The Scripts! The secret life of JavaScript on microcontrollers — Flaki @ Brazil JS 2018">
+	<meta name="twitter:image:src" content="http://talk.flak.is/pic/baela-braziljs.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/play/braziljs/">
+
+	<meta property="og:title" content="JS 💖 HW">
+	<meta property="og:description" content="Honey I Shrunk The Scripts! The secret life of JavaScript on microcontrollers — Flaki @ Brazil JS 2018">
+	<meta property="og:image" content="http://talk.flak.is/pic/baela-braziljs.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<style>
+@import url("/s/themes/pinky.css");
+</style><style>
+#title h1 {
+  font-size: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#title h2 {
+  font-size: 1.1rem;
+}
+</style><style>
+@import url("/s/tinker.css");
+</style><style>
+#nodejs {
+  background-image: url(../img/jsconfeu-2009.png);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+</style><style>
+#mmoore {
+	background: url(../img/steal-this-idea.jpg);
+	width: 16vw;
+	height: 12vw;
+	background-size: contain;
+	background-repeat: no-repeat;
+	transform: rotate(28deg);
+	position: absolute;
+	top: 1vh;
+	left: 75vw;
+	mix-blend-mode: multiply;
+}
+</style><style>
+@keyframes bob {
+  from {
+    top: 2.75rem;
+  }
+
+  to {
+    top: 5rem;
+  }
+}
+
+#clouduboyorg {
+  background: #a0a0fe;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#clouduboyorg img {
+  width: 8rem;
+
+  position: relative;
+  animation: 2s ease-in-out infinite alternate-reverse bob;
+}
+</style><style>
+@import url("/s/keep-playing.css");
+</style></head>
+
+<body><main><section id="opening" class="current">
+<p><picture class="bg">
+<img src="/pic/baela-braziljs.jpg" alt="Baela says hi">
+</picture></p>
+<h1 id="wellhellobraziljs">Well hello Brazil JS!</h1>
+<blockquote>
+  <p>Last updated: 2018-08-24</p>
+</blockquote>
+</section>
+<section id="title">
+<p><picture class="bg">
+<img src="http://www.bab.se/~babse/wp-content/uploads/2013/11/h62.jpg" alt="Microchips &amp; JS">
+</picture></p>
+<h1 id="honeyishrunkthescripts">Honey I Shrunk The Scripts!</h1>
+<h2 id="thesecretlifeofjavascriptonmicrocontrollers">The secret life of JavaScript on microcontrollers</h2>
+<blockquote>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+</section>
+<section id="whoami">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<div id="tinker">
+  <img alt="Mozilla DevRel" src="/pic/mozhacks.png">
+  <h3>Developer Outreach / DevRel</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla TechSpeakers</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project, JS+HW hacker</h3>
+</div>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/ryandahl.png" alt="Ryan Dahl introducing Node.js at JSConf EU 2009">
+</picture></p>
+<h3 id="onceuponatimein2009">Once upon a time in 2009…</h3>
+<p></p><details>
+Pictured: Ryan Dahl at JSConf EU 2009 when he announced version 0.1.17 of Node.js
+</details><p></p>
+</section>
+<section id="nodejs">
+<p><picture class="bg centered">
+<img src="../img/nodejs-logo.svg" alt="Node.js">
+</picture></p>
+<h2 id="lettherebenode">Let There Be Node!</h2>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/jsdomination.jpg" alt="JavaScript World Domination by Flaki">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/nodebots.png" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/nodebots1.png" alt="Nodebots Johnny 5">
+</picture></p>
+<h3 id="nodebots">Nodebots</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/nodeboats.png" alt="">
+</picture></p>
+<h3 id="nodeboats">Nodeboats…</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/nodecopter.jpg" alt="">
+</picture></p>
+<h3 id="nodequadrocopters">Node (quadro-)copters…</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/noderockets.gif" alt="">
+</picture></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/noderockets1.jpg" alt="">
+</picture></p>
+<h3 id="evennoderockets">…even Node rockets!</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/nodebots-j5.jpg" alt="Nodebots Johnny 5">
+</picture></p>
+<h2 id="noderoboticswithjohnnyfive">Node robotics with Johnny Five</h2>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/node-serialport.png" alt="Communication between Node.js and an Arduino">
+</picture></p>
+<h3 id="nodeserialport">node-serialport</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/suz-babbling-with-merfolk.png" alt="node-serialport and firmata - Suz Hinton at Web Rebels">
+</picture></p>
+<h3 id="thefirmataprotocol">The Firmata protocol</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/noopkat-web-rebels.png" alt="node-serialport and firmata - Suz Hinton at Web Rebels">
+</picture></p>
+<h2 id="seethefulltalkatbabblingwithmerefolkwebrebels2015">See the full talk at "Babbling With Merefolk" (Web Rebels 2015)</h2>
+<p></p><details>
+Suz's whole talk from Web Rebels 2015  is one of the most accessible &amp; fun intro talks to working with Arduinos and besides explaining a bunch of core concepts incredibly well it comes loaded with a great bunch of fun &amp; entertaining hand-drawn characters - Pin Kitty &amp; their friends I still regularly cite to people when explaining hardware concepts. You will find a link to the talk listed at the end of this slide deck.
+</details><p></p>
+</section>
+<section id="you-need-node" class="big white-background">
+<h2 id="forallofthisbryouneednodejs">For all of this<br>You need Node.js</h2>
+<p></p><details>
+  All these (Nodebots, Tessel) needed Node.js, and Node needed powerful hardware (Raspberry-Pi-level)
+</details><p></p>
+</section>
+<section id="lets-backtrack" class="big slim white-background">
+<h2 id="letsbacktrackalittlebit">Let's backtrack a little bit…</h2>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/flaki-tessel-at-budapest-js.jpg" alt="">
+</picture></p>
+<h2 id="flakimeetsthehardwareworld">Flaki meets the hardware world</h2>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/tessel.png" alt="">
+</picture></p>
+<h3 id="thetessel">The Tessel</h3>
+<p></p><details>
+  The Tessel promised to bring Node.js to the hardware, running JS &amp; Node on something much "closer-to-the-metal" than a Raspberry Pi.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/jon-mckay-embedded-nodejs.png" alt="">
+</picture></p>
+<h3 id="jonmckayontheperksperilsofnodejsonamicrocontroller">Jon McKay on the Perks &amp; Perils of Node.js on a Microcontroller</h3>
+<p></p><details>
+  If you are curious how &amp; why that didn't <em>exactly</em> pan out, watch Jon McKay's Tessel retrospective - if you have, or thinking on starting a startup, esp. hardware startup, this is a must-watch for you. But the writing was already on the wall…
+</details><p></p>
+</section>
+<section id="everybody-wanted" class="big slim">
+<h2 id="peoplewanted">People wanted…</h2>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/jan-jongboom-embedded-js-video.jpg" alt="">
+</picture></p>
+<h2 id="embeddedjs">Embedded JS</h2>
+<p></p><details>
+  …everybody wanted JavaScript to run on embedded hardware.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg cover">
+<img src="../../armed/img/twitter_com_janjongboom_status_809705406650052608.jpg" alt="">
+</picture></p>
+<h3 id="javascriptonembedded">JavaScript on embedded</h3>
+<p></p><details><br>
+  Why? This guy, Jan Jongboom can give you multiple reasons why running a JS VM on constrained hardware is not only not an awful idea, but it even makes actual sense (watch the video).<p></p>
+<p>But at the end of the day, the answer is even more simple than that…<br>
+</p></details><p></p>
+</section>
+<section id="js-on-a-friggen-watch" class="white-background">
+<p><picture class="bg centered">
+<img src="../img/js-watch.png" alt="JavaScript on a friggen watch">
+</picture></p>
+<h1 id="peoplewantedjsonafriggenwatch">People wanted JS on a friggen watch!</h1>
+<p></p><details>
+  Now we'll get back to this point later, but basically JavaScript's ubiquity and ease-of-use led to people wanting to be able to develop in JS for literally and exhaustively <em>everything</em>.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/espruino-logo.jpg" alt="Espruino">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/espruino.jpg" alt="The Espruino Pico">
+</picture></p>
+<h3 id="hardwarejavascripttheespruino">Hardware JavaScript: The Espruino</h3>
+<p></p><details>
+Standards support used to be bad but improved a lot and now it's "good enough". Espruino has been ported to several other devices since, one of the most well-known is the ESP 8266 which is a wifi-enabled microcontroller board!
+</details><p></p>
+</section>
+<section class="white-background">
+<p><a href="https://www.espruino.com/ide/" target="_blank"><picture class="bg centered drop-shadow">
+<img src="../img/espruino-web-ide.png" alt="Espruino Web IDE">
+</picture></a></p>
+<h3 id="stealthisideatheespruinowebide">Steal This Idea: The Espruino Web IDE</h3>
+<div id="mmoore"></div>
+<p></p><details>
+Gordon din't just go "I want to create this thing". He wanted people to use it, to make it as accessible, easy-to-use and ubiquitous as possible. There's a documentary by Michael Moore, "Where to invade next", in which he travels around the world and "annexes" great ideas in other nations (free education, avoidance of using guns by the police, etc.) by planting the US flag - caring and catering for your users is an idea definitely worth stealing.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/espruino-esp8266.jpg" alt="Puck.js">
+</picture></p>
+<h3 id="theworkhorseofthehardwarejsecosystemesp8266">The workhorse of the Hardware-JS-ecosystem: ESP8266</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/mozillaiot-rpi.png" alt="Mozilla IoT">
+</picture></p>
+<h2 id="wranglingyourdeviceswithmozillaiot">Wrangling your devices with Mozilla IoT</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/mozillaiot-ui.png" alt="Mozilla IoT Project Things">
+</picture></p>
+<h3 id="projectthingsgatewayyouropeniothub">Project Things Gateway: your open IoT hub!</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/mozillaiot-ui2.png" alt="Mozilla IoT Project Things">
+</picture></p>
+<h3 id="liberateevenofftheshelfiotdevices">Liberate even off-the-shelf IoT devices!</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/espruino-puck-js.jpg" alt="Puck.js">
+</picture></p>
+<h3 id="espruinopuckjsandwebbluetooth">Espruino Puck.js and Web Bluetooth</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/ble.png" alt="Web Bluetooth">
+</picture></p>
+<h3 id="bleontheweb">BLE on the Web</h3>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/frankie.png" alt="Web Bluetooth with LEGO BOOST">
+</picture></p>
+<h3 id="sayhitofrankiethecat">Say hi to Frankie the Cat!</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/espruino-source-exec.png" alt="Espruino executes JavaScript straight from the source">
+</picture></p>
+<h3 id="espruinoexecutesjavascriptonthedevicestraightfromsource">Espruino executes JavaScript on the device, straight from source</h3>
+</section>
+<section id="so-what" class="big">
+<h1 id="sowhat">SO WHAT?</h1>
+<p></p><details>
+Okay this is funny/quirky/silly, but why should a web developer care about any of this?
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/v8-inlining.png" alt="">
+</picture></p>
+<h3 id="letmetellyoualittlestoryabout600littleasciibytes">Let me tell you a little story about 600 little ASCII bytes…</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/bmeurer-turbofan-inlining.png" alt="">
+</picture></p>
+<h3 id="thev8functioninlininglimitis_real_">The V8 function-inlining limit is <em>real</em></h3>
+<p></p><details>
+This behavior is not unique to microcontrollers. It happens all the time, computers are complex contraptions.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/bmeurer-turbofan-inlining2.png" alt="">
+</picture></p>
+<h3 id="evenwithcrankshaftgone">…even with Crankshaft gone</h3>
+<p></p><details>
+I'm not saying everyone should micro-optimize, or that everyone should know how a JS engine works. I'm just saying there are real, actual benefits of knowing (and expecting) these things that can come handy in everyday work just as much as during casual hobby hardware-hacking.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/v8-logo.png" alt="">
+</picture></p>
+<h3 id="ifwealreadyhavev8">If we already have V8…</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/v7-logo.png" alt="">
+</picture></p>
+<h3 id="whynothavev7too">…why not have V7, too?</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/what-is-v7.png" alt="">
+</picture></p>
+<h2 id="v7isanembeddedjavascriptengine">V7 is an embedded JavaScript engine</h2>
+<blockquote>
+  <p>V7 clocks in at a 40-120KB compiled size, which is not bad at all from an ES5.1-compliant engine.</p>
+</blockquote>
+<p></p><details>
+From te bunch of ex-Googlers at an irish company, we probably shouldn't be of this rather impressive achievement. But it <em>still</em> wasn't enough…
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/v7-deprecated.png" alt="V7 is deprecated in favor of mjs">
+</picture></p>
+<h2 id="wellit_was_">…well, it <em>was</em></h2>
+</section>
+<section class="white-background">
+<p><picture class="bg">
+<img src="../img/smaller.jpg" alt="We need to go smaller">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/mongoose-os.png" alt="mjs, part of Cesanta Mongoose OS">
+</picture></p>
+<h3 id="entermjs">Enter: mjs</h3>
+<p></p><details>
+This is not the same as "mujs", which is an <em>another</em> embeddable JS-engine.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/mjs-restrictions.png" alt="mjs restrictions">
+</picture></p>
+<h3 id="mjsisajavascriptsubsetengine">mjs is a JavaScript-subset-engine</h3>
+<blockquote>
+  <p>This makes mJS fit into ~25k of flash space &amp; less than 1k of RAM—but of course this comes at a price.</p>
+</blockquote>
+<p></p><details>
+But even at this price, it may be "good enough", that is what mJS aims to be. Not perfect but ideal for <em>some</em>, very specific usecases that happen to come up when one is trying to get such a tiny device to work.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/samsung-tc39.png" alt="Samsung OSG">
+</picture></p>
+<h3 id="aratherlargecompanyalsotriedthisonthehighestlevels">A rather large company also tried this, on the highest levels</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/samsung-osg.png" alt="Samsung OSG">
+</picture></p>
+<p></p><details>
+Samsung engineers attended a TC39 (the comitee responsible for JavaScript's standardization) meeting in early 2014 to advocate for a standardization of a "JavaScript-subset", that would be more suitable to be run on microcontrollers. Samsung was met with general skepticims about building an ES-compliant JS engine (even with restrictions) in the multiple-kilobytes-range.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/samsung-js-onmicrocontrollers-summary.jpg" alt="">
+</picture></p>
+<h3 id="embeddedexplorations">Embedded explorations</h3>
+<p></p><details>
+Of course the negativity of TC-39 didn't stop Samsung from trying and the same year they have started research, exploring the possibilities of adopting such an embeddedded JS engine. Stripping the open source JavaScript Core engine from the superfluous bits turned out to be too much of a hassle, compared to using something that was built with embeddability in mind (e.g. the Duktape engine). Despite (or maybe because of) the findings of this research, Samsung ended up starting development on their very own JS engine…
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/jerryscript.png" alt="">
+</picture></p>
+<h3 id="jerryscript">JerryScript</h3>
+<blockquote>
+  <p>JerryScript can run on devices with less than 64 KB RAM and &lt;200 KB of flash, it is fully ES5.1-compliant &amp; heavily optimized.</p>
+</blockquote>
+<p></p><details>
+It took Samsung a year to complete the initial version of JerryScript, which they subsequently open-sourced and released to the public. It took about another year for the codebase to stabilize, but today it's one of the best (and most widely adopted) embedded JS engines besides Espruino (especially with companies building their own embedded products, such as…)
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/microbit.png" alt="">
+</picture></p>
+<h3 id="preparingyouthforadigitalagewiththebbcmicrobit">Preparing youth for a digital age with the BBC Micro:bit</h3>
+</section>
+<section class="white-background">
+<p><a href="https://makecode.microbit.org/#" target="_blank"><picture class="bg centered drop-shadow">
+<img src="../img/microbit-makecode.png" alt="The Micro:bit MakeCode visual editor">
+</picture></a></p>
+<h3 id="themakecodeeditoronthemicrobit">The MakeCode Editor on the Microbit</h3>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/jsconf-2015.png" alt="">
+</picture></p>
+<p></p><details>
+JSConf 15, but also JSConfIS (Iceland), which is funny because this presentation was given at both conferences
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/pebble.jpg" alt="">
+</picture></p>
+<h3 id="pebblesrockyjspebblejsannouncement">Pebble's Rocky.js / Pebble.js announcement</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/tictoc.png" alt="">
+</picture></p>
+<h3 id="pebblessmartwatchwatchfacesarejshtml5">Pebble's smartwatch watchfaces are JS+HTML5!</h3>
+<blockquote>
+  <p>They managed to run a JS/HTML5 watchface, powered by JerryScript without <em>it being less efficient than the C code</em>!</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/fitbit-ionic.jpg" alt="">
+</picture></p>
+<h3 id="andfitbittookoverrightwherepebbleleftoff">…and Fitbit took over right where Pebble left off</h3>
+</section>
+<section class="big">
+<h2 id="howaboutarduinos">How About Arduinos?</h2>
+</section>
+<section>
+<p><picture class="bg align-top">
+<img src="../img/custom-arduboy.jpg" alt="">
+</picture></p>
+<h3 id="sohowwillyouputjson_this_">So how will you put JS on <em>this?</em></h3>
+<p></p><details>
+mjs gets close, but not exactly. You'll need something of a very different approach.
+</details><p></p>
+</section>
+<section id="clouduboyorg" class="big link">
+<p><img src="../img/clouduboy-icon-large.png" alt=""></p>
+<h2 id="clouduboyorgclouduboyorg"><a href="//clouduboy.org" target="_blank">clouduboy.org</a></h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/clouduboy3-html5.jpg" alt="">
+</picture></p>
+<h2 id="theclouduboyproject">The Clouduboy project</h2>
+<p></p><details>
+Clouduboy is a lot of things. A library for creating tiny pixelgraphic images (PIF) and games (MicroCanvas). An online IDE for Arduino-based gaming devices. A compiler to turn JavaScript games to C++ ones and put them onto those tiny microcontrollers
+</details><p></p>
+</section>
+<section class="big slim">
+<h2 id="orfancierdeviceslike">Or fancier devices like…</h2>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/ruhrjs.jpg" alt="">
+</picture></p>
+<h3 id="thearduboy">The Arduboy</h3>
+<blockquote>
+  <p>The Arduboy is based on the same chipset and peripherals than the one you just saw. It just <em>looks nicer</em> ;)</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg cover">
+<img src="../img/tiny-arcade-braziljs.jpg" alt="">
+</picture></p>
+<h3 id="thetinyarcade">The Tiny Arcade</h3>
+<blockquote>
+  <p>The Tiny Arcade is slightly different. It has a much more powerful ARM MCU (same as the Micro:bit!) &amp; color screen!</p>
+</blockquote>
+</section>
+<section class="big link">
+<p><picture class="bg">
+<img src="../img/spaceinvaders.gif" alt="">
+</picture></p>
+<h2 id="cldbybrazilvaderscldbybrazilvaders"><a href="//cld.by/brazilvaders" target="_blank">cld.by/brazilvaders</a></h2>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/clouduboy-nodeconfar.jpg" alt="">
+</picture></p>
+<h3 id="cometomynodeconfargentinaworkshop">Come to my NodeConf Argentina workshop!</h3>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="../img/play.gif" alt="">
+</picture></p>
+<h1 id="acabouvocsobreviveu">Acabou! Você sobreviveu!</h1>
+<h4 id="talkflakisplaybraziljshttptalkflakisplaybraziljs"><a href="http://talk.flak.is/play/braziljs/" target="_blank">talk.flak.is/play/braziljs</a></h4>
+<p><span class="tweet">
+<img src="../img/clouduboy-icon-large.png" alt="Clouduboy">
+@clouduboy
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message">Keep playing!</div>
+</section>
+<section>
+<h3 id="readinglist">Reading list:</h3>
+<ul>
+<li><a href="https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070" target="_blank">JavaScript World Domination by Flaki</a></li>
+<li><a href="https://github.com/firmata/protocol#readme" target="_blank">The Firmata protocol</a></li>
+<li><a href="https://vimeo.com/129003513" target="_blank">Suz Hinton (noopkat) at Web Rebels, on firmata &amp; using an Arduino with Node.js</a></li>
+<li><a href="https://opbeat.com/community/posts/the-eternal-struggle-node-js-in-embedded-devices-by-jon-mckay/" target="_blank">Node.js on embedded devices? Why? By Jon Mckay</a></li>
+<li><a href="https://www.youtube.com/watch?v=3HLRwcVqgFE" target="_blank">Run Your JS App For Years On A Single Coin Cell, by Jan Jongboom, JSConf Asia 2016</a></li>
+<li><a href="https://os.mbed.com/blog/entry/Why-JavaScript-on-microcontrollers-makes/" target="_blank">JavaScript on embedded devices? Why? By Jan Jongboom</a></li>
+<li><a href="https://www.espruino.com/Performance" target="_blank">Espruino executes code from source (and other performance considerations)</a></li>
+<li><a href="https://www.youtube.com/watch?v=gFi_qdRK6Og" target="_blank">JavaScript on the ESP 8266 - video series by ACROBOTIC</a></li>
+<li><a href="http://www.slideshare.net/seoyounghwang77/js-onmicrocontrollers" target="_blank">Samsung exploring JS on microcontrollers</a></li>
+<li><a href="http://tc39.github.io/tc39-notes/2014-04_apr-8.html#presentation-by-samsung-representatives" target="_blank">Samsung's IoT pitch at the April 2014 TC39 meeting</a></li>
+<li><a href="https://esdiscuss.org/notes/2014-04/ecma-tc39-talk-samsung.pdf" target="_blank">Samsung's TC39 presentation</a></li>
+<li><a href="https://developer.pebble.com/blog/2016/08/15/introducing-rockyjs-watchfaces/" target="_blank">It's JavaScript on the freakin' watch!</a></li>
+<li><a href="https://gist.github.com/HBehrens/1a91b97e1e98a6a09c5f" target="_blank">Heiko Behrens on Rocky.js/Pebble.js</a></li>
+<li><a href="https://www.youtube.com/watch?v=2TslKh1tdm4" target="_blank">Heiko announces Pebble.js at JSConf 2015</a></li>
+<li><a href="https://top.fse.guru/nodejs-a-quick-optimization-advice-7353b820c92e" target="_blank">Julien Crouzet's article about function inlining in node.js/v8 Turbofan</a></li>
+<li><a href="https://www.youtube.com/watch?v=FXyM1yrtloc" target="_blank">Joe McCann - Tuning Node (dotJS 2014)</a></li>
+</ul>
+</section></main></body></html>
