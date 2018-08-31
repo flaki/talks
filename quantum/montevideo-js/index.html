@@ -1,0 +1,312 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Firefox in the Quantum Era</title>
+	<meta name="description" content="Or, what is even a browser engine? — Flaki @ Montevideo JS, August 2018">
+	<meta name="keywords" content="mozilla, firefox, quantum, servo, rust, browser, engine, jank, webrender">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="Firefox in the Quantum Era">
+	<meta name="twitter:description" content="Or, what is even a browser engine? — Flaki @ Montevideo JS, August 2018">
+	<meta name="twitter:image:src" content="http://talk.flak.is/pic/baela-whyeworks.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/quantum/uruguay-js/">
+
+	<meta property="og:title" content="Firefox in the Quantum Era">
+	<meta property="og:description" content="Or, what is even a browser engine? — Flaki @ Montevideo JS, August 2018">
+	<meta property="og:image" content="http://talk.flak.is/pic/baela-whyeworks.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<style>
+@import url("/s/themes/pinky.css");
+</style><style>
+#opening h1 {
+  margin: auto;
+  max-width: 50vw;
+}
+</style><style>
+#title h1 {
+  font-size: 2.0rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60vh;
+}
+</style><style>
+@import url("/s/tinker.css");
+</style><style>
+@import url("/s/keep-playing.css");
+</style></head>
+
+<body><main><section id="opening" class="current">
+<p><picture class="bg">
+<img src="/pic/baela-wyeworks.jpg" alt="Baela says hi">
+</picture></p>
+<h1 id="hellomontevideojs">Hello Montevideo JS!</h1>
+<blockquote>
+  <p>Last updated: 2018-08-31</p>
+</blockquote>
+</section>
+<section id="title">
+<p><picture class="bg">
+<img src="../img/firefoxquantum.jpg" alt="Firefox Quantum">
+</picture></p>
+<h1 id="firefoxinthequantumera">Firefox in the Quantum Era</h1>
+<blockquote>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+</section>
+<section>
+<p>[]()<br>
+<picture class="bg">
+<img src="../img/co-backfire.gif" alt="Browsers">
+</picture></p>
+<h3 id="smallakasmallwhatdobrowserenginesdoeven"><small>…a.k.a.</small> What Do Browser Engines Do, Even?!</h3>
+</section>
+<section id="whoami">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<div id="tinker">
+  <img alt="Mozilla DevRel" src="/pic/mozhacks.png">
+  <h3>Developer Outreach / DevRel</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla TechSpeakers</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project, JS+HW hacker</h3>
+</div>
+</section>
+<section>
+<p><picture class="bg align-top">
+<img src="/oss/img/firefox-quantum.jpg" alt="">
+</picture></p>
+<h1 id="emperorfoxsnewclothesfirefoxquantum">Emperor Fox's New Clothes: Firefox Quantum</h1>
+<blockquote>
+  <p>Firefox Quantum is the collective name of Firefox's new browser engine</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/potch-internet-magic-webpage.png" alt="">
+</picture></p>
+<h3 id="enginewhatengine">Engine? What engine?</h3>
+<blockquote>
+  <p>A browser engine is what sits between webpages on the internet and the picture rendered for your eyes to see by a web browser…</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/quantum-doge.gif" alt="">
+</picture></p>
+<h1 id="quantumservorustandeverythingnice">Quantum: Servo, Rust; and everything nice…</h1>
+<blockquote>
+  <p>The "Firefox Quantum" includes various improvements and parts of Mozilla's "Servo" engine.</p>
+</blockquote>
+<p></p><details>
+  The "Quantum" moniker covers a host of new technologies that make the new Firefox faster, safer, and in general better. Some of these technologies come from another Mozilla project, called "Servo".
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/pic/servo.png" alt="">
+</picture></p>
+<h2 id="muchbrowsersuchrustservo">Much Browser, such Rust: Servo</h2>
+<blockquote>
+  <p><a href="https://servo.org/" target="_blank">Servo</a> is an experimental browser engine written in Rust by Mozilla.</p>
+</blockquote>
+<p></p><details>Servo is mainly focusing on modern hardware, high-level parallelization and cutting edge rendering engine techniques - it allows Mozilla engineers to experiment without breaking your favorite browser every day! Servo is written from the ground-up in Rust, a fairly new systems-level programming language.</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/pic/rust.png" alt="">
+</picture></p>
+<h2 id="rustspeedparallelismsafety">Rust: Speed, Parallelism, Safety</h2>
+<blockquote>
+  <p><a href="https://rust-lang.org/" target="_blank">Rust</a> is a highly performant systems programming language focusing on speed, memory safety and easy parallelization</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered drop-shadow">
+<img src="../img/valentingosu-oxidizing-firefox.jpg" alt="">
+</picture></p>
+<h3 id="servoisnttheonlypartoffirefoxwritteninrust">Servo isn't the only part of Firefox written in Rust</h3>
+<blockquote>
+  <p>Check out Valentin Gosu's talk on "Oxidizing Firefox" (link at the end)</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/tweet-ticky-rust-parallel.png" alt="">
+</picture></p>
+<h3 id="rustparallelexecution">Rust 💖 Parallel Execution</h3>
+<blockquote>
+  <p>One of the things Rust is very good at is parallelism and avoiding data races! <a href="https://twitter.com/ticky/status/1035036463832780800" target="_blank">tweet by @ticky</a></p>
+</blockquote>
+</section>
+<section>
+<p>[]()<br>
+<picture class="bg">
+<img src="../img/co-superspeed.gif" alt="Browsers">
+</picture></p>
+<h1 id="servoabrowserengineonsteroids">Servo: a browser engine - on steroids</h1>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/servo-parallel-reddit.png" alt="">
+</picture></p>
+<h3 id="servoandrustisverygoodatrunningthingsinparallel">Servo (and Rust) is very good at running things in parallel</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/servo-parallel-layout-perf.png" alt="">
+</picture></p>
+<h3 id="usingallcoresisuseful">Using all cores is useful!</h3>
+<blockquote>
+  <p>Putting all cores helps performance, load times, battery usage, heat dissipation - so in general a very good practice.</p>
+</blockquote>
+<p></p><details>
+  …it's also fairly hard to do so. This is where Rust comes into the picture…
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/firedoge.jpg" alt="">
+</picture></p>
+<h3 id="quantumservo">Quantum 💖 Servo</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/quantum-css.jpg" alt="">
+</picture></p>
+<h3 id="quantumgoodideas">Quantum 💖 Good Ideas™️</h3>
+<blockquote>
+  <p>Image by Lin Clark - find the whole blogpost in the links section later!</p>
+</blockquote>
+</section>
+<section id="you-need-node" class="big white-background">
+<h2 id="thewaronjank">The War On JANK</h2>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/co-jank.gif" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/linclark-jank.gif" alt="">
+</picture></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/tweet-mike_conley-tabswitch.png" alt="">
+</picture></p>
+<h3 id="makingthingsfaaassssst">Making things FAAASSSSST</h3>
+<blockquote>
+  <p><a href="https://twitter.com/mike_conley/status/936728556008329219" target="_blank">tweet by @mike_conley</a></p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/firefox-omtp.png" alt="">
+</picture></p>
+<h3 id="bymovingthingsoffthemainthread">…by moving things off the main thread</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/linclark-sarasoueidan-nightly-tweet.png" alt="">
+</picture></p>
+<h3 id="itmakesadifference">It makes a difference!</h3>
+<blockquote>
+  <p><a href="https://twitter.com/SaraSoueidan/status/902179076236079104" target="_blank">tweet by @SaraSoueidan, image by Lin Clark</a></p>
+</blockquote>
+</section>
+<section id="you-need-node" class="big slim white-background">
+<h2 id="whatdoesthefuturehold">What Does The Future Hold?</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg">
+<img src="../img/linclark-quantum-webrender.jpg" alt="">
+</picture></p>
+<h3 id="thefutureoffirefoxsgraphicsbackendwebrender">The future of Firefox's graphics backend: WebRender</h3>
+<blockquote>
+  <p>Read Lin Clark's complete intro to WebRender (link in the end)</p>
+</blockquote>
+<p></p><details>
+Composited Layers vs Display Lists
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/tweet-pcwalton-webrender.png" alt="">
+</picture></p>
+<h3 id="anottoodistantfututreactually">…a not-too-distant fututre, actually!</h3>
+<blockquote>
+  <p><a href="https://twitter.com/pcwalton/status/1025592938259144705" target="_blank">tweet by @pcwalton</a></p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg">
+<img src="../img/co-get-it-now.gif" alt="">
+</picture></p>
+<h3 id="youcanalreadytryit">You can already try it!</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/enable-webrender.jpg" alt="">
+</picture></p>
+<h3 id="infirefoxnightlynowinfirefox63laterthisfall">…in Firefox Nightly now &amp; in Firefox 63 later this fall!</h3>
+<blockquote>
+  <p>For some hardware configurations WebRender will be enabled by default in the release version of Firefox 63 coming this fall!</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="/play/img/clouduboy-nodeconfar.jpg" alt="">
+</picture></p>
+<h3 id="cometonodeconfargentinainoctober">Come to NodeConf Argentina in October!</h3>
+<blockquote>
+  <p>I'm speaking &amp; giving a workshop in October in Buenos Aires</p>
+</blockquote>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="../img/co-fin.gif" alt="">
+</picture></p>
+<h1 id="thanks">Thanks!</h1>
+<h4 id="talkflakisquantumhttptalkflakisquantummontevideojs"><a href="http://talk.flak.is/quantum/montevideo-js/" target="_blank">talk.flak.is/quantum</a></h4>
+<p><span class="tweet">
+<img src="/pic/mozhacks.png" alt="Mozilla Hacks">
+@mozhacks
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message"></div>
+</section>
+<section>
+<h3 id="readinglist">Reading list:</h3>
+<ul>
+<li><a href="https://hacks.mozilla.org/2017/05/quantum-up-close-what-is-a-browser-engine/" target="_blank">But what is even a browser engine? by Potch</a></li>
+<li><a href="https://www.youtube.com/watch?v=Frwe3x8HfwE" target="_blank">Watch "How Firefox Quantum came to be?" - a talk by Jean-Yves Perrier</a></li>
+<li><a href="https://www.youtube.com/watch?v=7ti6EtP8W8c" target="_blank">Oxidizing Firefox: putting Rust code in Firefox, watch the talk by Valentin Gosu</a></li>
+<li><a href="https://hacks.mozilla.org/2017/11/entering-the-quantum-era-how-firefox-got-fast-again-and-where-its-going-to-get-faster/" target="_blank">About the various Quantum technologies in Firefox, blogpost from Lin Clark</a></li>
+<li><a href="https://lwn.net/Articles/647969/" target="_blank">What is Servo? Nathan Willis' impressions on Lars Bergstrom's LinuxConJP talk</a></li>
+<li><a href="https://mozillagfx.wordpress.com/2017/12/05/off-main-thread-painting/" target="_blank">Off-main-thread painting deep dive from the Mozilla Gfx team</a></li>
+<li><a href="https://hacks.mozilla.org/2018/06/firefox-61-quantum-of-solstice/" target="_blank">Parallel parsing of CSS, Potch talks about Firefox 61</a></li>
+<li><a href="https://hacks.mozilla.org/2018/06/retained-display-lists/" target="_blank">Why throw away a perfectly good display list? Matt Woodrow on retained display lists in Firefox 61</a></li>
+<li><a href="https://hacks.mozilla.org/2017/10/the-whole-web-at-maximum-fps-how-webrender-gets-rid-of-jank/" target="_blank">Is it a browser or an AAA game engine? Lin Clark explaining how WebRender works</a></li>
+</ul>
+</section></main></body></html>

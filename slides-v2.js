@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', e => {
     if (e.key==='f' || e.key==='c') nextPage();
 
     // Presentation
-    if (e.key==='Enter' || e.key==='Escape') togglePresent();
+    if (e.key==='Enter' /* || e.key==='Escape' */) togglePresent();
 
     // Live webcam view
     if (e.key==='v') toggleLiveView(e);
@@ -106,6 +106,15 @@ document.addEventListener('DOMContentLoaded', e => {
   }
   function togglePresent(e) {
     document.documentElement.classList.toggle('present', e === 'off' ? false : undefined);
+
+    // Fullscreen mode
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      if (document.exitFullscreen) document.exitFullscreen()
+      if (document.webkitExitFullscreen) document.webkitExitFullscreen()
+    } else {
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen()
+      if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen()
+    }
   }
 
   function toggleLiveView(e) {
