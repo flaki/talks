@@ -2,8 +2,8 @@
 title: Firefox in the Quantum Era
 description: Or, what is even a browser engine? — Flaki @ Montevideo JS, August 2018
 keywords: mozilla, firefox, quantum, servo, rust, browser, engine, jank, webrender
-social_image: http://talk.flak.is/pic/baela-whyeworks.jpg
-canonical_url: http://talk.flak.is/quantum/uruguay-js/
+social_image: http://talk.flak.is/pic/baela-wyeworks.jpg
+canonical_url: http://talk.flak.is/quantum/montevideo-js/
 ```
 
 ```css
