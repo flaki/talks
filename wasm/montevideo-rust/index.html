@@ -1,0 +1,462 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Rust and WebAssembly</title>
+	<meta name="description" content="(C)rustaceans of the web, assemble! — Flaki @ Montevideo Rust, September 2018">
+	<meta name="keywords" content="rust, webassembly, web, javascript, wasm, rustwasm, wasm-bindgen, asmjs, npm, webpack">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="Rust and WebAssembly">
+	<meta name="twitter:description" content="(C)rustaceans of the web, assemble! — Flaki @ Montevideo Rust, September 2018">
+	<meta name="twitter:image:src" content="http://talk.flak.is/pic/baela-wyeworks.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/wasm/montevideo-rust/">
+
+	<meta property="og:title" content="Rust and WebAssembly">
+	<meta property="og:description" content="(C)rustaceans of the web, assemble! — Flaki @ Montevideo Rust, September 2018">
+	<meta property="og:image" content="http://talk.flak.is/pic/baela-wyeworks.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<style>
+@import url("/s/themes/pinky.css");
+</style><style>
+#opening h1 {
+  margin: auto;
+  max-width: 50vw;
+}
+</style><style>
+#title h1 {
+  font-size: 2.0rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+}
+</style><style>
+@import url("/s/tinker.css");
+</style><style>
+#animate-pipeline h3, blockquote {
+  opacity: .5
+}
+
+#animate-pipeline blockquote {
+  right: auto;
+  left: 0;
+  background: transparent;
+  font-weight: bold;
+  color: hotpink;
+}
+#animate-pipeline img {
+  visibility: hidden;
+}
+
+#animate-pipeline {
+  background-color: white;
+  background-image: url(../img/linclark-wasm-pipeline.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: sway 40s ease-in-out alternate infinite;
+}
+
+@keyframes sway {
+  0% {
+    background-position: 200px top;
+  }
+  100% {
+    background-position: -4400px top;
+  }
+}
+</style><style>
+@import url("/s/keep-playing.css");
+</style><style>
+@import url("/s/reading-list.css");
+</style></head>
+
+<body><main><section id="opening" class="current">
+<p><picture class="bg">
+<img src="/pic/baela-wyeworks.jpg" alt="Baela says hi">
+</picture></p>
+<h1 id="ahoymontevideorustaceans">Ahoy Montevideo Rustaceans!</h1>
+<blockquote>
+  <p>Last updated: 2018-09-03</p>
+</blockquote>
+</section>
+<section id="title">
+<p><picture class="bg">
+<img src="../img/rustwebassembly.jpg" alt="Firefox Quantum">
+</picture></p>
+<h1 id="rustwebassembly">Rust &amp; WebAssembly</h1>
+<blockquote>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+</section>
+<section>
+<p>[]()<br>
+<picture class="bg">
+<img src="../img/spaceship-assemble.gif" alt="Browsers">
+</picture></p>
+<h3 id="smallakasmallwhattoexpectwhenyourewebassemblin"><small>…a.k.a.</small> What To Expect when You're (Web)Assemblin'</h3>
+</section>
+<section id="whoami">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<div id="tinker">
+  <img alt="Mozilla DevRel" src="/pic/mozhacks.png">
+  <h3>Developer Outreach / DevRel</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla TechSpeakers</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project, JS+HW hacker</h3>
+</div>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/wasmwg.png" alt="">
+</picture></p>
+<h1 id="smallontodaysagendabrsmallwhywebassemblywhyrustwhyrustwasm"><small>On Today's Agenda:<br></small> Why WebAssembly? Why Rust? Why Rust-WASM?</h1>
+<blockquote>
+  <ul>
+  <li>What is Webassembly, what is it good for?</li>
+  <li>What does Rust have to do with WebAssembly?</li>
+  </ul>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/webassembly-logo.svg" alt="">
+</picture></p>
+<h3 id="alittlewebassemblyhistory">A little WebAssembly (hi)story</h3>
+<blockquote>
+  <p>WebAssembly is an <a href="https://webassembly.org/docs/mvp/" target="_blank">MVP</a>, with <a href="https://webassembly.org/docs/future-features/" target="_blank">many more features</a> still to come</p>
+</blockquote>
+<p></p><details><br>
+  The WebAssembly spec (and implementations) currently encompass an "MVP", minimum viable product. WebAssembly (after years of work) shipped this MVP implementation in 4 major browsers, working closely together at almost the same time. This type of coordination required a lot of of compromises to be made, so WebAssembly shipped with a minimal featureset, with a lot more features currently in the work.<p></p>
+<p>But we shouldn't jump ahead…<br>
+</p></details><p></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="/play/img/we-have-to-go-back.jpg" alt="">
+</picture></p>
+<p></p><details>
+  To really understand the motivations behind WebAssembly we have to go back - waaay back - to the beginnings of compiling to the web and the up-and-coming new kid on the block: asm.js
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/asmjs.png" alt="">
+</picture></p>
+<h3 id="asmjs">ASM.js</h3>
+<p></p><details>
+  With JavaScript engines getting faster and the improvements in JIT compilation, what was previously impossible (or simply unbearably slow), it became possible: <a href="https://blog.mozilla.org/luke/2013/03/21/asm-js-in-firefox-nightly/" target="_blank">asm.js landed in 2013</a> in Firefox Nightly and promised compilation of low-level code into JavaScript, to be executed at high speed inside the same JavaScript VM as any other JS
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/asmjs-unreal-engine.jpg" alt="">
+</picture></p>
+<h3 id="asmjswas_really_fast">ASM.js was <em>really</em> fast</h3>
+<p></p><details>
+  Compared to what was possible before, asm.js was mind-blowingly fast and amazingly easy to use. Entire C++ codebases compiled to JavaScript, and ran close to native speed (half of native speed, but hey, still!) - including whole AAA game engines like the Unreal Engine in all their 60 fps glory…
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/kripken-asm-notanewlanguage.png" alt="">
+</picture></p>
+<h3 id="asmjswasntanewlanguage">ASM.js wasn't a new language</h3>
+<p></p><details>
+  And asm.js wasn't a new language, that promised performant code and breaking away of JS's shackles - looking at you, Dart. It was just a clever subset of JS - but still valid JavaScript code at the end of the day. Could be run on any JS-supporting VM (whether it'd be fast, though—that'd be another question…)
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/kripken-asm-implicitlytyped.png" alt="">
+</picture></p>
+<h3 id="stilljsalbeitalittlestrange">Still JS, albeit a little strange</h3>
+<p></p><details>
+  But how? Easy, JavaScript JITs were already doing optimizations, they just needed to gather implicit type information (while running the code) and speculate about the variable types. So what if we could just <em>supply</em> this implicit type information within the code itself? Poof! Asm.js was born and JIT-s were compiling pre-annotated JS code ahead of time. Code that you arguably wouldn't write by hand (and wouldn't really want to read, either) - but code that was <em>still JavaScript, after all</em>.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/kripken-asm-notanewengine.png" alt="">
+</picture></p>
+<h3 id="2xsloweristhenew_blazingfast_">"2x slower" is the new <em>"blazing fast"</em> :)</h3>
+<p></p><details><br>
+  Asm.js was still JS - and that meant the Asm.js compiler/VM was…simply the JS VM! Not another VM, same engine, same compiler, same optimizations, same memory (and garbage collector), same (secure) sandbox. And even though everything was the same - the world was never the same again. Eventually, Asm.js got from 200% to 133-160% of the performance of native-compiled C-code for some workloads.<p></p>
+<p>There was just one <em>tiny</em> issue…<br>
+</p></details><p></p>
+</section>
+<section class="big slim">
+<h2 id="except">except…</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/parsing-js-is-slow.png" alt="">
+</picture></p>
+<h3 id="parsingjsisdogslow">Parsing JS is dog slow…</h3>
+<p></p><details>
+  Asm.js was <em>just JavaScript</em>. Unfortunately parsing JavaScript is <em>not really performant</em>. Like really, <em>really</em> slow. Especially on mobile, but yeah 1-2 megabyte per second is a good baseline metric to keep in mind (and this is just the parsing, compilation is just <em>after</em> this), except for the fastest desktop CPUs.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/parsing-1mb-js.jpg" alt="">
+</picture></p>
+<h3 id="parsingjsisdogslow">Parsing JS is dog slow…</h3>
+<p></p><details>
+  On the web we try to avoid multiple-megabyte bundles — but who are we to tell a <em>complete AAA game engine</em> that they shouldn't be clocking in at 45 megabytes once compiled to type-annotated JavaScript code..?
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/webassembly-logo.svg" alt="">
+</picture></p>
+<h3 id="enterwebassembly">Enter WebAssembly?</h3>
+<p></p><details>
+  WebAssembly can be treated as an iterative succession to Asm.js. It's <a href="https://hacks.mozilla.org/2017/03/why-webassembly-is-faster-than-asm-js/" target="_blank">smaller, faster, more</a> robust in every way - and more easily extensible, created from the ground-up keeping this in mind, making it much more future proof.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/what-is-webassembly.png" alt="">
+</picture></p>
+<h3 id="whatiswebassembly">What is WebAssembly?</h3>
+<p></p><details><br>
+  If JS is slow to parse, why not make our own, optimized binary format? More compact, easier to parse.<p></p>
+<p>JITs are running on real hardware, so let's make our code's types fit this hardware more - (almost) everything is a number! (…now with 100% more 64-bit types!)</p>
+<p>But still runs in the exaxt same JS VM, uses the exact same low-level optimizations, and lives in a symbiotic relationship with the host browser, JavaScript, DOM etc.<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/emscripten.png" alt="">
+</picture></p>
+<h3 id="smallyourgotocompiletothewebtoolbrsmallemscripten"><small>Your go-to "compile-to-the-web" tool:<br></small> Emscripten</h3>
+<p></p><details><br>
+  …it even uses the same tools: Emscripten, Mozilla's go-to tool for C++-to-JS compilation has full support for WASM, and even prefers it.<p></p>
+<p>There are other tools, as well, Rust for example has really mature out-of-the-box tooling support for WASM output.<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/wasm-netscape.png" alt="">
+</picture></p>
+<h3 id="wasmhassomecooltricks">WASM has some cool tricks</h3>
+<blockquote>
+  <ul>
+  <li><a href="https://twitter.com/nybblr/status/923569208935493632" target="_blank">tweet by @nybblr</a></li>
+  </ul>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/wasm-win2k.png" alt="">
+</picture></p>
+<h3 id="reallycoolones">Really cool ones</h3>
+<blockquote>
+  <ul>
+  <li><a href="https://bellard.org/jslinux/vm.html?url=https://bellard.org/jslinux/win2k.cfg&amp;mem=192&amp;graphic=1&amp;w=1024&amp;h=768" target="_blank">A JSLinux emulated x86 VM running Windows 2000</a> - inside the browser using WASM</li>
+  <li><a href="https://twitter.com/justindarc/status/1033115285950275586" target="_blank">tweet by @justindarc</a></li>
+  </ul>
+</blockquote>
+</section>
+<section class="big slim white-background">
+<h2 id="wasmisnotatoy">WASM is not a toy</h2>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/unity-webassembly.jpg" alt="">
+</picture></p>
+<h3 id="wellokaymaybesometimesitis">…well, okay, maybe sometimes it is…</h3>
+<blockquote>
+  <p>https://blogs.unity3d.com/2018/08/15/webassembly-is-here/</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/wasm-fortune500.png" alt="">
+</picture></p>
+<h3 id="butitsgoodforbusiness">But it's good for business!</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/oss/img/devtoolshtml.jpg" alt="">
+</picture></p>
+<h3 id="even_inside_yourbrowserthereswebassembly">Even <em>inside</em> your browser, there's WebAssembly!</h3>
+<blockquote>
+  <p>In <a href="https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/" target="_blank">"Oxidizing Source Maps with Rust and WebAssembly"</a> Nick Fitzgerald tells the story of how they used WebAssembly to speed up Firefox's built-in debugger</p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/birth-and-death-of.png" alt="">
+</picture></p>
+<h3 id="butiswebassemblysetouttofinishoffyourjavascript">But is WebAssembly set out to finish off your JavaScript??</h3>
+<blockquote>
+  <ul>
+  <li>No it is not.</li>
+  <li>Maybe in 2035 that might happen, but not anytime soon…</li>
+  <li><a href="https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript" target="_blank">Gary Bernhardt's "The Birth and Death of Javascript"</a></li>
+  </ul>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/linclark-rust-love-js.png" alt="">
+</picture></p>
+<h3 id="rust3js">Rust &lt;3 JS</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/rustwasmjs.png" alt="">
+</picture></p>
+<h3 id="rust3wasm3js">Rust &lt;3 WASM &lt;3 JS</h3>
+</section>
+<section id="animate-pipeline" class="white-background">
+<p><picture class="bg">
+<img src="../img/linclark-wasm-pipeline.jpg" alt="">
+</picture></p>
+<h3 id="therustwasmpipeline">The Rust-WASM Pipeline</h3>
+<blockquote>
+  <p>pipeline illustration by Lin Clark</p>
+</blockquote>
+<p></p><details></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/wasm-bindgen-1.png" alt="">
+</picture></p>
+<h3 id="rust3wasm3js">Rust &lt;3 WASM &lt;3 JS</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/wasm-ferris.png" alt="">
+</picture></p>
+<h3 id="rust3wasm3js">Rust &lt;3 WASM &lt;3 JS</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/wasm-bindgen-2.png" alt="">
+</picture></p>
+<h3 id="rust3wasm3js">Rust &lt;3 WASM &lt;3 JS</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/pic/rust.png" alt="">
+</picture></p>
+<h1 id="butwhyemrustem">But why <em>Rust</em> ?</h1>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/fearless-concurrency.png" alt="">
+</picture></p>
+<h3 id="hackwithoutfearinrust">Hack without fear in Rust</h3>
+<blockquote>
+  <ul>
+  <li>Safe, Fast, Parallel</li>
+  <li>Great package manager</li>
+  <li>Minimal runtime</li>
+  <li>Lots of web people :)</li>
+  </ul>
+</blockquote>
+</section>
+<section class="big slim">
+<p><picture class="bg cover">
+<img src="http://anne-crea.com/annecrea/15092-free-wizard-wallpapers.jpg" alt="">
+</picture></p>
+<h2 id="speedwithoutwizardry">Speed ⚡ Without Wizardry</h2>
+<blockquote>
+  <p><a href="https://twitter.com/fitzgen/status/968146167132389376" target="_blank">Speed without Wizardry - by @fitzgen</a></p>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/gowasm.png" alt="">
+</picture></p>
+<h3 id="butgo">But: Go</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/assemblyscript.png" alt="">
+</picture></p>
+<h3 id="buttypescript">But: TypeScript</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/webassembly-studio.png" alt="">
+</picture></p>
+<h2 id="tooling">Tooling!</h2>
+<blockquote>
+  <ul>
+  <li><a href="https://webassembly.studio/" target="_blank">WebAssembly Studio</a></li>
+  <li><a href="https://wasdk.github.io/wasmcodeexplorer/" target="_blank">WASM Code Explorer</a></li>
+  </ul>
+</blockquote>
+</section>
+<section class="big slim">
+<h2 id="shamelessplug">Shameless plug…</h2>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="/play/img/clouduboy-nodeconfar.jpg" alt="">
+</picture></p>
+<h3 id="cometonodeconfargentinainoctober">Come to NodeConf Argentina in October!</h3>
+<blockquote>
+  <p><a href="https://2018.nodeconf.com.ar/" target="_blank">2018.nodeconf.com.ar</a> - I'm speaking, among other things about WebAssembly &amp; giving a workshop in October in Buenos Aires</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/rust-latam.png" alt="">
+</picture></p>
+<h3 id="cometorustlataminmarch">Come to Rust LATAM in March!</h3>
+<blockquote>
+  <p><a href="http://rustlatam.org/" target="_blank">rustlatam.org</a> - Lots of amazing things, talks, workshops. Learn more about Rust, WebAssembly and many, many more exciting topics! I'll be there. ;)</p>
+</blockquote>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="../img/assemblin.gif" alt="">
+</picture></p>
+<h1 id="thanks">Thanks!</h1>
+<h4 id="talkflakiswasmhttptalkflakiswasmmontevideorust"><a href="http://talk.flak.is/wasm/montevideo-rust/" target="_blank">talk.flak.is/wasm</a></h4>
+<p><span class="tweet">
+<img src="/pic/mozhacks.png" alt="Mozilla Hacks">
+@mozhacks
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message">Keep on Assemblin'!</div>
+</section>
+<section class="reading-list">
+<h3 id="readinglist">Reading list:</h3>
+<ul>
+<li>Dan Callahan <a href="https://www.youtube.com/watch?v=bac0dGQbUto" target="_blank">presents about WebAssembly at JSConf Budapest, runs DOS &amp; Netscape in a browser</a></li>
+<li>An intro to <a href="https://ashleygwilliams.github.io/helloWASM/" target="_blank">Rust+WebAssembly</a> &amp; <a href="https://rustwasm.github.io/hello-wasm-bindgen/" target="_blank">wasm-bindgen</a> by Ashley Williams &amp; Steve Klabnik</li>
+<li><a href="https://mnt.io/2017/06/06/rust-hack-without-fear/" target="_blank">Hack Without Fear!</a> — <a href="https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html" target="_blank">Fearless concurrency in Rust</a> and in <a href="https://blog.rust-lang.org/2017/11/14/Fearless-Concurrency-In-Firefox-Quantum.html" target="_blank">Servo/Firefox</a></li>
+<li>WebAssembly is <a href="https://words.steveklabnik.com/webassembly-is-more-than-just-the-web" target="_blank">more than just Web</a> - and definitely  <a href="https://words.steveklabnik.com/is-webassembly-the-return-of-java-applets-flash" target="_blank">more than just the revival of Flash</a> - articles by Steve Klabnik</li>
+<li><a href="http://asmjs.org/faq.html" target="_blank">The ASM.js FAQ</a> with <a href="https://kripken.github.io/mloc_emscripten_talk/" target="_blank">Alon's original presentation</a></li>
+<li><a href="https://developers.google.com/web/updates/2018/03/emscripting-a-c-library" target="_blank">WebP image decoding using WebAssembly &amp; emscripten</a></li>
+<li><a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/" target="_blank">Mozilla's streaming &amp; tiered WebAssembly compilation - a blogpost by Lin Clark</a> and <a href="https://v8project.blogspot.com/2018/08/liftoff.html" target="_blank">V8's WebAssembly baseline compiler: Liftoff</a></li>
+<li><a href="https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/" target="_blank">Nick Fitzgerald's post on embedding WASM in the devtools</a> with <a href="https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html" target="_blank">Vyacheslav's response</a> &amp; <a href="http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html" target="_blank">Nick's followup</a></li>
+<li><a href="https://hacks.mozilla.org/2017/10/the-whole-web-at-maximum-fps-how-webrender-gets-rid-of-jank/" target="_blank">Is it a browser or an AAA game engine? Lin Clark explains how WebRender works</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format" target="_blank">Understanding WAT, the WebAssembly Text Format - an MDN guide by Chris Mills</a></li>
+</ul>
+</section></main></body></html>

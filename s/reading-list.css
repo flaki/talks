@@ -1,0 +1,15 @@
+.reading-list ul {
+  margin: auto;
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+  height: calc((var(--slideh) * .85));
+}
+
+.reading-list li a {
+  font-family: inherit;
+  color: hotpink;
+}
