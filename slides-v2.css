@@ -206,3 +206,32 @@ details[open] {
   font-family: 'Open Sans Condensed', sans-serif;
   background-image: none;
 }
+
+
+
+/* Citations, footnotes, attributions */
+footer.attr {
+  color: hotpink;
+  font-family: Oswald, sans-serif;
+  font-size: .85em;
+  padding: .75em;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+  opacity: .5;
+}
+
+footer.attr p {
+  display: contents;
+}
+
+
+.attr a {
+  font-style: italic;
+  color: #e38;
+}
+
+.attr a:hover, attr a:focus, attr a:active {
+  color: hotpink;
+}

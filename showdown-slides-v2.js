@@ -140,6 +140,12 @@ function preprocessMd(text) {
     return br+'\n\n'+markdown
   })
 
+  // Copyright notes/attributions
+  text = text.replace(/^[\t ]*\(c\)(.*)$/gm, (match, content) => {
+    return '<footer class="attr">\n'+mdConverter.makeHtml(content)+'\n</footer>'
+  })
+
+
   // Slice up to individual slides
   let rxSections = /^[\r\n\s]*\[\]\(((?:#[\w\-]*)?(?:\.[\w\-]+)*)\)/
 
