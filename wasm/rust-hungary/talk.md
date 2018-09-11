@@ -33,7 +33,7 @@ canonical_url: http://talk.flak.is/wasm/rust-hungary/
 
 ```css
 @import url("/s/tinker.css");
-#whoami h3 { left: 75vw }
+#whoami > h3 { left: 75vw }
 ```
 
 ### Szmozsánszky István "Flaki"<br />`@slsoftworks`
