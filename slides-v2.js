@@ -54,6 +54,9 @@ document.addEventListener('DOMContentLoaded', e => {
 
     // Show source of processed/generated slide deck in new window
     if (e.key==='x') exportSlides(e);
+
+    // Open speaker notes window
+    if (e.key==='n') window.notesWindow = window.open('about.blank');
   });
 
   function nextPage(e) {
@@ -64,6 +67,9 @@ document.addEventListener('DOMContentLoaded', e => {
 
       // for non-presenting mode
       current.nextElementSibling.scrollIntoView()
+
+      // update notes
+      updateNotes(current.nextElementSibling)
     }
 
     window.location.replace('#'+slideNumber());
@@ -77,6 +83,9 @@ document.addEventListener('DOMContentLoaded', e => {
 
       // for non-presenting mode
       current.previousElementSibling.scrollIntoView()
+
+      // update notes
+      updateNotes(current.previousElementSibling)
     }
 
     window.location.replace('#'+slideNumber());
@@ -174,6 +183,21 @@ document.addEventListener('DOMContentLoaded', e => {
     })
   }
 
+  function updateNotes(next) {
+    next = next || document.querySelector('.current')
+    // TODO: show slide image as well
+
+    let detailsElement = next.querySelector('details')
+    let noteContents = detailsElement ? detailsElement.innerHTML : '-'
+    noteContents = noteContents.replace(/\s*<br\/?>/,'')
+
+    if (window.notesWindow) {
+      notesWindow.document.body.innerHTML =
+        '<div style="font-size: 3.2rem; line-height: 4.4rem; padding: 5rem;">'
+          + noteContents
+        +'</div>'
+    }
+  }
 
   window.Slides = {
     nextPage, prevPage, goToPage, togglePresent

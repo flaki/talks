@@ -95,7 +95,7 @@ function preprocessMd(text) {
 
       case 'meta':
         let metaObj = parseMeta(content)
-        console.log(metaObj)
+        //console.log(metaObj)
         if ('title' in metaObj) {
           document.querySelector('title').textContent = metaObj.title
           document.querySelector('meta[name="twitter:title"]').setAttribute('content', metaObj.title)
@@ -133,9 +133,9 @@ function preprocessMd(text) {
       br += `\n[](${matchedTags})`
     }
 
-    console.log('match', match)
-    console.log('matchedTags', matchedTags)
-    console.log(br+'\n\n'+markdown)
+    //console.log('match', match)
+    //console.log('matchedTags', matchedTags)
+    //fconsole.log(br+'\n\n'+markdown)
 
     return br+'\n\n'+markdown
   })
@@ -154,7 +154,7 @@ function preprocessMd(text) {
       // skip empty content (for empty slides use html comments)
       if (!markdown.trim()) return
 
-      console.log(markdown)
+      //console.log(markdown)
       let [ match, matchedTags ] = rxSections.exec(markdown) || []
 
       if (matchedTags) {
