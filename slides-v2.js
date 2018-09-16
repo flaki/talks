@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', e => {
     if (e.key==='x') exportSlides(e);
 
     // Open speaker notes window
-    if (e.key==='n') window.notesWindow = window.open('about.blank');
+    if (e.key==='n') window.notesWindow = window.open('about:blank');
   });
 
   function nextPage(e) {
