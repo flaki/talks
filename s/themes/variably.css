@@ -1,0 +1,184 @@
+:root {
+  --heading-color: hotpink;
+
+  --heading-shadow-color: #555;
+  --heading-shadow-x: 0;
+  --heading-shadow-y: .03em;
+
+  --heading-gradient-from: rgba(255,255,255,1);
+  --heading-gradient-to: rgba(255,255,255,0.85);
+}
+
+:root {
+  --heading-color: #c5e;
+
+  --heading-shadow-color: #222;
+  --heading-shadow-x: .03em;
+  --heading-shadow-y: .05em;
+
+  --heading-gradient-from: rgba(0,0,0,1);
+  --heading-gradient-to: transparent;
+
+  --heading-border-radius: 12px;
+}
+
+.main {
+  color: var(--heading-color);
+}
+
+p > img:first-child:last-child {
+  max-height: calc(.7 * var(--slideh));
+  display: block;
+  position: relative;
+}
+
+blockquote a,
+ul a,
+ol a,
+p a {
+  font-family: Consolas, monospace;
+  font-weight: bold;
+  font-size: 80%;
+  line-height: 80%;
+  text-decoration: none;
+  padding: .25em;
+  color: #777;
+}
+
+blockquote ul, blockquote ol,
+blockquote p {
+  margin: 0 .5rem;
+}
+blockquote ul, blockquote ol {
+  padding-left: 1rem;
+}
+
+.box,
+h1, h2, h3 {
+  display: block;
+
+  color: var(--heading-color);
+  background: linear-gradient(to bottom, var(--heading-gradient-from) 10%, var(--heading-gradient-to)) transparent;
+  text-shadow: var(--heading-shadow-x) var(--heading-shadow-y) var(--heading-shadow-color);
+
+  padding: .5rem 1rem;
+  margin: 1rem;
+
+  border-radius: var(--heading-border-radius);
+}
+
+.white-background .box,
+.white-background h1, .white-background h2, .white-background h3 {
+  background: transparent;
+  --heading-shadow-color: #777;
+}
+
+h1, h2, h3 {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 600;
+
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.top-left-title h1,
+.top-left-title h2,
+.top-left-title h3 {
+  display: inline-block;
+  z-index: 1;
+}
+
+.top-right-title h1,
+.top-right-title h2,
+.top-right-title h3 {
+  display: inline-block;
+  float: right;
+}
+
+
+/* title h3 */
+section > h3 {
+  display: inline-block;
+
+  left: 50vw;
+  transform: translateX(-50%);
+  margin-left: 0;
+  min-width: 33%;
+}
+
+section>blockquote, section>ul, section>ol {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 300;
+
+  position: absolute;
+  top: unset;
+  bottom: 0;
+  right: 0;
+  color: white;
+
+  min-width: 40%;
+  background: rgba(0,0,0,.85);
+  padding: .6em;
+  margin: 1em;
+}
+
+section>blockquote strong, section>ul strong, section>ol strong {
+  font-weight: 600;
+}
+
+
+section {
+  background: black;
+}
+.white-background {
+  background: white;
+}
+
+.big h1,
+.big h2 {
+	background: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+  padding: 1em;
+}
+.big h1 {
+  font-size: 6rem;
+}
+.big h2 {
+  font-size: 4rem;
+}
+.slim h1,
+.slim h2 {
+  font-weight: 300;
+  letter-spacing: -.05em;
+}
+
+.big.link h2 {
+	text-shadow: .05em .05em black,.05em -.05em black,-.05em .05em black,-.05em -.05em black,0 -.05em black,0 .05em black;
+	text-transform: none;
+	font-size: 5rem;
+}
+.big.link h2 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.white-background.slim h1,
+.white-background.slim h2,
+.white-background.big h1,
+.white-background.big h2,
+.white-background.big.link h1,
+.white-background.big.link h2 {
+  text-shadow: none;
+}
+
+
+h1 code, h2 code, h3 code {
+  font-family: monospace;
+  text-transform: none;
+  font-style: italic;
+  text-shadow: white 1px 1px,black -1px -1px;
+}

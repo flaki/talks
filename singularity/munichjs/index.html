@@ -1,0 +1,427 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Approaching the JavaScript singularity</title>
+	<meta name="description" content="New JS features, across platforms — Flaki @ TechSpeakers Meetup Paris, September 2018">
+	<meta name="keywords" content="rust, webassembly, web, javascript, wasm, rustwasm, asmjs">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="Approaching the JavaScript singularity">
+	<meta name="twitter:description" content="New JS features, across platforms — Flaki @ TechSpeakers Meetup Paris, September 2018">
+	<meta name="twitter:image:src" content="http://talk.flak.is/singularity/img/nasa-blackhole2.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/singularity/munichjs/">
+
+	<meta property="og:title" content="Approaching the JavaScript singularity">
+	<meta property="og:description" content="New JS features, across platforms — Flaki @ TechSpeakers Meetup Paris, September 2018">
+	<meta property="og:image" content="http://talk.flak.is/singularity/img/nasa-blackhole2.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<style>
+@import url("/s/themes/variably.css");
+@import url('https://fonts.googleapis.com/css?family=Six+Caps');
+@import url('https://fonts.googleapis.com/css?family=UnifrakturCook:700');
+</style><style>
+#opening h1 {
+  margin: auto;
+  max-width: 100vw;
+}
+</style><style>
+@import url("/s/tinker.css");
+#whoami > h3 { left: 75vw; background: rgba(0,0,0,.75); padding: .5em 3em; }
+</style><style>
+#title h1 {
+  font-size: 3.0rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  padding: 1.75rem;
+}
+#title blockquote {
+  background: white;
+  color: black;
+  opacity: 1;
+}
+</style><style>
+#onejs h2 sub {
+  display: block; font-size: 50%;
+}
+
+</style><style>
+@import url("/s/keep-playing.css");
+</style><style>
+@import url("/s/reading-list.css");
+</style></head>
+
+<body><main><section id="opening" class="current">
+<p><picture class="bg">
+<img src="../img/hello-munich.jpg" alt="hi">
+</picture></p>
+<h1 id="hellomunichjs">Hello Munich JS!</h1>
+<blockquote>
+  <p>Last updated: 2018-10-10</p>
+</blockquote>
+</section>
+<section id="whoami" class="white-background">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<h3 id="szmozsnszkyistvnflakibrslsoftworks">Szmozsánszky István "Flaki"<br><code>@slsoftworks</code></h3>
+<div id="tinker">
+  <img alt="Mozilla DevRel" src="/pic/mozhacks.png">
+  <h3>Developer Outreach / DevRel</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla TechSpeakers</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project, JS+HW hacker</h3>
+</div>
+</section>
+<section id="title">
+<p><picture class="bg">
+<img src="../img/nasa-blackhole2.jpg" alt="">
+</picture></p>
+<h1 id="approachingthejavascriptsingularity">Approaching the JavaScript Singularity</h1>
+<blockquote>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+</section>
+<section id="onejs" class="big slim white-background">
+<p><picture class="bg cover">
+<img src="../img/brendan.jpg" alt="">
+</picture></p>
+<h2 id="onejavascriptsubsmall_thread_smallsub">One JavaScript <sub><small><em>(thread)</em></small></sub></h2>
+<p></p><details>
+JavaScript is single-threaded, long-running tasks in JS-land will block execution of everything else. Node.js tried making up for this by putting I/O into their own separate threads via separate APIs, but JS code remains single-threaded even in Node.js up until today.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/webworkers.jpg" alt="">
+</picture></p>
+<h1 id="solutionworkers">Solution: Workers!</h1>
+<blockquote>
+  <p>…or, is it..?</p>
+</blockquote>
+<footer class="attr">
+<p><a href="https://www.youtube.com/watch?v=pMK-jcOAYI8" target="_blank">Illustration by <code>techsith</code></a></p>
+</footer>
+<p></p><details>
+Different runtimes came up with different solutions to this problem. On the web, we have traditionally solved the issue with Workers (Web Workers, Shared Workers, lately Service Workers and lightweight <em>worklets</em>), while Node.js got a bit heavy handed with Cluster module and various other process forking solutions.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/nolan-workers.jpg" alt="">
+</picture></p>
+<h1 id="webworkersinthebrowser">Web Workers in the browser</h1>
+<blockquote>
+  <ul>
+  <li><a href="https://www.youtube.com/watch?v=WBmttwfA_k8" target="_blank">Web Workers TL;DR by Dan Callahan</a></li>
+  <li><a href="https://www.youtube.com/watch?v=OgLemdR65pE" target="_blank">Nolan Lawson on Web Workers</a></li>
+  </ul>
+</blockquote>
+<p></p><details>
+Web workers in the browser operate using simple message passing and shared memory (via <code>SharedArrayBuffer</code>). It's a tool that is fairly well-known, but actually quite infrequently used.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/spectre.png" alt="">
+</picture></p>
+<h1 id="spectremeltdownsharedarraybuffer">Spectre/Meltdown &amp; <code>SharedArrayBuffer</code></h1>
+<blockquote>
+  <ul>
+  <li><a href="https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/" target="_blank"><code>SharedArrayBuffer</code> disabled in Firefox</a></li>
+  </ul>
+</blockquote>
+<p></p><details>
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/node-workers.png" alt="">
+</picture></p>
+<h1 id="workerscomingtonode">Workers coming to Node</h1>
+<footer class="attr">
+<p><a href="https://addaleax.net/workers-nordicjs/" target="_blank">via Anna Henningsen</a></p>
+</footer>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/node-workers-example.png" alt="">
+</picture></p>
+<h1 id="wellnotquitethesameaswebworkersbutclose">Well, not quite the same as Web Workers, but close</h1>
+<footer class="attr">
+<p><a href="https://addaleax.net/workers-nordicjs/" target="_blank">via Anna Henningsen</a></p>
+</footer>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/netscape.jpg" alt="">
+</picture></p>
+<h1 id="aproposspeed">Apropos, Speed!</h1>
+<p></p><details>
+JS was never intended to be fast
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/wasm/ts-meetup/img/js-execution-speed.png" alt="">
+</picture></p>
+<h3 id="ourstorystartsaroundthejsengineperfwars">Our story starts around the JS-engine perf wars…</h3>
+<footer class="attr">
+<p><a href="https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070" target="_blank">JavaScript World Domination</a></p>
+</footer>
+<p></p><details><br>
+Yet V8's speed enabled Node.js, and Node enabled an amazing variety of possibilities.<p></p>
+<p>Our story starts around 2012. Several years into the JavaScript engine performance arms race kickstarted by V8’s release in 2008 just-in-time compilation and careful optimizations have resulted in an explosive speed-up in JS execution speeds.</p>
+<p></p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/wasm/img/webassembly-logo.svg" alt="">
+</picture></p>
+<h1 id="enterwebassembly">Enter WebAssembly</h1>
+<p></p><details>
+WebAssembly was born.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="/wasm/ts-meetup/img/wasm-code-explorer.png" alt="">
+</picture></p>
+<footer class="attr">
+<p><a href="https://wasdk.github.io/wasmcodeexplorer/" target="_blank">WebAssembly code explorer</a></p>
+</footer>
+<blockquote>
+  <ul>
+  <li>An efficient stack machine</li>
+  <li>Binary representation + text format</li>
+  <li>Open &amp; debuggable</li>
+  <li>A complement to the web—not a competitor</li>
+  </ul>
+</blockquote>
+<p></p><details><br>
+Ditching the makeshift JS form compresses the code over the wire &amp; improves loading speeds (in Firefox WASM is compiled faster than it comes through the wire!), while WASM code itself supports an initial limited set of numeric types and is executed by the browser with similar safety guarantees as JavaScript (usually running inside the same VM as JS).<p></p>
+<p>Some of these limitations are due to the MVP-nature of the current specification, but some are intentional — WASM is built to communicate extensively with other parts of the browser/JS APIs, and to extend, rather than replace its existing functionalities.<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/wasm/ts-meetup/img/zengarden-firefox.jpg" alt="">
+</picture></p>
+<h3 id="javascriptisfastbutnotthisfast">JavaScript is fast but not this fast</h3>
+<footer class="attr">
+<p><a href="https://s3.amazonaws.com/mozilla-games/ZenGarden/EpicZenGarden.html" target="_blank">Epic Zen Garden</a></p>
+</footer>
+<p></p><details>
+Easy to see why! The web has become the most popular application-development platform (one of the most widely used and accessible ones), and is rapidly gaining new capabilities to cater for the sudden rise in expectations. Games happened to be a pretty good proxy for the vast "high-quality multimedia applications" space — high-performance apps with heavy use of graphics-, audio- &amp; computation resources, networking and interactivity.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="http://fitzgeraldnick.com/media/set.first.breakpoint.with.sub.sorting.scalajs.svg" alt="">
+</picture></p>
+<h3 id="fastenoughtorunpartsofyourbrowser">Fast enough to run parts of your browser</h3>
+<footer class="attr">
+<p><a href="https://twitter.com/fitzgen/status/968146167132389376" target="_blank">Speed without Wizardry, by @fitzgen</a></p>
+</footer>
+<p></p><details>
+…or improving source map parsing speed tenfold in Firefox’s Developer Tools by surgically replacing performance-sensitive parts of its JavaScript-heavy Debugger with tailor-made WebAssembly solutions. Yes, that's JavaScript and WebAssembly powering parts of a production web browser on hundreds of millions of computers all across the world!
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/node-gyp.png" alt="">
+</picture></p>
+<h3 id="yearningforspeedinnodejs">Yearning for speed in Node.js</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/wasm/ts-meetup/img/dan-callahan-pycon.png" alt="">
+</picture></p>
+<h3 id="lowerlevelabstractionsforperformancecontrolarenotnew">Lower-level abstractions for performance &amp; control are not new</h3>
+<footer class="attr">
+<p><a href="https://www.youtube.com/watch?v=ITksU31c1WY" target="_blank">Dan Callahan, PyCon 2018</a></p>
+</footer>
+<p></p><details>
+When we take a look at any number of programming languages, dropping to a lower level of abstraction when performance or access to system resources require it is a mainstream practice: high-level languages like Ruby, Python, even Node.js achieve this via platform-specific binary modules; even low-level languages like C/C++ allow for inline assembly when performance &amp; precise control becomes a priority. What WebAssembly brings today is this exact capability to the entire Web Platform — without the drawbacks like platform-dependence, but also with the added choice of virtually any programming language (with big asterisks on "any", at least today).
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/wasm/ts-meetup/img/node-sass.png" alt="">
+</picture></p>
+<h3 id="apotentialfix">A potential fix…</h3>
+<footer class="attr">
+<p><a href="https://github.com/sass/node-sass/issues/2011" target="_blank">node-sass on GitHub</a></p>
+</footer>
+<p></p><details>
+In fact WebAssembly might be first in line for solving some of these platforms’ binary-module-specific woes.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="https://bertrandg.github.io/images/js_modules/js-modules.png" alt="">
+</picture></p>
+<h1 id="isolationmodularizationloosecoupling">Isolation, Modularization, loose coupling</h1>
+<footer class="attr">
+<p><a href="https://bertrandg.github.io/" target="_blank">illustration via <code>bertrandg</code></a></p>
+</footer>
+<p></p><details><br>
+Having everything in a single thread/process makes you sloppy<p></p>
+<p>You need modularization, isolation and asynchronous loose coupling (+synchronization)<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/linclark-modules-jquery.png" alt="">
+</picture></p>
+<h1 id="wasntalwaysgreat">…wasn't always great</h1>
+<blockquote>
+  <p>…or, like, ever…</p>
+</blockquote>
+<footer class="attr">
+<p><a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/" target="_blank">Illustration by Lin Clark</a></p>
+</footer>
+<p></p><details><br>
+Let's face it, JS wasn't great in isolation, especially async (commonJS is inherently sync - again, it's more 'convenient')<p></p>
+<p>We got better, promises and later async (thanks, Maya!) made async calls <em>almost</em> as convenient as synchronous ones. What about isolation?</p>
+<p>Well, good news!<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/esm-import.png" alt="">
+</picture></p>
+<h1 id="esmodules">ES Modules</h1>
+<blockquote>
+  <ul>
+  <li><a href="http://2ality.com/2014/09/es6-modules-final.html" target="_blank">Axel Rauschmayer's explainer</a></li>
+  <li><a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/" target="_blank">Lin Clark's cartoon explainer</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank">MDN docs on <code>import</code></a></li>
+  </ul>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/franzi-esm.png" alt="">
+</picture></p>
+<h1 id="nativeexperimentalesmodulesinnode10">Native (Experimental) ES Modules in Node 10</h1>
+<footer class="attr">
+<p><a href="https://twitter.com/fhinkel" target="_blank">Illustration by @fhinkel</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg cover">
+<img src="../img/linclark-wasm-esm.png" alt="">
+</picture></p>
+<h3 id="webassemblyesmodulesinterop">WebAssembly + ES Modules interop</h3>
+<footer class="attr">
+<p><a href="https://twitter.com/linclark" target="_blank">Illustration by @linclark</a></p>
+</footer>
+</section>
+<section>
+<p><picture class="bg cover">
+<img src="../img/bugsbunny-future.jpg" alt="">
+</picture></p>
+<h3 id="thefuture">The Future</h3>
+<blockquote>
+  <ul>
+  <li>Threads in WebAssembly!</li>
+  <li><a href="https://linclark.github.io/wasm-es-modules/slides/2018-06-12/" target="_blank">WebAssembly integration with ES Modules!</a> (check out Lin Clark's <a href="https://hacks.mozilla.org/2018/03/making-webassembly-better-for-rust-for-all-languages/" target="_blank">explainer</a>)</li>
+  <li>Native <code>fetch()</code> coming in node?</li>
+  <li>Brand new <a href="https://medium.com/the-node-js-collection/n-api-next-generation-node-js-apis-for-native-modules-169af5235b06" target="_blank">N-API in Node 10</a> for native modules</li>
+  <li><a href="https://twitter.com/MylesBorins/status/1047875227731070979" target="_blank">Node.js &amp; JS foundations considering a merger</a></li>
+  <li>What is the Web, even?</li>
+  <li><a href="https://twitter.com/graydon_pub/status/1047888158514278400" target="_blank">but what <em>is</em> the web, really?</a></li>
+  <li><a href="https://hacks.mozilla.org/category/dweb/" target="_blank">tomorrow's Web might by vastly different</a></li>
+  </ul>
+</blockquote>
+<footer class="attr">
+<p>BUGS BUNNY PUZZLE Fortune Teller Whitman 1959</p>
+</footer>
+<p></p><details></details><p></p>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/dachfest.jpg" alt="">
+</picture></p>
+<h1 id="dachfest">DACHfest</h1>
+<blockquote>
+  <ul>
+  <li>Developer conference in Munich in November</li>
+  <li>Use the <code>munichjs</code> discount code on <a href="https://tickets.dachfest.com/" target="_blank">tickets.dachfest.com</a> for a discount!</li>
+  </ul>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="../img/node-js-interactive.png" alt="">
+</picture></p>
+<h1 id="nodejsinteractive">Node+JS Interactive</h1>
+<blockquote>
+  <p><a href="https://events.linuxfoundation.org/events/node-js-interactive-2018/" target="_blank">Node+JS Interactive 2018</a></p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg cover">
+<img src="/play/img/tiny-arcade-braziljs.jpg" alt="">
+</picture></p>
+<blockquote>
+  <p>Talk to me about JavaScript on hardware &amp; <a href="https://twitter.com/clouduboy" target="_blank">@clouduboy</a>!</p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="https://media.giphy.com/media/10ZpyYs0OvVlnO/giphy.gif" alt="">
+</picture><br>
+</p><details><br>
+The not-so-secret purpose of this talk is to whet your appetite to know more about this exciting feature of the web platform.<p></p>
+<p>Some of the points I made would have deserved their own talks (which I'll probably need to cater for at some point, at least in the form of a blogpost), but if you are interested in any of them in more detail, be sure to find me after the talk or reach out to me on Twitter (@slsoftworks) or any of my other contacts at flak.is.<br>
+</p></details><p></p>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="../img/assemblin.gif" alt="">
+</picture></p>
+<h1 id="thanks">Thanks!</h1>
+<h4 id="talkflakissingularitymunichjshttptalkflakissingularitymunichjs"><a href="http://talk.flak.is/singularity/munichjs/" target="_blank">talk.flak.is/singularity/munichjs</a></h4>
+<p><span class="tweet">
+<img src="/pic/mozhacks.png" alt="Mozilla Hacks">
+@mozhacks
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message">Keep on Assemblin'!</div>
+</section>
+<section class="reading-list">
+<h3 id="readinglist">Reading list:</h3>
+<ul>
+<li><a href="http://asmjs.org/faq.html" target="_blank">The ASM.js FAQ</a> with <a href="https://kripken.github.io/mloc_emscripten_talk/" target="_blank">Alon's original presentation</a></li>
+<li>WebAssembly is <a href="https://words.steveklabnik.com/webassembly-is-more-than-just-the-web" target="_blank">more than just Web</a> - and definitely  <a href="https://words.steveklabnik.com/is-webassembly-the-return-of-java-applets-flash" target="_blank">more than just the revival of Flash</a> - articles by Steve Klabnik</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format" target="_blank">Understanding WAT, the WebAssembly Text Format - an MDN guide by Chris Mills</a></li>
+<li>A workshop-style intro to <a href="https://ashleygwilliams.github.io/helloWASM/" target="_blank">Rust+WebAssembly</a> &amp; <a href="https://rustwasm.github.io/hello-wasm-bindgen/" target="_blank">wasm-bindgen</a> by Ashley Williams &amp; Steve Klabnik</li>
+<li><a href="https://mnt.io/2017/06/06/rust-hack-without-fear/" target="_blank">Hack Without Fear!</a> — <a href="https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html" target="_blank">Fearless concurrency in Rust</a> and in <a href="https://blog.rust-lang.org/2017/11/14/Fearless-Concurrency-In-Firefox-Quantum.html" target="_blank">Servo/Firefox</a></li>
+<li>An explainer on <a href="https://hacks.mozilla.org/2018/04/javascript-to-rust-and-back-again-a-wasm-bindgen-tale/" target="_blank">wasm-bindgen</a> by Alex Crichton and <a href="https://hacks.mozilla.org/2018/04/hello-wasm-pack/" target="_blank">wasm-pack</a> by Ashley Williams</li>
+<li><a href="https://developers.google.com/web/updates/2018/03/emscripting-a-c-library" target="_blank">WebP image decoding using WebAssembly &amp; emscripten</a></li>
+<li><a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/" target="_blank">Mozilla's streaming &amp; tiered WebAssembly compilation - a blogpost by Lin Clark</a> and <a href="https://v8project.blogspot.com/2018/08/liftoff.html" target="_blank">V8's WebAssembly baseline compiler: Liftoff</a></li>
+<li><a href="https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/" target="_blank">Nick Fitzgerald's post on embedding WASM in the devtools</a> with <a href="https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html" target="_blank">Vyacheslav's response</a> &amp; <a href="http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html" target="_blank">Nick's followup</a></li>
+<li>Dan Callahan <a href="https://www.youtube.com/watch?v=bac0dGQbUto" target="_blank">presents about WebAssembly at JSConf Budapest, runs DOS &amp; Netscape in a browser</a></li>
+</ul>
+</section></main></body></html>
