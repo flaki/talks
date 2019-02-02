@@ -1,0 +1,162 @@
+FOLLOWUPS
+---------
+https://github.com/sass/node-sass/pull/2220
+sync/async load
+- node can work in sync (sync loading, sync compile)
+- browser cannot support due to fetch (only sync)
+also
+- long-running scripts are an issue in node (no workers)
+- wasm can be put in a worker in the browser so async/non-blocking on the main thread is solved easily there
+
+ethereum ewasm
+https://medium.com/zkcapital/webassembly-the-future-of-blockchain-computing-1a0ae28f7e40
+
+TALK
+-----
+Speed with no Shenanigans — Rust & WebAssembly's Place on Today's Web
+
+browsers & ASM.JS vs game engines - a match made in heaven
+- games needed widespread distribution across platforms, easy
+
+>> App stores & Fortnite Android Sideloading
+https://twitter.com/AndroidAuth/status/1027243280709431296
+https://twitter.com/wandera/status/1037065271771586562
+
+The web is not just a development platform - it's a distribution platform too. And one that does not suffer from vendor lock-in like other platforms (looking at you Play Store / Appstore)
+
+https://www.androidauthority.com/fortnite-for-android-interview-epic-games-893342/
+
+
+Archival?
+https://twitter.com/WasmWeekly/status/1016947201799606273
+
+Doom?
+Without trying to squash Gary Bernhardt's "Birth and Death of JavaScript" in to 7 minutes
+https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript
+
+Whereas gary's talk is prescient, almost prophetic in many senses, he talks about "why would people want to use JS anymore, once they got all these _other_ languages they could choose from?!"
+
+Fact is, JavaScript (after a long dormancy and the incredible f**kup that was ES 4.x) is improving at an incredible pace!
+http://kangax.github.io/compat-table/esnext/
+https://github.com/tc39/proposals
+14 stage 3, more than 70 proposals in total https://github.com/tc39/proposals
+
+two-way interaction
+webassembly already has int64-s, and JS will catch up when BigInt-s land
+https://developers.google.com/web/updates/2018/05/bigint
+https://github.com/tc39/proposal-bigint
+https://bugzilla.mozilla.org/show_bug.cgi?id=1366287
+
+Nebulet
+In short, Nebulet is an operating system that runs WebAssembly.
+Under the hood, Nebulet is a microkernel that executes WebAssembly modules in ring 0 and a single address space to increase performance.
+https://github.com/nebulet/nebulet
+
++ Reading list: Steve Klabnik https://words.steveklabnik.com/webassembly-is-more-than-just-the-web
+
+
+least common denominator
+
+
+wasm is from the web--for the web
+https://words.steveklabnik.com/is-webassembly-the-return-of-java-applets-flash
+
+
+Storyarc / main talking points
+------------------------------
+
+How we got here?
+- compile-to-web: asm.js
+- game engines helped tooling, pushed perf, bindings etc.
+  - why?
+  - game engines are an ally
+  - the web is a distribution platform, as well as a cross-platform target
+  - it's open and pretty stable
+  - closed platforms and stores on the other hand are proprietary
+    - but that's a story for another talk
+- wasm
+  - more compact, faster, more "elegant"
+  - builds off the same tools, to solve similar usecases
+  - but less hindered by the limitations of JS
+- not just the browser
+  - webassembly is more than just a way for running non-js in the browser
+  - it's a complete minimal compilation target
+  - it lets one emulate complete devices, operating systems - or even write one's own
+  - nebulet
+  - gary
+- let's focus on the web
+- wasm is not a competitor to JS - it's a complement
+  - it's capable of the same things, but faster
+  - it can do the same things, but without needing to rewrite them in JS
+  - both are very important
+  - this shouldn't be surprising - it runs on the same VM, uses the same optimizations as JS!
+- python, ruby, node
+  - want extra speed? use a binary extension
+  - wasm is "binary extensions" for the web
+  - without the painful parts (cross-platform binaries, complex ffi, etc)
+- case study: speed without wizardry
+  - Mozilla runs WASM as part of the browser!
+  - It's Rust code in the DevTools
+- wasm ~does~ have some features beyond perf that JS does not have
+  - 64bit integers!
+  - JS will get arbitrary integers!
+  - both technologies improve in parallel
+
+
+
+Talk transcript
+---------------
+
+### Speed without Shenanigans
+
+---
+
+a.k.a.
+The
+Birth and
+Depth of
+Compile-to-JavaScript
+
+> (red pill) ..join me in the next 7 minutesand I show you how deep the rabbit hole goes.
+
+---
+
+Our story starts in 2013 when Alon Zakai a.k.a. "Kripken" & colleagues at Mozilla Research laid down the foundations of asm.js: a specialized JavaScript subset meta-language concieved to support automated compilation of low-level code to JavaScript. Asm.js was more than the actual tool or language: it was an idea. The idea to "Compile-to-JavaScript" of large codebases and their execution in the browser JS VM is not only feasible, but desirable on today's web.
+
+Asm.js managed to get many different parties excited about "compile-to-js", but one of these jumped on the bandwagon early on, and remain one of the key supporters of the compile-to-js ecosystem: the gaming industry.
+
+Easy to see why! The web is rapidly becoming an application-development platform (one of the most used and most accessible ones), and is rapidly gaining new capabilities to cater for the sudden influx of use cases -- and games are a really good proxy when we talk about bringing the vast "high-quality multimedia applications" space to the web. Moreover, the web is also one of the most open _distribution_ platforms -- and in the day-and-age of stores, walled gardens and a choice of few giant gatekeepers it's only natural game developers are longing for a more open distribution method that's secure, low-cost and wide-reaching.
+
+---
+
+> maybe? Android Fortnite Plug
+
+The Immensely popular multiplayer online game, Fortnite decided to release the game's new Android port outside of the Play Store - bringing a host of safety-related controversies. But on Android, at least they _could_ do it.
+
+---
+
+Seeded by the idea of re-using the existing optimizing JS compiler and its secure, linkable web sandbox, plus the feasibility of 1-on-1 translation of pre-existing low-level (C/C++) codebases -- using the subset of JS as merely transmission medium, a sort of "intermediate representation" -- asm.js stealthily kickstarted a whole new ecosystem of compile-to-JS libraries, tooling & applications, which eventually paved the way for an incremental update building on these foundations: WebAssembly.
+
+That's all it is, really, carefully engineered evolution (rather than revolution), aligning stakeholders and browser vendors along a common goal and moving them in lockstep brought us today's WebAssembly "MVP", a "minimal but useful" binary transmission format for unlocking the power of the browser's JS engine.
+
+Ditching the makeshift JS form compresses & improves load speeds (in Firefox WASM parses faster than network throughput!), while WASM code itself supporting an initial set of numeric types and operations still executes inside the same safe, optimizing VM & sandbox we all ***<grew?> to know & love. In the meantime, wasm is built to communicate extensively with other parts of the browser/JS APIs, and to extend, rather than replace its existing functionalities.
+
+---
+
+Funnily enough, WASM is not built solely for the browser (giving the spec a quick skim will reveal this rather early), and the demos popping up daily -- emulating various games & applications, entire OS-es or even entire CPU architectures -- will be quick to evoke strong flashbacks of Gary Bernhardt's must-see look into the future, a talk that the subtitle of this one pays a tribute to -- titled, quite suggestively, "the Birth and Death of JavaScript". Well, if you haven't seen the talk I recommend giving it a whirl,
+
+> Maybe: ***nebulet<->metal. mention
+
+Now I'm no fortune teller, cannot tell you you if 2035 will bring about the reign of WebAssembly and whether or not JS will be pronounced effectively dead by then, but what I _can_ tell you is that what WebAssembly is set out to achieve is the exact opposite! If we look at any number of programming languages, dropping to a lower level of abstraction when performance or access to system resources require it is a mainstream practice: high-level languages like Ruby, Python, even Node.js achieve this via platform-specific binary modules; even low-level languages like C/C++ allow for inline assembly when performance & precise control becomes a priority. What WebAssembly brings today is this exact capability to the entire Web Platform -- without the drawbacks like platform-dependence, but also with the added a choice of virtually any programming language (with big asterisks on "any", at least today).
+
+And although it's early days still, there are already some remarkable success stories told -- whether it's Fortune 500 companies saving hundreds of thousands of dollars in server costs by offloading expensive computation to the client, or, the Firefox Developer Tools improving source map parsing speed tenfold by surgically replacing parts of the debugger code with tailor-made WebAssembly modules. Yes, that's JavaScript and WebAssembly powering parts of a production web browser on hundreds of millions of computers all across the world.
+
+These two examples are also interesting for they both used Rust for implementing the source of the WASM logic. Rust is a safe & performant low-level programming language used by Firefox extensively in production, and booming in popularity across the industry. Nick Fitzgerald, engineer behind the Firefox DevTools WASM integration blogged extensively about the process and in the conversations unfolding around the release of the feature have highlighted how Rust's excellent ergonomy, safety guarantees & out-of-the box WASM support work together to empower anyone in achieving _Blazing Speeds without the Wizardry_ -- without the arcane incantations and weirdly specific knowledge of knowing how to please a particular browser or JS/JIT engine. I link to the articles in the "Reading List" section of the slides, they are a very rewarding read, even with no particular Rust experience.
+
+---
+
+> [ *snip: no time* - maybe point out the co-evolution of JS & WASM]
+
+The not-so-secret purpose of this talk is to whet your appetite to know more about this *** exciting? upcoming? feature of the web platform.
+
+Most of the points I made deserve their own talks (which I'll probably need to cater for, at least in a blogpost), but if you are interested in any of the points, be sure to find me after the talk or reach out to me on Twitter (@slsoftworks) or any of my other contacts at [flak.is](https://flak.is).
