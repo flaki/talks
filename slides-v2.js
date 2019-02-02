@@ -117,13 +117,16 @@ document.addEventListener('DOMContentLoaded', e => {
     document.documentElement.classList.toggle('present', e === 'off' ? false : undefined);
 
     // Fullscreen mode
-    if (document.fullscreenElement || document.webkitFullscreenElement) {
-      if (document.exitFullscreen) document.exitFullscreen()
-      if (document.webkitExitFullscreen) document.webkitExitFullscreen()
-    } else {
-      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen()
-      if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen()
+    try {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen()
+        if (document.webkitExitFullscreen) document.webkitExitFullscreen()
+      } else {
+        if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen()
+        if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen()
+      }
     }
+    catch (e) { console.error(e) }
   }
 
   function toggleLiveView(e) {
@@ -192,10 +195,19 @@ document.addEventListener('DOMContentLoaded', e => {
     noteContents = noteContents.replace(/\s*<br\/?>/,'')
 
     if (window.notesWindow) {
-      notesWindow.document.body.innerHTML =
-        '<div style="font-size: 3.2rem; line-height: 4.4rem; padding: 5rem;">'
-          + noteContents
-        +'</div>'
+      const b = notesWindow.document.body
+      const currentSlide = slideNumber()
+
+      if (!b.children.length) {
+        b.innerHTML = `<div style="font-size: 5vmin; line-height: 8vmin; padding: 8vmin;">
+        </div><iframe src="${window.location.href}" style="opacity: .4; position: absolute; bottom: 10px; right: 10px;" width="800" height="450">
+        </iframe>`
+      }
+
+      setTimeout(() => {
+        b.firstElementChild.innerHTML = noteContents
+        b.lastElementChild.contentWindow.Slides.goToPage(currentSlide)
+      }, 100)
     }
   }
 
