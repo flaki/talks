@@ -1,0 +1,9 @@
+/* six-caps-regular - latin */
+@font-face {
+  font-family: 'Six Caps';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Six Caps'), local('SixCaps'),
+       url('/fonts/six-caps-v8-latin/six-caps-v8-latin-regular.woff2') format('woff2'),
+       url('/fonts/six-caps-v8-latin/six-caps-v8-latin-regular.woff') format('woff');
+}

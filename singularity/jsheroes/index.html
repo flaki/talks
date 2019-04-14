@@ -1,0 +1,688 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Approaching the JavaScript singularity</title>
+	<meta name="description" content="New JS features, across platforms — Flaki @ JSHeroes 2019">
+	<meta name="keywords" content="node, nodejs, webassembly, web, javascript, wasm, rustwasm, esm, workers">
+
+	<!-- Social: Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@slsoftworks">
+
+	<meta name="twitter:title" content="Approaching the JavaScript singularity">
+	<meta name="twitter:description" content="New JS features, across platforms — Flaki @ JSHeroes 2019">
+	<meta name="twitter:image:src" content="http://talk.flak.is/singularity/jsheroes/img/social.jpg">
+
+	<!-- Social: Facebook / Open Graph -->
+	<meta property="og:site_name" content="Flaki's Talks">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://talk.flak.is/singularity/jsheroes/">
+
+	<meta property="og:title" content="Approaching the JavaScript singularity">
+	<meta property="og:description" content="New JS features, across platforms — Flaki @ JSHeroes 2019">
+	<meta property="og:image" content="http://talk.flak.is/singularity/jsheroes/img/social.jpg">
+
+	<link rel="stylesheet" href="/slides-v2.css">
+	<link rel="stylesheet" href="/fonts/fonts.css">
+  <script src="/slides-v2.js"></script>
+<style>
+@import url(/s/themes/variably.css);
+@import url(/fonts/SixCaps.css);
+</style><style>
+#opening h1 {
+  margin: auto;
+  max-width: 100vw;
+}
+</style><style>
+@import url("/s/tinker.css");
+#whoami > h3 { left: 75vw; background: rgba(0,0,0,.75); padding: .5em 3em; }
+</style><style>
+#title h1 {
+  font-size: 3.0rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  padding: 1.75rem;
+}
+#title blockquote {
+  background: white;
+  color: black;
+  opacity: 1;
+}
+.slim h1,
+#title h1 {
+  font-family: Six Caps;
+  font-weight: normal;
+  font-size: 6rem;
+  line-height: 7rem;
+  letter-spacing: 0;
+}
+</style><style>
+#adactio div.quote {
+  width: 80vw;
+  margin: auto;
+  font-size: 2.9rem;
+  font-family: Six Caps;
+  line-height: 3rem;
+  text-indent: -.25em;
+}
+#adactio div.quote > img {
+  width: 12vw;
+  border-radius: 50%;
+  float: left;
+  margin-right: .5em;
+  margin-bottom: 4em;
+}
+#adactio div.quote > blockquote {
+  color: white
+}
+#adactio div.quote .pink {
+  color: var(--heading-color);
+  white-space: nowrap;
+}
+</style><style>
+#nodeconfarq div.quote {
+  width: 80vw;
+  margin: auto;
+  font-size: 2.9rem;
+  font-family: Six Caps;
+  line-height: 3.5rem;
+  text-indent: -.25em;
+}
+#nodeconfarq div.quote > img {
+  width: 12vw;
+  border-radius: 50%;
+  float: left;
+  margin-right: .5em;
+  margin-bottom: 4em;
+}
+#nodeconfarq div.quote > blockquote {
+  color: white;
+  text-align: center;
+}
+#nodeconfarq div.quote .pink {
+  color: var(--heading-color);
+  white-space: nowrap;
+}
+#nodeconfarq div.quote em {
+  font-style: normal;
+  color: cyan;
+}
+</style><style>
+@import url("/s/keep-playing.css");
+</style><style>
+@import url("/s/reading-list.css");
+</style></head>
+
+<body><main><section id="opening" class="current">
+<p><picture class="bg">
+<img src="/pic/baela-jsheroes.jpg" alt="hi">
+</picture></p>
+<h1 id="hellojsheroes">Hello JS-heroes!!</h1>
+<blockquote>
+  <p>Last updated: 2019-04-12</p>
+</blockquote>
+</section>
+<section id="whoami" class="white-background">
+<p><picture class="bg">
+<img src="/pic/tinker.jpg" alt="Flaki, tinkering">
+</picture></p>
+<h3 id="szmozsnszkyistvnflakibrslsoftworks">Szmozsánszky István "Flaki"<br><code>@slsoftworks</code></h3>
+<div id="tinker">
+  <img alt="Mozilla DevRel" src="/pic/mozhacks.png">
+  <h3>Developer Outreach / DevRel</h3>
+
+  <img alt="Mozilla TechSpeakers" src="/pic/ts.png">
+  <h3>Mozilla TechSpeakers</h3>
+
+  <img alt="Tessel" src="/pic/tessel.png">
+  <h3>Tessel Project, JS+HW hacker</h3>
+</div>
+</section>
+<section id="title">
+<p><picture class="bg">
+<img src="../img/nasa-blackhole2.jpg" alt="">
+</picture></p>
+<h1 id="approachingbrthejavascriptsingularity">Approaching<br>the JavaScript Singularity</h1>
+<blockquote>
+  <p>István Szmozsánszky <em>"Flaki"</em>  <br>
+  <a href="https://twitter.com/slsoftworks" target="_blank">@slsoftworks</a></p>
+</blockquote>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="./img/blackhole.gif" alt="">
+</picture></p>
+<h2 id="smallakasmalltheburningquestionsofthejsecosystem"><small>a.k.a.:</small> the burning questions of the JS ecosystem</h2>
+<footer class="attr">
+<p><a href="https://twitter.com/mart3ll/status/1115970867509506048" target="_blank">@mart3ll</a></p>
+</footer>
+<p></p><details>
+</details><p></p>
+</section>
+<section>
+<h3 id="javascriptinhyperdrive">JavaScript in Hyperdrive</h3>
+<p><picture class="bg">
+<img src="img/cern-cms.jpg" alt="CERN CMS">
+</picture></p>
+<blockquote>
+  <ul>
+  <li>2008: V8 (Node.js in 2009)</li>
+  <li>2013: asm.js (WebAssembly in 2015)</li>
+  </ul>
+</blockquote>
+<footer class="attr">
+<p><a href="https://cms.cern/detector" target="_blank">CERN</a></p>
+</footer>
+<p></p><details>
+JavaScript is everywhere. JavaScript is faster than ever. JS became fast despite itself - it was never <em>intended</em> to be particularly fast, but as its adoption grew it was <em>destined</em> to be.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered bigger">
+<img src="../img/chanezon-js-speed.jpg" alt="">
+</picture></p>
+<h1 id="birthofthegreatdivide">Birth of the GREAT DIVIDE</h1>
+<footer class="attr">
+<p><a href="https://www.slideshare.net/chanezon/hdc09-keynote-browser-mobile-cloud-social-geo-portrait-of-the-developer-as-a-kid-in-a-candy-store" target="_blank">Patrick Chanezon</a></p>
+</footer>
+<p></p><details>
+The boom in execution speed gained JavaScript new embedders, as it enabled new usecases.
+</details><p></p>
+</section>
+<section id="adactio">
+<h3 id="universalisomorphic">Universal &amp; Isomorphic</h3>
+<div class="quote">
+<img src="https://adactio.com/images/photo-150.jpg">
+<blockquote>“We’ve worked on multiple React projects, but in every case, the output was server-rendered. Developers get the benefit of working with a tool that helps them. Users don’t pay the price.” <span class="pink">— Jeremy Keith</span></blockquote>
+</div>
+<blockquote>
+  <ul>
+  <li><a href="https://adactio.com/journal/15050" target="_blank">Jeremy Keith - Split</a></li>
+  <li><a href="https://twitter.com/rem/status/1115530120838680576" target="_blank">Remy Sharp - Code highlighting</a></li>
+  </ul>
+</blockquote>
+<p></p><details><br>
+SSR! I cannot promise to explain away the framework churn, this isn't a talk for that, I would be up here all day. Jeremy Keith &amp; Remy Sharp in their recent articles provide insights into one particular facet of this issue, though: does it matter, if the user won't see it?<p></p>
+<p>The answer is "Maybe. Maybe not." -- see Adactio's concerns why it might still matter but for the sakes of this talk, I'll focus on how JavaScript's universality on the client AND the "server" enabled this in the first place.<br>
+</p></details><p></p>
+</section>
+<section>
+<h3 id="letstalkaboutnodejs">Let's talk about Node.js</h3>
+<p><picture class="bg centered">
+<img src="../img/nodejs-logo-black.jpg" alt="Node.js">
+</picture></p>
+<blockquote>
+  <p>It earned its place (tooling, server-side)</p>
+  <ul>
+  <li>server side code (servers)</li>
+  <li>functions (serverless)</li>
+  <li>ssr/ssg (back-of-front-end)</li>
+  <li>tooling</li>
+  </ul>
+</blockquote>
+<p></p><details>
+Let's talk about Node.js. Why Node?
+</details><p></p>
+</section>
+<section class="big slim">
+<p><picture class="bg cover">
+<img src="../img/space.jpg" alt="">
+</picture></p>
+<h1 id="couldabrwouldabrshoulda">COULDA?<br>WOULDA?<br>SHOULDA?</h1>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/dshaw-nodejs-webplatform.jpg" alt="">
+</picture></p>
+<h3 id="nodejstheweb">Node.js &amp; the Web</h3>
+<blockquote>
+  <ul>
+  <li>missing secure sandbox</li>
+  <li>unlimited file and network access</li>
+  <li>native modules</li>
+  <li>exec permissions</li>
+  </ul>
+</blockquote>
+<footer class="attr">
+<p><a href="https://speakerdeck.com/dshaw/node-dot-js-and-the-web-platform" target="_blank">@dshaw</a></p>
+</footer>
+<p></p><details>
+Node is not the Web -- but this is <em>on purpose</em>. DShaw actually talks about its ongoing (and much needed!) transformation in the talk I linked to from NodeConf Argentina last year, and I'll get into this in a minute but first…
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="img/david-edwards-moon-break.jpg" alt="Planet breaking up, by David Edwards">
+</picture></p>
+<h3 id="thepermissionsfissure">The Permissions Fissure</h3>
+<p>&gt;</p>
+<blockquote>
+  <ul>
+  <li>network (request vs fetch -- CORS)</li>
+  <li>filesystem (unlimited -- sandbox/dom api)</li>
+  <li>native (high-speed) execution (native binaries vs …?)</li>
+  <li>low-level features and system access (hardware, graphics)</li>
+  <li>advanced processing features (threads, simd…)</li>
+  </ul>
+</blockquote>
+<p></p><details>
+A single system cannot cover every single use case. No matter how flexible a system is, there's a good chance someone will need an even more powerful one, and will build it -- there will always be differences. The important question is: how easy it is to move between these systems.
+</details><p></p>
+<footer class="attr">
+<p><a href="https://index.artstation.com/artwork/Kzxkr" target="_blank">David Edwards</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/jakea-packages-go-bad.png" alt="excerpt">
+</picture></p>
+<h3 id="withgreatpowercomesgreatvulnerability">With great power, comes great vulnerability</h3>
+<footer class="attr">
+<p><a href="https://jakearchibald.com/2018/when-packages-go-bad/" target="_blank">Jake Archibald - When packages go bad</a></p>
+</footer>
+<p></p><details>
+When Node chose to forgo the sandbox, that invited all kinds of weirdness. Jake (and few others) have been musing about the security implications of this lately, and while there are mitigations against most of these issues, this insecure baseline is less than ideal. That said…
+</details><p></p>
+</section>
+<section>
+<h3 id="nodejswas_inevitable_">Node.js was <em>inevitable</em></h3>
+<p><picture class="bg contain">
+<img src="../img/jsdomination.jpg" alt="JavaScript world domination">
+</picture></p>
+<footer class="attr">
+<p><a href="https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070" target="_blank">JavaScript World Domination</a></p>
+</footer>
+<p></p><details>
+Node.js was born out of the need of wanting to do more with a familiar (and now finally fast) language, using it in many more places than just writing scripts that chased the mouse pointer around and greeted the user by their name. Node wasn't the first attempt at this, but for a variety of reason that we cannot dive into here, became a wildly successful driving force in the inevitable rise in JavaScript usage.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/dshaw-nodejs-and-the-webplatform.jpg" alt="Node.js and the Web Platform">
+</picture></p>
+<h1 id="shiftingtides">SHIFTING TIDES</h1>
+<footer class="attr">
+<p><a href="https://speakerdeck.com/dshaw/node-dot-js-and-the-web-platform" target="_blank">@dshaw</a></p>
+</footer>
+</section>
+<section>
+<p><picture class="bg centered">
+<img src="../img/node-workers.png" alt="">
+</picture></p>
+<h1 id="apiconvergenceslowlybutsurely">API convergence: slowly but surely</h1>
+<footer class="attr">
+<p><a href="https://addaleax.net/workers-nordicjs/" target="_blank">via Anna Henningsen</a></p>
+</footer>
+</section>
+<section>
+<p><picture class="bg">
+<img src="img/anna-roadtoworkers.jpg" alt="">
+</picture></p>
+<h3 id="moreonworkerthreadsfromannahenningsen">More on worker threads from Anna Henningsen</h3>
+<footer class="attr">
+<p><a href="https://www.youtube.com/watch?v=pO5a10YPQG4" target="_blank">Anna Henningsen - Node.js: The Road to Workers</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/joyee-webapis.png" alt="Joyee Cheung - Web APIs in Node.js Core: Past, Present, and Future">
+</picture></p>
+<h3 id="theprodigalson">The prodigal son…</h3>
+<footer class="attr">
+<p><a href="https://2019.jsconf.eu/joyee-cheung/web-apis-in-node-js-core-past-present-and-future.html" target="_blank">@joyeecheung / JSConf EU</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/joyee-webapis.png" alt="Joyee Cheung - Web APIs in Node.js Core: Past, Present, and Future">
+</picture></p>
+<h3 id="theprodigalsonreturns">The prodigal son… returns?</h3>
+<footer class="attr">
+<p><a href="https://2019.jsconf.eu/joyee-cheung/web-apis-in-node-js-core-past-present-and-future.html" target="_blank">@joyeecheung / JSConf EU</a></p>
+</footer>
+<blockquote>
+  <p>Node.js is slowly <a href="https://nodesource.com/blog/experimental-features-in-node.js" target="_blank">finding its way</a> back to the Web Platform:</p>
+  <ul>
+  <li><a href="https://mobile.twitter.com/MylesBorins/status/1114039780382261248" target="_blank">Native <code>fetch()</code></a></li>
+  <li>Various utility APIs (e.g. TextEncoder/Decoder)</li>
+  <li>Cross-platform viable APIs (e.g. Performance Timing API)</li>
+  <li>WebAssembly &amp; ES Modules</li>
+  </ul>
+</blockquote>
+<p></p><details>
+While most of these are DOM (browser) APIs, the last two come with the JS-engine so it shouldn't be that surprising that they are (eventually) going to be supported -- but, as with everything in Web &amp; Standards land, this is far from being <em>this</em> straightforward :)
+</details><p></p>
+</section>
+<section class="white-background big slim">
+<p><picture class="bg cover">
+<img src="img/space.jpg" alt="">
+</picture></p>
+<h1 id="proposmodules">À propos modules…</h1>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/linclark-modules-jquery.png" alt="">
+</picture></p>
+<h1 id="codeseparationinjavascript">Code separation in JavaScript</h1>
+<blockquote>
+  <p>…has traditionally been perilous</p>
+</blockquote>
+<footer class="attr">
+<p><a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/" target="_blank">Illustration by Lin Clark</a></p>
+</footer>
+<p></p><details><br>
+Let's face it, JS wasn't great in isolation, especially async (commonJS is inherently sync - again, it's more 'convenient')<p></p>
+<p>We got better, promises and later async (thanks, Maya!) made async calls <em>almost</em> as convenient as synchronous ones. What about isolation?</p>
+<p>Well, good news!<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/npm-modules.png" alt="">
+</picture></p>
+<h3 id="nodenpmhadabatatfixingthis">Node &amp; npm had a bat at fixing this</h3>
+<footer class="attr">
+<p><a href="http://www.modulecounts.com/" target="_blank">modulecounts.com</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="https://bertrandg.github.io/images/js_modules/js-modules.png" alt="">
+</picture></p>
+<footer class="attr">
+<p><a href="https://bertrandg.github.io/" target="_blank">illustration via <code>bertrandg</code></a></p>
+</footer>
+<p></p><details><br>
+Having everything in a single thread/process makes you sloppy<p></p>
+<p>You need modularization, isolation and asynchronous loose coupling (+synchronization)<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/awb-cjs.png" alt="">
+</picture></p>
+<footer class="attr">
+<p><a href="https://twitter.com/awbjs/status/1115303494297108486" target="_blank">@awbjs</a></p>
+</footer>
+<h3 id="okaysohow_bigofamessexactly_">Okay, so how <em>big of a mess, exactly?</em></h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered bigger">
+<img src="../img/esm-import.png" alt="">
+</picture></p>
+<h1 id="ecmascriptmoduleshassetouttofixthismess">EcmaScript Modules has set out to fix this mess</h1>
+<blockquote>
+  <ul>
+  <li><a href="http://2ality.com/2014/09/es6-modules-final.html" target="_blank">Axel Rauschmayer's explainer</a></li>
+  <li><a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/" target="_blank">Lin Clark's cartoon explainer</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank">MDN docs on <code>import</code></a></li>
+  </ul>
+</blockquote>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/franzi-esm.png" alt="">
+</picture></p>
+<h1 id="experimentalnativeesmodulesinnode10">Experimental Native ES Modules in Node 10+</h1>
+<footer class="attr">
+<p><a href="https://twitter.com/fhinkel" target="_blank">Illustration by @fhinkel</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/myles-node-esm.png" alt="">
+</picture></p>
+<h1 id="itgetsevenbetter">It gets even better…</h1>
+<footer class="attr">
+<p><a href="https://twitter.com/MylesBorins/status/1110993825214930944" target="_blank">@MylesBorins</a></p>
+</footer>
+<p></p><details>
+Node.js ESModules Phase two adds seamless support and adoption for the EcmaScript modules spec. CommonJS is basically "legacy" now. Complete opt-in possible, interop with CJS also possible and reasonably effortless. Currently still needs <code>--experimental-modules</code> cmdline flag.
+</details><p></p>
+</section>
+<section class="white-background big slim">
+<p><picture class="bg cover">
+<img src="img/space.jpg" alt="">
+</picture></p>
+<h1 id="butwillitblendin">But…will it blend (in)?</h1>
+<p></p><details>
+So you could <em>use</em> modules across platforms but will they <em>work</em>? The API differences between the platforms might mean they won't (and that's exactly why the DOM API convergence is good news), or you could use the appropriate abstractions, but there's a way around this too. But before we get into that, let's have a look into how the fancy stuff works under the hood in Node.js
+</details><p></p>
+</section>
+<section id="gyp" class="white-background">
+<p><picture class="bg centered bigger">
+<img src="../img/node-gyp.png" alt="">
+</picture></p>
+<h1 id="evermetthisguy">Ever met this guy? :)</h1>
+<p></p><details>
+Besides the libUV bindings, Node.js also allows binary modules, compiled during installation from scratch by <code>node-gyp</code>. Ideally.
+</details><p></p>
+</section>
+<section>
+<p><picture class="bg">
+<img src="img/electron-arch.jpg" alt="">
+</picture></p>
+<h3 id="therabbitholegoesevendeeperwithelectron">The rabbit hole goes even deeper with Electron</h3>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/callahad-portability.jpg" alt="">
+</picture></p>
+<h3 id="theselowerlevelabstractionsarenothingnew">These lower-level abstractions are nothing new</h3>
+<footer class="attr">
+<p><a href="https://www.youtube.com/watch?v=ITksU31c1WY" target="_blank">Dan Callahan, PyCon 2018</a></p>
+</footer>
+<p></p><details>
+When we take a look at any number of programming languages, dropping to a lower level of abstraction when performance or access to system resources require it is a mainstream practice: high-level languages like Ruby, Python, even Node.js achieve this via platform-specific binary modules; even low-level languages like C/C++ allow for inline assembly when performance &amp; precise control becomes a priority. What WebAssembly brings today is this exact capability to the entire Web Platform — without the drawbacks like platform-dependence, but also with the added choice of virtually any programming language (with big asterisks on "any", at least today).
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="/wasm/img/webassembly-logo.svg" alt="">
+</picture></p>
+<p></p><details>
+WebAssembly was born, out of the need for something that was able to cater for those usecases not already covered
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered bigger">
+<img src="/wasm/ts-meetup/img/node-sass.png" alt="">
+</picture></p>
+<h3 id="webassemblyonedaymaysolveallyourbinaryportabilityproblems">WebAssembly one day may solve all your binary portability problems</h3>
+<footer class="attr">
+<p><a href="https://github.com/sass/node-sass/issues/2011" target="_blank">node-sass on GitHub</a></p>
+</footer>
+<p></p><details>
+In fact WebAssembly might be first in line for solving some of these platforms’ binary-module-specific woes.
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg cover">
+<img src="../img/linclark-wasm-esm.png" alt="">
+</picture></p>
+<h3 id="smallfastportablebundleswithwebassemblyesmodules">Small, fast, portable bundles with WebAssembly + ES Modules</h3>
+<footer class="attr">
+<p><a href="https://twitter.com/linclark" target="_blank">Illustration by @linclark</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/fitzgen-scalajs.svg" alt="">
+</picture></p>
+<h3 id="fastenoughtopowerpartsofyourbrowser">Fast enough to power parts of your browser!</h3>
+<footer class="attr">
+<p><a href="https://twitter.com/fitzgen/status/968146167132389376" target="_blank">Speed without Wizardry, by @fitzgen</a></p>
+</footer>
+<p></p><details>
+Wasm is used in improving source map parsing speed tenfold in Firefox’s Developer Tools by surgically replacing performance-sensitive parts of its JavaScript-heavy Debugger with tailor-made WebAssembly solutions. Yes, that's JavaScript and WebAssembly powering parts of a production web browser on hundreds of millions of computers all across the world!
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered bigger">
+<img src="img/sqoosh-piston-rustwasm.png" alt="">
+</picture></p>
+<h3 id="mvpornotwasmisalreadyinproduction">MVP or not, Wasm is already in production</h3>
+<footer class="attr">
+<p><a href="https://twitter.com/jaffathecake/status/1103353983538774021" target="_blank">@DasSurma</a></p>
+</footer>
+<p></p><details>
+Wasm-ifying a small, purpose-built Rust library and using it on the web is the perfect usecase behind WebAssembly!
+</details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/electron-history.png" alt="">
+</picture></p>
+<h1 id="experimentationisessential">Experimentation is essential!</h1>
+</section>
+<section>
+<p><picture class="bg">
+<img src="img/vscode-firefox.jpg" alt="">
+</picture></p>
+<h3 id="itslikejqueryalloveragain">It's like jQuery all over again!</h3>
+<p></p><details><br>
+I'm not saying you should re-implement jQuery in the Lambda-calculus…<p></p>
+<p>Tech that was once experimental, is now running purely in-browser!<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/iodide.gif" alt="">
+</picture></p>
+<h1 id="jupyteronsteroids">Jupyter on steroids</h1>
+<footer class="attr">
+<p><a href="https://hacks.mozilla.org/2019/03/iodide-an-experimental-tool-for-scientific-communicatiodide-for-scientific-communication-exploration-on-the-web/" target="_blank">Iodide: experimental web tool for scientific exploration</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg">
+<img src="../img/wasi.png" alt="">
+</picture></p>
+<h3 id="earlystandardizationmighthelpwiththelaterheadscratching">Early standardization might help with the later head-scratching</h3>
+<footer class="attr">
+<p><a href="https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/" target="_blank">@linclark - Standardizing the WebAssembly System Interface (WASI)</a></p>
+</footer>
+</section>
+<section>
+<p><picture class="bg contain">
+<img src="img/lin-wasi-sandbox.jpg" alt="">
+</picture></p>
+<h3 id="thinkingaboutsecurityearlyon">Thinking about security early on</h3>
+<footer class="attr">
+<p><a href="https://www.youtube.com/watch?v=ggtEJC0Jv8A" target="_blank">@linclark - The WASI security model</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered bigger">
+<img src="../img/node-fetch.png" alt="">
+</picture></p>
+<h2 id="experimentsteachushowtoimproveourways">Experiments teach us how to improve our ways</h2>
+<footer class="attr">
+<p><code>nodejs/node</code> <a href="https://github.com/nodejs/node/issues/19393" target="_blank">Implement window.fetch into core #19393</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg">
+<img src="img/deno-permissions.png" alt="">
+</picture></p>
+<h2 id="denotriedtolearnfromthepermissioncataclysm">Deno tried to learn from the permission-cataclysm</h2>
+<footer class="attr">
+<p><code>nodejs/node</code> <a href="https://github.com/nodejs/node/issues/19393" target="_blank">Implement window.fetch into core #19393</a></p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="../img/deno.png" alt="">
+</picture></p>
+<h2 id="thetoolsmightbetherealready">The tools might be there already</h2>
+<footer class="attr">
+<p><a href="https://twitter.com/slsoftworks/status/1050677737969475584" target="_blank">via @slsoftworks</a></p>
+</footer>
+<p></p><details><br>
+Node.js might have not had a choice 10 years ago, but the tools might already be there today. Deno is an experiment in exploring these tools.<p></p>
+</details></section>
+<section class="white-background">
+<p><picture class="bg contain">
+<img src="../img/unicorns-n-rainbows.png" alt="">
+</picture></p>
+<h2 id="suchamazingness">SUCH AMAZINGNESS!</h2>
+<p></p><details>So much amazingness!</details><p></p>
+</section>
+<section id="nodeconfarq">
+<h3 id="buildyourowntoolbelt">Build your own toolbelt</h3>
+<div class="quote">
+<blockquote>“SHOULD I BE USING <em>NODE.JS</em> IN PRODUCTION?” <span class="pink">—NodeConf Argentina Panel</span></blockquote>
+</div>
+<p></p><details><br>
+This is is from a Node conference.<p></p>
+<p>These are just tools -- use the one that fits the job, and one that you (your team, your company…) is most familiar with.</p>
+<p>Bad news: nobody <em>should</em> tell you if you should use a tool. You will have to figure it out for yourself.<br>
+</p></details><p></p>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/noopkat-jsparty.png" alt="">
+</picture></p>
+<h3 id="youdonthavetoknow_everything_">You don't have to know <em>everything!</em></h3>
+<footer class="attr">
+<p><a href="https://twitter.com/JSPartyFM/status/1115281824501182464" target="_blank">@noopkat</a> via JS Party</p>
+</footer>
+</section>
+<section class="white-background">
+<p><picture class="bg centered">
+<img src="img/noopkat-jsparty.png" alt="">
+</picture></p>
+<h3 id="youdonthavetoknow_everything_">You don't have to know <em>everything</em>!</h3>
+<footer class="attr">
+<p><a href="https://twitter.com/JSPartyFM/status/1115281824501182464" target="_blank">@noopkat</a> via JS Party</p>
+</footer>
+<blockquote>
+  <ul>
+  <li>You don't have to know everything</li>
+  <li>Play early &amp; often</li>
+  <li>Don't be afraid to step out of your comfort zone</li>
+  <li>Know yourself -- discover your strengths and interests</li>
+  <li>Build a team of different strengths</li>
+  <li>Identify problems &amp; find the right people &amp; tools to solve them with</li>
+  </ul>
+</blockquote>
+<p></p><details>
+But you need to discover new tools to be able to tell if you can use them for something. I'm not saying you should spend your nights &amp; weekends trawling the orange website! Fight for time to discover new tools and regularly embed them in your (and your team's) workflow. R&amp;D time.
+</details><p></p>
+</section>
+<section id="keepplaying">
+<p><picture class="bg">
+<img src="../img/moon.gif" alt="">
+</picture></p>
+<h1 id="enjoywhatyoudo">Enjoy what you do!</h1>
+<h4 id="talkflakissingularityhttptalkflakissingularity"><a href="http://talk.flak.is/singularity" target="_blank">talk.flak.is/singularity</a></h4>
+<p><span class="tweet">
+<img src="/pic/mozhacks.png" alt="Mozilla Hacks">
+@mozhacks
+</span></p>
+<p><span class="tweet">
+<img src="/pic/flaki.png" alt="Flaki">
+@slsoftworks
+</span></p>
+<div class="message">Thanks!</div>
+</section>
+<section class="reading-list">
+<h3 id="readinglist">Reading list:</h3>
+<ul>
+<li><a href="http://asmjs.org/faq.html" target="_blank">The ASM.js FAQ</a> with <a href="https://kripken.github.io/mloc_emscripten_talk/" target="_blank">Alon Zakai's original presentation</a></li>
+<li>WebAssembly is <a href="https://words.steveklabnik.com/webassembly-is-more-than-just-the-web" target="_blank">more than just Web</a> - and definitely  <a href="https://words.steveklabnik.com/is-webassembly-the-return-of-java-applets-flash" target="_blank">more than just the revival of Flash</a> - articles by Steve Klabnik</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format" target="_blank">Understanding WAT, the WebAssembly Text Format - an MDN guide by Chris Mills</a></li>
+<li>A workshop-style intro to <a href="https://ashleygwilliams.github.io/helloWASM/" target="_blank">Rust+WebAssembly</a> &amp; <a href="https://rustwasm.github.io/hello-wasm-bindgen/" target="_blank">wasm-bindgen</a> by Ashley Williams &amp; Steve Klabnik</li>
+<li><a href="https://mnt.io/2017/06/06/rust-hack-without-fear/" target="_blank">Hack Without Fear!</a> — <a href="https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html" target="_blank">Fearless concurrency in Rust</a> and in <a href="https://blog.rust-lang.org/2017/11/14/Fearless-Concurrency-In-Firefox-Quantum.html" target="_blank">Servo/Firefox</a></li>
+<li>An explainer on <a href="https://hacks.mozilla.org/2018/04/javascript-to-rust-and-back-again-a-wasm-bindgen-tale/" target="_blank">wasm-bindgen</a> by Alex Crichton and <a href="https://hacks.mozilla.org/2018/04/hello-wasm-pack/" target="_blank">wasm-pack</a> by Ashley Williams</li>
+<li><a href="https://developers.google.com/web/updates/2018/03/emscripting-a-c-library" target="_blank">WebP image decoding using WebAssembly &amp; emscripten</a></li>
+<li><a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/" target="_blank">Mozilla's streaming &amp; tiered WebAssembly compilation - a blogpost by Lin Clark</a> and <a href="https://v8project.blogspot.com/2018/08/liftoff.html" target="_blank">V8's WebAssembly baseline compiler: Liftoff</a></li>
+<li><a href="https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/" target="_blank">Nick Fitzgerald's post on embedding WASM in the devtools</a> with <a href="https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html" target="_blank">Vyacheslav's response</a> &amp; <a href="http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html" target="_blank">Nick's followup</a></li>
+<li>Dan Callahan <a href="https://www.youtube.com/watch?v=bac0dGQbUto" target="_blank">presents about WebAssembly at JSConf Budapest, runs DOS &amp; Netscape in a browser</a></li>
+<li><a href="https://developers.google.com/web/updates/2019/02/hotpath-with-wasm" target="_blank">DasSurma's article on WebAssemblifying Squoosh</a></li>
+<li><a href="https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/" target="_blank">WASI announcement &amp; explainer</a> by Lin Clark</li>
+</ul>
+</section></main></body></html>
