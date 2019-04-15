@@ -406,6 +406,7 @@ Besides the libUV bindings, Node.js also allows binary modules, compiled during 
 
 ### The rabbit hole goes even deeper with Electron
 
+[Illustration by Shelley Vohr](https://github.com/codebytere/talks/tree/master/node-summit-2018)
 
 ------------------------------------------------------------
 [](.white-background)
