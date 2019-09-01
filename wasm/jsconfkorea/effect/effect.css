@@ -1,0 +1,78 @@
+@import "../font/web/stylesheet.css";
+
+document, body {
+    margin: 0;
+    padding: 0;
+    background: black;
+
+    font-family: DataControl, monospace;
+    color: white;
+}
+
+body::after {
+    content: "_";
+    font-size: 8px;
+    color: black;
+}
+
+canvas {
+    width: 100vw;
+    height: 56.25vw;
+}
+canvas.default-effect {
+    background-color: rgba(0,255,0,.5);
+    background-image: radial-gradient(black 50%, transparent);
+}
+
+body:not(.present) main section {
+    width: 64rem;
+    min-height: 36rem;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+
+    text-align: center;
+}
+
+body:not(.present) main section>img {
+    height: 33rem;
+}
+body:not(.present) main section>h2 {
+    display: block;
+    margin: 0;
+    font-size: 2rem;
+}
+
+body:not(.present) main section>pre {
+    white-space: pre-line;
+    text-align: left;
+    font-size: .8rem;
+}
+
+
+
+body.present {
+    overflow: hidden;
+    height: 100%;
+}
+
+
+
+main {
+    display: flex;
+    flex-direction:column;
+    align-items: center;  
+  }
+  
+  main>section {
+    box-sizing: content-box;
+    padding: 1px;
+    border: 1px solid #0f0;
+    margin-bottom: 2rem;
+  }
+  
+  main>section>img {
+    max-width: 100%
+  }
+  
