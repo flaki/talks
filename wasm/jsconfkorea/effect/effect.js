@@ -50,11 +50,10 @@ window.showSlide = async function(slide) {
 
 function updateNotes(next) {
   next = next
-  // TODO: show slide image as well
 
   let detailsElement = next.querySelector('.notes')
   let noteContents = detailsElement ? detailsElement.innerHTML : '-'
-  noteContents = noteContents //.replace(/\s*<br\/?>/,'')
+  noteContents = noteContents.replace(/\n\s*/,'<br>')
 
   if (window.notesWindow) {
     const b = notesWindow.document.body
