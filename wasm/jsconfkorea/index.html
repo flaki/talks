@@ -22,9 +22,9 @@
                 width: 100%;
                 margin-bottom: -3rem;
             " />
-            <h4>
+            <h3>
                 presents
-            </h4>
+            </h3>
         </section>
         <section id=welcome>
             <img src="./assets/welcome2.svg" alt="A giant book with a WebAssembly logo is held up triumphantly by Boy, the story's main protagonist" />
@@ -32,9 +32,9 @@
                     Welcome to Vault 6D-73-61!
             </h2>
             <pre class="notes">
-                You've spent your whole life underground, always curious and fascinated by the gently humming machines around you, doing their jobs to sustain your community. Whatever caused the big calamity that forced your ancestors decades ago was in receding, people recently started wandering outside the heavy vault doors, exploring your desolate surroundings.
+                You have spent your whole life underground, always curious and fascinated by the gently humming machines around you, doing their jobs to sustain your community. Whatever caused the big calamity that forced your ancestors underground decades ago was in receding, people recently started wandering outside the heavy vault doors, exploring your desolate surroundings.
                 
-                The re-established connection to other settlements came handy when you managed to barter a bulky operating manual and started discovering the depths of the technology that is at the beating heart of your underground habitat. As a newly appointed Chief Vault Technician are tasked to use this knowledge to improve the life of your community, and you have every intention in doing so...
+                The re-established connection to other settlements came handy when you managed to barter a bulky operating manual and started discovering the depths of the technology that is at the beating heart of your underground habitat. As a newly appointed Chief Vault Technician you are tasked to use this knowledge to improve the life of your community, and you have every intention in doing so...
             </pre>
         </section>
         <section id=aboutme-flaki>
@@ -44,8 +44,8 @@
                 @slsoftworks
             </h2>
             <pre class="notes">
-                My name is Istvan Szmozsanszky (now you know why I just “Flaki”).
-                I’m a freelance web developer - originally from Budapest, Hungary but I live in Estonia.
+                My name is Istvan Szmozsanszky (now you know why I just stick with “Flaki”).
+                I’m a freelance web developer - originally from Budapest, Hungary but I now live in Estonia.
                 I've spent quite some time in Asia in the past few years but this is my first time in Korea, not counting that one transfer in Incheon airport.
             </pre>
         </section>
@@ -60,7 +60,7 @@
             </pre>
         </section>
         <section id=aboutme-moz>
-                <img src="./assets/pip-clean.svg" alt="A Fallout-style PIP boy device, with a the Mozilla Hacks dino logo on the display" />
+                <img src="./assets/pip-mozhacks.svg" alt="A Fallout-style PIP boy device, with a the Mozilla Hacks dino logo on the display" />
                 <h2>
                 Developer Relations @ Mozilla<br>
                 @mozhacks
@@ -73,7 +73,7 @@
         </section>
 
         <section id=aboutme-moz>
-            <img src="./assets/pip-clean.svg" alt="A Fallout-style PIP boy device, with a the WebAssembly logo on the display" />
+            <img src="./assets/pip-wa.svg" alt="A Fallout-style PIP boy device, with a the WebAssembly logo on the display" />
                 <h2>
                 Join the WebAssembly community!<br>
                 webassembly.org
@@ -113,7 +113,7 @@
 
         <section id=disclaimer>
             <img src="./assets/disclaimer.png" alt="DVD-style warning fineprint reads: Warning! Due to the nature of the technologies discussed herewithin there is always fair chance for any factually specific information regarding the technologies as they are implemented to be outdated by the time this work is consumed. This is inevitable despite the Author’s best efforts, and thus all details presented ought to be taken with a grain of salt and perhaps even a tiny dash of skepticism. All depicted events & characters portrayed in this presentation are a work of fiction and exist solely in a computer’s digital imagination, with high probability amongst a kettle of electric sheep. Furthermore any perceived similarity or resemblance to actual triple-A multimedia entertainment titles could merely be coincidental." />
-            <h2>Disclaimer</h2>
+            <h2></h2>
 
             <pre class="notes">
                 “Due to the nature of the technologies discussed herewithin there is always fair chance for any factually specific information regarding…” yada-yada, people never read these disclaimers anyway, right?
@@ -127,8 +127,7 @@
         <section id=act1>
             <img src="./assets/explore.png" alt="A book with a WebAssembly logo on its cover flying out of a room out into a scarcely lit corridor" />
             <h2>
-                Act I.<br>
-                History Lesson
+                Act I: Important History Lesson
             </h2>
 
             <pre class="notes">
@@ -152,8 +151,7 @@
         <section id=what-is-webassembly>
             <img src="./assets/whatis.svg" alt="" />
             <h2>
-                But wait...<br>
-                What is this WebAssembly again?
+                But wait... What is this WebAssembly again?
             </h2>
             <pre class="notes">
                 WebAssembly allows code that was written in a wide variety of programming languages to be run securely on the web.
@@ -163,10 +161,9 @@
         </section>
 
         <section id=what-is-fast>
-            <img src="./assets/whatis.svg" alt="" />
+            <img src="./assets/why-fast.svg" alt="" />
             <h2>
-                But wait...<br>
-                What is this WebAssembly again?
+                But wait... What is this WebAssembly again?
             </h2>
             <pre class="notes">
                 “Close-to-native speed” here refers to the fact that execution speed of WebAssembly-compiled binaries, in many cases today are able to approach the performance of the same source code when it’s compiled to the native executable format of any given platform.
@@ -174,10 +171,9 @@
         </section>
 
         <section id=what-is-safe>
-            <img src="./assets/whatis.svg" alt="" />
+            <img src="./assets/why-safe.svg" alt="" />
             <h2>
-                But wait...<br>
-                What is this WebAssembly again?
+                But wait... What is this WebAssembly again?
             </h2>
             <pre class="notes">
                 “Safe execution”, on the other hand refers to various ways how during execution of WebAssembly code certain privacy and security guarantees are strictly enforced, so running third-party code on the user’s machine remains safe, robust and - in the case of the web - respecting the origin’s policies that have served it.
@@ -194,9 +190,9 @@
 
                 Asm.js debuted in 2013, it was created as an easy-to-optimize JavaScript subset that compilers and tools could directly target to generate code that will run in the browser. Browser JS engines had specific optimizations for this code, in supporting browsers it was even possible to compile games and 3D engines, verbatim, and run them in the browser at good speeds. The game industry certainly noticed.
                 
-                WebAssembly was released in 2015, all four browsers shipped support in a few-months-wide time window.
+                Its (you could say spiritual) successor, WebAssembly was released in 2015, all four browsers shipped support in a few-months-wide time window.
                 
-                But worry not, I wasn’t planning to bore you with an *actual* history lesson, I think it’s much more interesting to see take some of the WebAssembly's key traits and look into it how they came to be.   
+                But worry not, I wasn’t planning to bore you with an *actual* history lesson, I think it’s much more interesting to take some of the WebAssembly's key traits and look into how they came to be.   
             </pre>
         </section>
 
@@ -206,7 +202,7 @@
                 Augment - not obsolete
             </h2>
             <pre class="notes">
-                WebAssembly has been built on the core principle that can be summarized as “augment, not obsolete”, focusing on seamless integration as it strives to extend & complement the existing web platform capabilities, rather than trying to compete with them.
+                WebAssembly has been built on the core principle that can be summarized as “augment, not obsolete”, focusing on seamless integration, really striving to extend & complement the existing web platform , rather than trying to compete with it.
 
                 “Can’t break the web” is a widely-known principle in the web standards community. It is one of the primary constraints observed when TC39, the committee tasked with evolving the JavaScript language considers extending the ECMAScript specification. WebAssembly takes these same ideals to ensure it can be an integral, cooperative part of the ecosystem.
             </pre>
@@ -218,11 +214,13 @@
                 The principle of least privilege at work
             </h2>
             <pre class="notes">
-                WebAssembly modules are largely inert without the embedder’s cooperation. One of the original embedders is JavaScript itself (in the browser). In this case one could say (with some simplification) that “with WebAssembly, you will only be able to do whatever your JavaScript could already do -- just potentially faster”. API calls that need to access the environment still need to go through the JS runtime -- as a result most of today’s use cases are characterized by “data crunching” on easily separable, performance-sensitive tasks.
+                In fact, WebAssembly modules are largely inert without the embedder’s cooperation. One of the original embedders is JavaScript itself (in the browser). In this case one could say (with some simplification) that “with WebAssembly, you will only be able to do whatever your JavaScript could already do -- just potentially faster”. API calls that need to access the environment still need to go through the JS runtime -- as a result most of today’s use cases are characterized by “data crunching” on easily separable, performance-sensitive tasks.
 
-                After the embedder “instantiates” a Wasm module, allocating memory for it and passing in all other resources it needs, the live module itself has very limited access to its environment (also known as "The Principle of Least Privilege"). The module may have hooks into system APIs and other JS bindings (that were passed in during instantiation), or it may request services, such as more memory via the JS API, but the embedding environment has the authority to deny any such request, leaving WebAssembly highly dependent on its embedder’s cooperation.
+                After the embedder “instantiates” a Wasm module, allocating memory for it and passing in all other resources it needs, the live module itself is largely self-contained, it has very limited access to its environment (this is also known as "The Principle of Least Privilege", you only provide it with access to resources that you are sure it explicitly needs).
                 
-                There are, in fact, many in-flight features and extensions to the standard that are working towards further deepening the integration between the executing Wasm code and the embedder.
+                The module may have hooks into system APIs and other JS bindings (that were passed in during instantiation), or it may request services, such as more memory via the JS API, but the embedding environment has the authority to deny any such request, leaving WebAssembly highly dependent on its embedder’s cooperation.
+                
+                There are, actually even more in-flight features and extensions to the standard that are working towards further deepening the integration between the executing Wasm code and the embedder.
             </pre>
         </section>
 
@@ -232,12 +230,9 @@
                 Evolution over revolution
             </h2>
             <pre class="notes">
-                +
-                This cooperative, complementary relationship actually predates WebAssembly. Asm.js was “still practically JavaScript” but its brilliance lies in the fact that the changes required for supporting it were so minimal that all large browsers wanted in on it. The Asm.js feature set wasn’t only easy to implement in JavaScript engines, but was a straightforward enough set of instructions for tooling (primarily compilers) to target, too.
+                This cooperative, complementary relationship actually predates WebAssembly. Asm.js was “still practically JavaScript” (if you remember, it's a JS subset) but its true brilliance lies in the fact that the changes required for supporting this subset were so minimal that all large browsers wanted in on it. The Asm.js feature set wasn’t only easy to implement in JavaScript engines, but was a straightforward enough set of instructions for tooling (primarily compilers) to target, too.
                 
-                Soon enough, all leading browsers have shipped support for Asm.js optimizations in their engines, almost simultaneously. This cooperation of browser vendors outlived Asm.js and following its success, the people who worked on Asm.js started exploring potential solutions to fix some of Asm.js’s inherent shortcomings.
-                
-                The evolution of Asm.js & WebAssembly could easily fill its very own talk, so I won’t go into further details. I’ll also link to some great resources at the end if you want to learn more.
+                Soon enough, one after the other all modern browsers have shipped support for Asm.js optimizations in their engines. This cooperation of browser vendors outlived Asm.js and following its success, the people who worked on Asm.js started exploring potential solutions to fix some of Asm.js’s inherent shortcomings.
             </pre>
         </section>
 
@@ -250,16 +245,18 @@
             <pre class="notes">
                 For a casual observer, WebAssembly is often perceived as “simple”, usually refering to its highly constrained feature set.
                 
-                After shipping Asm.js it became clear some of its shortcomings were not fixable without breaking the web, or a departure from the existing architecture, so this work spawned many different ideas and prototypes, all of which eventually converged into a minimal set of features that we call the WebAssembly MVP today. While browser vendors working closely together on Asm.js have paved a way for a cooperation strong enough to make a sweeping change as WebAssembly possible, but even so, the group had to focus on laying the groundwork for WebAssembly (and not get bogged down with advanced features). This work called the “WebAssembly MVP”, a Minimum Viable WebAssembly, that allowed for robust and future-proof foundations and an extensible framework, even in this diverse, cross-industry setting, while allowing the more contentious issues to bake for some more time, and incorporate some of the early feedback as it would be trickling in.
-
-                This made WebAssembly constantly evolve, as the community group designs additional enhancements based on both implementer- and end-user feedback. There are 10+ proposals currently in flight, in various stages of completion even now.
+                After shipping Asm.js it became clear some of its shortcomings were not fixable without breaking the web, or a departure from the existing architecture, so this work spawned many different ideas and prototypes, all of which eventually converged into a minimal set of features that we call the WebAssembly MVP today. While browser vendors working closely together on Asm.js have paved a way for a cooperation strong enough to make a sweeping change as WebAssembly possible, but even as such, the group had to focus on laying the groundwork for WebAssembly, and not get bogged down with advanced features.
                 
-                While that's all true, looking past the resource constraints of the standardization work, WebAssembly’s overall simplicity is also...
+                This work, called the “WebAssembly MVP”, a Minimum Viable WebAssembly, allowed for robust, extensible and future-proof foundations to be laid, even in this diverse cross-industry setting. More contentious issues were set aside to bake for some additional time, and incorporate some of the preliminary feedback as it started trickling in from the early adopters.
+
+                This left WebAssembly in a constant state of evolution, as the community group designs additional enhancements based on both implementer- and end-user feedback. Even as we speak, there are 10+ proposals underway, in various stages of completion.
+                
+                While this is all true, if we look beyond the resource constraints of the standardization work, WebAssembly’s overall simplicity is also...
             </pre>
         </section>
 
         <section id=simple-by-design>
-            <img src="" alt="Two excerpts from the WebAssembly specification: &quot;(redacted) every thread (redacted) either runs forever, traps, or terminates with a result that has the expected type.&quot; and &quot;(redacted) no computation (redacted) can “crash” or otherwise (mis)behave in ways not covered by the execution semantics given in this specification.&quot;" />
+            <img src="./assets/robust.png" alt="Two excerpts from the WebAssembly specification: &quot;(redacted) every thread (redacted) either runs forever, traps, or terminates with a result that has the expected type.&quot; and &quot;(redacted) no computation (redacted) can “crash” or otherwise (mis)behave in ways not covered by the execution semantics given in this specification.&quot;" />
             <h2>
                 ...or Simplicity<br>
                 as a defining feature
@@ -276,7 +273,7 @@
                     [...] no computation [...] can “crash” or otherwise (mis)behave in ways not covered by the execution semantics given in this specification.
                 </blockquote>
                 
-                These are quotes from the specification. This simplicity awards WebAssembly not only robustness and less complex & less error-prone runtime that’s easier and faster to implement, but also the fact that these runtimes could generate reasonably and consistently fast code across all the platforms WebAssembly can target.
+                These quote is from the WebAssembly specification. This simplicity awards WebAssembly the robustness and reduced complexity of a slim runtime that is in the meantime quite easy and quick to implement. It also means these runtimes could generate reasonably and consistently fast code across all the platforms WebAssembly can target.
                 
                 This property -- the safe & secure execution at consistently fast, close-to-native speeds on all target platforms -- is already hinting towards usecases beyond the web, but let us not get ahead of ourselves, and talk about what (creators on) the web have to gain first.
             </pre>
@@ -286,8 +283,7 @@
         <section id=act2>
             <img src="./assets/chest.png" alt="" />
             <h2>
-                Act II.<br>
-                Unearthing the Buried Treasure
+                Act II: Unearthing the Buried Treasure
             </h2>
 
             <pre class="notes">
@@ -297,7 +293,7 @@
         <section id=why-wasm>
             <img src="./assets/fits.png" alt="" />
             <h2>
-                Why should you Wasm?
+                Why should you Web-Assemble?
             </h2>
 
             <pre class="notes">
@@ -308,7 +304,7 @@
         </section>
 
         <section id=>
-            <img src="./assets/pkg.png" alt="" />
+            <img src="./assets/produce-mono.svg" alt="" />
             <h2>
                 WebAssembly Monoliths
             </h2>
@@ -323,7 +319,7 @@
         </section>
 
         <section id=>
-            <img src="./assets/pkg.png" alt="" />
+            <img src="./assets/produce-lib.svg" alt="" />
             <h2>
                 WebAssembly as a drop-in replacement
             </h2>
@@ -356,7 +352,7 @@
         </section>
 
         <section id=>
-            <img src="./assets/pkg.png" alt="" />
+            <img src="./assets/produce-pkg.svg" alt="" />
             <h2>
                 WebAssembly as integral ecosystem component
             </h2>
@@ -373,8 +369,7 @@
         <section id=act3>
             <img src="./assets/act3.png" alt="" />
             <h2>
-                Act III.<br>
-                The Weird, the Wonderful and the Unexpected
+                Act III: The Weird, the Wonderful and the Unexpected
             </h2>
 
             <pre class="notes">
@@ -402,7 +397,7 @@
         <section id=>
             <img src="./assets/vass.png" alt="Because of every language wanting to run in the browser now suddenly you have a common low-level layer they all support…" />
             <h2>
-                Growing Ecosystem Effects
+                Cumulative Ecosystem Effects
             </h2>
 
             <pre class="notes">

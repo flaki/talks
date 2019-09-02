@@ -16,13 +16,16 @@ window.present = async function(slide) {
 }
 
 window.nextSlide = async function() {
-  window.currentSlide = (window.currentSlide||0) + 1
+  window.currentSlide = (window.currentSlide||1) + 1
+  const slides = Array.from(document.querySelectorAll('main>section')).length
+  if (window.currentSlide>slides) window.currentSlide = slides
 
   const slide = document.querySelector(`main>section:nth-of-type(${window.currentSlide})`)
   window.showSlide(slide)
 }
 window.prevSlide = async function() {
-  window.currentSlide = (window.currentSlide||0) - 1
+  window.currentSlide = (window.currentSlide||1) - 1
+  if (window.currentSlide<1) window.currentSlide = 1
 
   const slide = document.querySelector(`main>section:nth-of-type(${window.currentSlide})`)
   window.showSlide(slide)
@@ -38,15 +41,44 @@ window.showSlide = async function(slide) {
 
   const effect = slide.classList.contains('no-effect') ? 'none' : 'default'
 
+  updateNotes(slide)
+
   drawSlide({
     image, title, titlesize, effect
   }, window.renderContext)
+}
+
+function updateNotes(next) {
+  next = next
+  // TODO: show slide image as well
+
+  let detailsElement = next.querySelector('.notes')
+  let noteContents = detailsElement ? detailsElement.innerHTML : '-'
+  noteContents = noteContents //.replace(/\s*<br\/?>/,'')
+
+  if (window.notesWindow) {
+    const b = notesWindow.document.body
+
+    if (!b.children.length) {
+      b.innerHTML = `<div style="font-size: 4vmin; line-height: 6vmin; padding: 8vmin;">
+      </div><iframe src="${window.location.href}" style="opacity: .4; position: absolute; bottom: 10px; right: 10px;" width="800" height="450">
+      </iframe>`
+    }
+
+    setTimeout(() => {
+      b.firstElementChild.innerHTML = noteContents
+      b.lastElementChild.contentWindow.Slides.goToPage(window.currentSlide)
+    }, 100)
+  }
 }
 
 document.body.addEventListener('keydown', e => {
   if (e.key==='Enter') window.present()
   if (e.key==='ArrowRight') window.nextSlide()
   if (e.key==='ArrowLeft') window.prevSlide()
+
+  // Open speaker notes window
+  if (e.key==='n') window.notesWindow = window.open('about:blank');
 })
 
 window.demo = function() {
@@ -206,11 +238,15 @@ async function drawSlide(descriptor, ctx) {
   if (ctx.effect === 'default') ctx.drawImage(im, 0,20, DW,im.height)
   if (ctx.effect === 'none')    ctx.drawImage(im, 0,0 , im.width,im.height)
 
-  ctx.font = (16 + (4-descriptor.titlesize||2)*8) + 'px "DataControl"'
+  const size = descriptor.titlesize||2
+  ctx.font = (20 + (4-size)*8) + 'px "DataControl"'
+  console.log(ctx.font)
   ctx.textAlign = 'center'
   ctx.textBaseline = 'bottom'
   ctx.fillStyle = 'white'
-  ctx.fillText(descriptor.title, DW/2, DH-20)
+
+  const title = descriptor.title.replace(/\n/g,' | ').replace(/\s+/g,'\t').trim()
+  ctx.fillText(title, DW/2, DH-20)
 }
 
 async function run(slideprovider, fullscreen) {
