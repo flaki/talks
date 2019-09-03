@@ -1,0 +1,17 @@
+- Dan Callahan [presents about WebAssembly at JSConf Budapest, runs DOS & Netscape in a browser](https://www.youtube.com/watch?v=bac0dGQbUto)
+- WebAssembly's post-MVP future [article](https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/) & [talk recording](https://www.youtube.com/watch?v=VsYL4Z9sRec), by Lin Clark, Till Schneidereit, Luke Wagner
+- [WASI announcement & explainer](https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/) by Lin Clark
+- [Luke Wagner on the Status of WebAssembly & Web IDL Bindings (W3C Workshop on Web Games, June 27-28 2019)](https://vimeo.com/350135351) | [(slides)](https://www.w3.org/2018/12/games-workshop/slides/08-web-idl-bindings.pdf)
+- [Lin Clark's cartoon deep-dive on Interface Types](https://hacks.mozilla.org/2019/08/webassembly-interface-types/) | [(demo)](https://www.youtube.com/watch?v=Qn_4F3foB3Q)
+- [Surma's article on WebAssemblifying Squoosh](https://developers.google.com/web/updates/2019/02/hotpath-with-wasm)
+- Surma exploring the [raw WebAssembly format](https://dassur.ma/things/raw-wasm/), as well as [experimenting with the native compiler toolchains](https://dassur.ma/things/c-to-webassembly/) to generate WebAssembly without Emscripten
+- [AssemblyScript introduction](https://docs.assemblyscript.org/)
+- [WebP image decoding using WebAssembly & emscripten](https://developers.google.com/web/updates/2018/03/emscripting-a-c-library)
+- [Mozilla's streaming & tiered WebAssembly compilation - a blogpost by Lin Clark](https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/) and [V8's WebAssembly baseline compiler: Liftoff](https://v8project.blogspot.com/2018/08/liftoff.html)
+- [Nick Fitzgerald's post on embedding WASM in the devtools](https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/) with [Vyacheslav's response](https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html) & [Nick's followup](http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html)
+- [Understanding WAT, the WebAssembly Text Format - an MDN guide by Chris Mills](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)
+- A workshop-style intro to [Rust+WebAssembly](https://ashleygwilliams.github.io/helloWASM/) & [wasm-bindgen](https://rustwasm.github.io/hello-wasm-bindgen/) by Ashley Williams & Steve Klabnik
+- [Hack Without Fear!](https://mnt.io/2017/06/06/rust-hack-without-fear/) — [Fearless concurrency in Rust](https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html) and in [Servo/Firefox](https://blog.rust-lang.org/2017/11/14/Fearless-Concurrency-In-Firefox-Quantum.html)
+- An explainer on [wasm-bindgen](https://hacks.mozilla.org/2018/04/javascript-to-rust-and-back-again-a-wasm-bindgen-tale/) by Alex Crichton and [wasm-pack](https://hacks.mozilla.org/2018/04/hello-wasm-pack/) by Ashley Williams
+- [The ASM.js FAQ](http://asmjs.org/faq.html) with [Alon's original presentation](https://kripken.github.io/mloc_emscripten_talk/)
+- WebAssembly is [more than just Web](https://words.steveklabnik.com/webassembly-is-more-than-just-the-web) - and definitely  [more than just the revival of Flash](https://words.steveklabnik.com/is-webassembly-the-return-of-java-applets-flash) - articles by Steve Klabnik

@@ -63,16 +63,38 @@ main {
     display: flex;
     flex-direction:column;
     align-items: center;  
-  }
+}
   
-  main>section {
+main>section {
     box-sizing: content-box;
     padding: 1px;
     border: 1px solid #0f0;
     margin-bottom: 2rem;
-  }
-  
-  main>section>img {
+}
+
+main>section>img {
     max-width: 100%
-  }
-  
+}
+
+
+
+.readinglist a {
+    color: #0f0;
+}
+
+.readinglist a:hover, .readinglist a:focus, .readinglist a:active  {
+    color: #ff0;
+    outline: 1px dashed #ff0;
+}
+.readinglist a:visited {
+    color: #090;
+}
+
+.readinglist {
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.readinglist li {
+    margin-bottom: .5em;
+}
