@@ -132,9 +132,13 @@
             </h2>
 
             <pre class="notes">
-                Couple hundred pages into your newly acquired operating manual you still seem to be stuck with historical tropes from an era where horse-drawn carriages roamed the streets. All this time, there is not a single bit of userful & hands-on information to be found on any of your vault’s systems. What a waste of time! In your sudden fit of rage you angrily toss the manual onto the corridor, flying right past one one elderly fellow vault dweller.
+                Couple hundred pages into your newly acquired operating manual you still seem to be stuck with historical tropes from an era where horse-drawn carriages roamed the streets. All this time, there is not a single bit of userful information or anything hands-on to be found on any of your vault’s systems.
                 
-                You apologise profusely, explaining the situation, but the old man just laughs, his reply imparts a lifetime of wisdom: “Oh dear… Actually, history provides the single most precious kind of knowledge amongst all -- there are innumerable, invaluable lessons to be learned from the context exposed by past history…”.                    
+                - What a waste of time!!
+                
+                In your sudden fit of rage you angrily toss the manual onto the corridor, it flying right past one one elderly fellow vault dweller. You apologise profusely, explaining the situation, but the old man just laughs, his reply imparts a lifetime of wisdom:
+                
+                “Oh dear… Actually, history provides the single most precious kind of knowledge amongst all -- there are invaluable lessons to be learned from the context exposed by past history…”.                    
             </pre>
         </section>
 
@@ -155,7 +159,7 @@
                 But wait... What is this WebAssembly again?
             </h2>
             <pre class="notes">
-                WebAssembly allows code that was written in a wide variety of programming languages to be run securely on the web.
+                WebAssembly allows code that was written in any of a wide variety of programming languages to be run securely on the web.
                 
                 The original source code of a supporting programming language is compiled into a size- & execution speed-efficient binary format that can be executed safely and at close-to-native speeds inside the web browser.
             </pre>
@@ -177,7 +181,7 @@
                 But wait... What is this WebAssembly again?
             </h2>
             <pre class="notes">
-                “Safe execution”, on the other hand refers to various ways how during execution of WebAssembly code certain privacy and security guarantees are strictly enforced, so running third-party code on the user’s machine remains safe, robust and - in the case of the web - respecting the origin’s policies that have served it.
+                “Safe execution”, on the other hand refers to various ways how during execution of WebAssembly code certain security guarantees are strictly enforced. This means running this third-party code on the user’s machine remains safe, robust and isolated from the rest of the page.
             </pre>
         </section>
 
@@ -187,94 +191,87 @@
                 A Whirlwind Tour of Compile to Web
             </h2>
             <pre class="notes">
-                Before 2012, that was basically the primordial period. You know, jQuery, AJAX... Except JavaScript has been steadily increasing in speed for half a decade now. The war of JavaScript engines toughened them up all.
+                Before 2012, that was basically the primordial period. You know, dinosaurs, jQuery... Except JavaScript has been steadily increasing in speed for half a decade now. The war of JavaScript engines toughened them up all, but you can never have enough of speed, can you?
 
-                Asm.js debuted in 2013, it was created as an easy-to-optimize JavaScript subset that compilers and tools could directly target to generate code that will run in the browser. Browser JS engines had specific optimizations for this code, in supporting browsers it was even possible to compile games and 3D engines, verbatim, and run them in the browser at good speeds. The game industry certainly noticed.
+                Asm.js debuted in 2013, it was created as an easy-to-optimize JavaScript subset that compilers and tools could directly target to generate code that will run in the browser. Browser JS engines had specific optimizations for this code.
                 
-                Its (you could say spiritual) successor, WebAssembly was released in 2015, all four browsers shipped support in a few-months-wide time window.
+                In supporting browsers it was even possible to compile games and 3D engines, with barely any changes to their original source code, and just run them in the browser at comfortable speeds. Its (you could say spiritual) successor, WebAssembly was released in 2015. All four major browsers shipped support in a few-months-wide time window, and continues to be under active developed until this day.
                 
-                But worry not, I wasn’t planning to bore you with an *actual* history lesson, I think it’s much more interesting to take some of the WebAssembly's key traits and look into how they came to be.   
+                Don't worry, I wasn’t planning to bore you with an *actual* history lesson. I think it will be much more interesting to take some of the WebAssembly's key features and have a look into how they came to be.   
             </pre>
         </section>
 
         <section id=augment-wasm>
-            <img src="./assets/brick.png" alt="" />
+            <img src="./assets/augment.svg" alt="" />
             <h2>
                 Augment - not obsolete
             </h2>
             <pre class="notes">
-                WebAssembly has been built on the core principle that can be summarized as “augment, not obsolete”, focusing on seamless integration, really striving to extend & complement the existing web platform , rather than trying to compete with it.
+                WebAssembly has been built on the core principle that can be summarized as “augment, not obsolete”. This means it focuses on seamless integration, really striving to extend & complement the existing web platform, rather than trying to compete with it.
 
-                “Can’t break the web” is a widely-known principle in the web standards community. It is one of the primary constraints observed when TC39, the committee tasked with evolving the JavaScript language considers extending the ECMAScript specification. WebAssembly takes these same ideals to ensure it can be an integral, cooperative part of the ecosystem.
+                In fact, WebAssembly modules are largely inert without the embedder’s cooperation, and don't expose any features beyond those already available to JS, either. Embedder here means the host environment: the browser is one such, but there are quite a few others these days. In this case of the browser's JavaScript embedder, one could say (with some simplification) that:
+                
+                “with WebAssembly today, you won't be able to do what your JavaScript couldn't already do, but you could do the things you were already doing potentially faster”.
             </pre>
         </section>
 
         <section id=augment-platform-access>
-            <img src="./assets/brick.png" alt="" />
+            <img src="./assets/augment-api.svg" alt="" />
             <h2>
                 The principle of least privilege at work
             </h2>
             <pre class="notes">
-                In fact, WebAssembly modules are largely inert without the embedder’s cooperation. One of the original embedders is JavaScript itself (in the browser). In this case one could say (with some simplification) that “with WebAssembly, you will only be able to do whatever your JavaScript could already do -- just potentially faster”. API calls that need to access the environment still need to go through the JS runtime -- as a result most of today’s use cases are characterized by “data crunching” on easily separable, performance-sensitive tasks.
-
-                After the embedder “instantiates” a Wasm module, allocating memory for it and passing in all other resources it needs, the live module itself is largely self-contained, it has very limited access to its environment (this is also known as "The Principle of Least Privilege", you only provide it with access to resources that you are sure it explicitly needs).
+                After the embedder “instantiates” a Wasm module, it allocates its own memory for it and passes in all other resources it needs, and the imports & exports (function calls) it requires. The live module itself is largely self-contained, and has very limited access to its environment. This is also known as "The Principle of Least Privilege" -- you only provide the WebAssembly module with access to resources that you are sure it explicitly needs. API calls that need to access e.g the network, or storage still need to go through the JS runtime or browser APIs.
                 
                 The module may have hooks into system APIs and other JS bindings (that were passed in during instantiation), or it may request services, such as more memory via the JS API, but the embedding environment has the authority to deny any such request, leaving WebAssembly highly dependent on its embedder’s cooperation.
                 
-                There are, actually even more in-flight features and extensions to the standard that are working towards further deepening the integration between the executing Wasm code and the embedder.
+                There are, actually even more in-flight proposals for the WebAssembly standard that are working towards further deepening and extending the integration between the executing Wasm code and the embedder.
             </pre>
         </section>
 
         <section id=augment-asmjs>
-            <img src="./assets/brick.png" alt="" />
+            <img src="./assets/wp-asm-wasm.svg" alt="" />
             <h2>
                 Evolution over revolution
             </h2>
             <pre class="notes">
-                This cooperative, complementary relationship actually predates WebAssembly. Asm.js was “still practically JavaScript” (if you remember, it's a JS subset) but its true brilliance lies in the fact that the changes required for supporting this subset were so minimal that all large browsers wanted in on it. The Asm.js feature set wasn’t only easy to implement in JavaScript engines, but was a straightforward enough set of instructions for tooling (primarily compilers) to target, too.
+                This cooperative, complementary relationship actually predates WebAssembly. I mentioned Asm.js was a JavaScript subset -- that is “still practically JavaScript”, but its true brilliance lies in the fact that the changes required for supporting the optimizations of this subset were so minimal that all large browsers wanted in on it.
                 
-                Soon enough, one after the other all modern browsers have shipped support for Asm.js optimizations in their engines. This cooperation of browser vendors outlived Asm.js and following its success, the people who worked on Asm.js started exploring potential solutions to fix some of Asm.js’s inherent shortcomings.
+                The Asm.js feature set was not only easy to implement in JavaScript engines, but was a straightforward enough set of instructions for tooling (primarily compilers) to target, too. This meant both the creator and consumer sides had good incentives driving the adoption of the technology.
+                
+                Soon enough, one after the other all modern browsers have shipped support for Asm.js optimizations in their engines. This cooperation of browser vendors outlived Asm.js. Following its success, the people who worked on Asm.js started exploring the work needed to fix some of Asm.js’s inherent shortcomings.
             </pre>
         </section>
 
         <section id=simple-mvp>
             <img src="./assets/simple.svg" alt="Picture of the Pokemon Ditto" />
             <h2>
-                Simplicity<br>
-                by neccessity...
+                Simplicity, by neccessity...
             </h2>
             <pre class="notes">
                 For a casual observer, WebAssembly is often perceived as “simple”, usually refering to its highly constrained feature set.
                 
-                After shipping Asm.js it became clear some of its shortcomings were not fixable without breaking the web, or a departure from the existing architecture, so this work spawned many different ideas and prototypes, all of which eventually converged into a minimal set of features that we call the WebAssembly MVP today. While browser vendors working closely together on Asm.js have paved a way for a cooperation strong enough to make a sweeping change as WebAssembly possible, but even as such, the group had to focus on laying the groundwork for WebAssembly, and not get bogged down with advanced features.
-                
-                This work, called the “WebAssembly MVP”, a Minimum Viable WebAssembly, allowed for robust, extensible and future-proof foundations to be laid, even in this diverse cross-industry setting. More contentious issues were set aside to bake for some additional time, and incorporate some of the preliminary feedback as it started trickling in from the early adopters.
+                After shipping Asm.js it became clear some of its shortcomings were not fixable without breaking the web, or a departure from the existing architecture, so this work spawned many different ideas and explorations. All of those eventually converged into a minimal set of features to become what we call the WebAssembly MVP today.
+
+                Browser vendors working closely together on Asm.js have paved a way for a cooperation strong enough to make a sweeping change as WebAssembly possible. The “WebAssembly MVP”, a Minimum Viable WebAssembly, allowed for robust, extensible and future-proof foundations to be laid out, even in this diverse cross-industry setting. More contentious issues were set aside to bake for some additional time, or to be informed by some of the preliminary feedback as it started trickling in from early adopters.
 
                 This left WebAssembly in a constant state of evolution, as the community group designs additional enhancements based on both implementer- and end-user feedback. Even as we speak, there are 10+ proposals underway, in various stages of completion.
                 
-                While this is all true, if we look beyond the resource constraints of the standardization work, WebAssembly’s overall simplicity is also...
+                While this is all true, if we look beyond the resource constraints of the standardization work, WebAssembly’s overall simplicity is just as much...
             </pre>
         </section>
 
         <section id=simple-by-design>
             <img src="./assets/robust.svg" alt="Two excerpts from the WebAssembly specification: &quot;(redacted) every thread (redacted) either runs forever, traps, or terminates with a result that has the expected type.&quot; and &quot;(redacted) no computation (redacted) can “crash” or otherwise (mis)behave in ways not covered by the execution semantics given in this specification.&quot;" />
-            <h2>
-                ...or Simplicity<br>
-                as a defining feature
-            </h2>
+            <h3>
+                ...or simplicity, as a defining feature of robustness
+            </h3>
             <pre class="notes">
                 ...a deliberate design choice.
 
                 The entire specification is around a hundred pages, the instruction set and the formal description of the Wasm runtime fits on a single page.
-
-                <blockquote>
-                    [...] every thread [...] either runs forever, traps, or terminates with a result that has the expected type.
-                </blockquote>
-                <blockquote>
-                    [...] no computation [...] can “crash” or otherwise (mis)behave in ways not covered by the execution semantics given in this specification.
-                </blockquote>
                 
-                These quote is from the WebAssembly specification. This simplicity awards WebAssembly the robustness and reduced complexity of a slim runtime that is in the meantime quite easy and quick to implement. It also means these runtimes could generate reasonably and consistently fast code across all the platforms WebAssembly can target.
+                The above quote is from the WebAssembly specification. This simplicity awards WebAssembly the robustness and reduced complexity of a slim runtime that is in the meantime quite easy and quick to implement. It also means these runtimes could generate consistently fast code across all the platforms WebAssembly can target.
                 
                 This property -- the safe & secure execution at consistently fast, close-to-native speeds on all target platforms -- is already hinting towards usecases beyond the web, but let us not get ahead of ourselves, and talk about what (creators on) the web have to gain first.
             </pre>
@@ -288,6 +285,7 @@
             </h2>
 
             <pre class="notes">
+                Almost a year have past since you first got your hand on your first operating manual. Slowly, but surely you have become more handy around the vault, fixed this, rebuilt that... even gained some notoriety for some of your creations and your knowledge, you occasionally get visitor from other Vaults seeking your advice or experience. You cannot not fondly remember that one time when you almost knocked a poor fellow vault dweller unconscious with the book in frustration of it being "useless". You smile as you put the finishing touches on a new piece of machinery, and it whirrs to life with lively squeeling as you push its big green button...
             </pre>
         </section>
         
@@ -298,38 +296,73 @@
             </h2>
 
             <pre class="notes">
-                Often it’s not easy to immediately the see the benefit of a technology for one’s own usecases—but this doesn't mean it doesn't have any. Finding the ideal use case often takes time, and cannot happen without exploratory research and experimentation. Industry testimonials that report significant gains from making use of WebAssembly almost never fail to mention the winding road they have embarked on before the true benefits of the technology started shining through.
+                Often it’s not easy to immediately see the benefit of a technology for one’s own usecases—but this doesn't mean it doesn't have any. Finding the ideal use case often takes time, and rarely happens without exploratory research and experimentation.
                 
-                Wasm is a really versatile technology (it is a turing-complete stack machine, after all) which means the possibilities are near limitless, but does not come without tradeoffs. Prototyping and measuring real user benefit , change in engineering productivity, product complexity etc. is crucial for making sure the right balance is struck in these tradeoffs.
+                Industry testimonials that report significant gains from making use of WebAssembly almost never fail to mention the winding road they have embarked on before the true benefits of the technology started shining through.
+                
+                Wasm is a really versatile technology (it is a turing-complete stack machine, after all) which means the possibilities are near limitless, but do not come without tradeoffs. Prototyping and measuring real user benefit, change in engineering productivity, product complexity etc. is crucial for making sure the right balance is struck in these tradeoffs.
             </pre>
         </section>
 
-        <section id=>
+        <section id=compile-to-monoliths>
             <img src="./assets/produce-mono.svg" alt="" />
             <h2>
                 WebAssembly Monoliths
             </h2>
 
             <pre class="notes">
-                One of the first (and most mature) tools used in the ecosystem is Emscripten. Emscripten is the same age as the compile-to-JS ecosystem, it was born with and co-evolved alongside Asm.js, and when WebAssembly rolled around Emscripten was one of the first tools supporting it as an output/target format.
+                One of the first (and to this date most mature) tools used in the ecosystem is Emscripten, a C/C++ compiler for Asm.js and WebAssembly. Emscripten is as old as the entire ecosystem, it was born with and then co-evolved alongside Asm.js. When WebAssembly rolled around Emscripten was one of the first tools to support it as an output/target format.
 
-                Compiling large pre-existing code, libraries, or even whole apps—sometimes millions of lines of code— is not the most frequent web usecase, I’ll admit. Not everyone here works on triple-A game titles that need to run in a browser without plugins, or is trying to transition a 20-year-old desktop codebase to run in a browser. Also, often these compiled bundles ended up being tens or even hundreds of megabytes, that’s a very scary figure, even in this day & age of generally bloated websites.
+                Emscripten made it possible (easy, even) to compile large pre-existing code bases, libraries, or even entire apps, sometimes millions of lines of code, for the web. Not the most prevalent web usecase, I’ll admit, surely not many of you had ever had the sudden urge to ship a triple-A game title to a vanilla web browser. :)
                 
-                All this is to say, that this era has certainly found(ed) an enthusiastic niche for the technology, but remained far from becoming “mainstream”...
+                Furthermore often these compiled bundles ended up being tens or even hundreds of megabytes, a very scary figure considering the ever-increasing bloat of today's websites.
+                
+                All this is to say, that this era has certainly found(ed) an enthusiastic niche for "compiling code for the browser", but it stayed quite far from becoming “mainstream”...
             </pre>
         </section>
 
-        <section id=>
+        <section id=compile-to-lib>
             <img src="./assets/produce-lib.svg" alt="" />
             <h2>
-                WebAssembly as a drop-in replacement
+                WebAssembly for small drop-in libraries
             </h2>
 
             <pre class="notes">
-                ...well, but even for those not writing their own games and desktop-class apps, Emscripten was still useful. One could write a small(-ish) module in a low-level language, like C/C++, compile it and use it in one’s webapp to surgically replace raw performance-sensitive parts, or use it to target the web as one of the platforms. One would need to be able to write code in a low-level language, as well as write JavaScript glue code to the custom modules (thus, not making these libraries/modules the most portable & reusable pieces of code ever writtten), but it worked.
+                Even for those not writing their own games and desktop-class apps, Emscripten was still useful.
+                
+                One could write a small(-ish) module in a low-level language, like C/C++, compile it and use it in one’s webapp to surgically replace raw performance-sensitive parts, or use it to target the web as one of the platforms.
+                
+                One would need to be able to write code in a low-level language, as well as write JavaScript glue code to these custom modules -- rarely making these libraries/modules the most portable pieces of code ever writtten -- but it worked.
+            </pre>
+        </section>
 
-                Emscripten isn’t the only way, either—Rust was one of the first low-level systems languages that not only added built-in WebAssembly target support, but doubled down in supporting the Wasm as a first-class citizen.
-                Stellar docs, sophisticated tooling and an extensive library of “crates” (third-party modules) that could be imported and re-used in one’s custom code made Rust an ideal choice it easier to avoid reinventing the proverbial wheel… Of course, not everyone can (or wants) to code in low-level languages just to get work done. AssemblyScript provides a TypeScript-like language to allow for creation of Wasm modules in a more familial language to JS devs, that can further lower the barrier of entry for Wasm module creators.
+        <section id=compile-to-lib-with-rust>
+            <img src="./assets/produce-lib-rust.svg" alt="" />
+            <h2>
+                WebAssembly with Rust
+            </h2>
+
+            <pre class="notes">
+                Emscripten is not the only way, either. Rust was one of the first low-level systems languages that not only added built-in support for the WebAssembly target, but took it one step further and even doubled down on supporting WebAssembly as a first-class citizen.
+
+                High performance, robust memory guarantees, stellar docs, sophisticated tooling and an extensive library of “crates” (third-party modules) that could be imported and re-used in an npm-ish fashion made Rust an ideal choice for someone wanting to go deep, but unwilling to deal with C++'s shenanigans.
+
+                RustFest
+
+                Rust Tokyo
+            </pre>
+        </section>
+
+        <section id=compile-to-lib-with-as>
+            <img src="./assets/produce-lib-as.svg" alt="" />
+            <h2>
+                WebAssembly with AssemblyScript
+            </h2>
+
+            <pre class="notes">
+                Of course, not everyone can -- or wants to learn to -- code in a low-level language just to get work done. AssemblyScript provides a language for this with much more familiar semantics to all JavaScript-developers.
+                
+                Being a subset of TypeScript, AssemblyScript serves as a much lower barrier of entry to creating WebAssembly modules for web developers.
             </pre>
         </section>
 
@@ -342,13 +375,15 @@
             <pre class="notes">
                 <a href="https://dassur.ma/things/c-to-webassembly/">dassur.ma/things/c-to-webassembly/</a>
 
-                Surma in the quoted post explains one does not need to resort to using bespoke tooling just to be able to generate a WebAssembly module and use it in one's projects. And surely, Emscripten or using precompiled Wasm distributions of useful libraries will go a long way. With things like AssemblyScript (a source language for WebAssembly based on TypeScript, intended to be easy to pick up ) and more and more languages adding direct support for WebAssembly, the purpose-built components will also thrive.
+                But even so, <em>"You do not need to understand all of this to be a good web developer or even to make good use of WebAssembly."</em>
+
+                Surma in the quoted post explains one does not need to be using bespoke tooling just to be able to create and use WebAssembly modules in one's projects.
+                
+                And surely, just using Emscripten or a precompiled Wasm distribution of popular libraries will go a long way. With tools like AssemblyScript and more and more languages adding direct support for WebAssembly, purpose-built components will also thrive.
 
                 But even so it's hard to imagine that authoring WebAssembly modules will become a mainstream task, undertaken by the majority of web developers.
                 
-                And that’s perfectly fine.
-                
-                It shouldn’t be! The good news is: one does not need to know how to create WebAssembly modules to be able to benefit from the new technology’s ecosystem effects!
+                And that’s perfectly fine, it shouldn’t be! The good news is: one does not need to know WebAssembly (or even know <i>about</i> WebAssembly) to be able to benefit from the new technology’s ecosystem effects!
             </pre>
         </section>
 
@@ -359,21 +394,26 @@
             </h2>
 
             <pre class="notes">
-                Some of the more recent proposals that are currently being worked on (such as the Interface Types (nee WebIDL bindings) proposal or the ES Modules Interop work) promise to integrate WebAssembly modules even more seamlessly into the existing ecosystem. In the future one might import a module using their favorite package manager and it might be using WebAssembly under the hood without the user being aware of the fact in the first place!
+                Proposals such as the Interface Types proposal, WebIDL Bindings or the ES Modules integration currently underway are working towards integrating WebAssembly modules even more seamlessly into the existing ecosystem.
                 
-                Also, even if one’s production code won’t end up using WebAssembly, one might still benefit from WebAssembly via build tooling and other adjacent tools utilizing WebAssembly in their own products. Webpack has been one of the early experimenters with WebAssembly, exploring how it could improve build times in the future with promising results…
+                In the future one would import a module using their favorite package manager and it could be using WebAssembly under the hood without the user being aware of the fact in the first place!
                 
-                With recent announcements around Interface Types by the Mozilla Wasm team, this interoperability paradise might be closer than you’d think, but let us have a glance at the slightly-further-out potential of WebAssembly...
+                Also, even if one’s production code won’t end up using WebAssembly, one might still benefit from WebAssembly via build tooling and other adjacent tools utilizing WebAssembly in their own products. Webpack has been one of the early experimenters with WebAssembly, exploring its use for improving build times with promising results…
+                
+                With recent announcements around Interface Types by the Mozilla Wasm team, this already pretty futuristic-sounding paradise might be closer than you’d think, but let us have a glance at the slightly-further-out potential of WebAssembly...
             </pre>
         </section>
 
         <section id=act3>
-            <img src="./assets/act3.svg" alt="" />
+            <img src="./assets/act3.svg" alt="A scary-looking fox with nine tails" />
             <h2>
                 Act III: The Weird, the Wonderful and the Unexpected
             </h2>
 
             <pre class="notes">
+                Well mother nature certainly didn't stop coming up with bizarre new ideas while you and your compatriots were hiding in the cozy underground embrace of your vaults.
+
+                The swirling display of almost a dozen tails on this weird looking animal as you emerge from the vault one evening is sending chills down your spine. Hard to call it "nightmarish", as you are pretty sure you could never even dream up such a strange creature... What is it? Is it friendly or evil? Guess you will find out soon enough...
             </pre>
         </section>
 
@@ -381,17 +421,17 @@
         <section id=>
             <img src="./assets/languagesupport.svg" alt="The logo of the Haskell programming language" />
             <h2>
-               The lack of language choice is an accessibility issue
+               Language choice is an accessibility issue
             </h2>
 
             <pre class="notes">
-                It’s never easy to “predict the future” of a nascent ecosystem—and WebAssembly is no different, certainly very early in its evolution, but already with plenty of future potential and promising experiments.
+                It’s tough to “predict the future” of a nascent ecosystem—and WebAssembly is no different, we don't know where all of this ends up until we actually get there.
                 
-                Some of the currently discussed post-MVP features, such as GC integration, Web IDL integration, Threading & Tail Calls to name a few will make it possible for more languages (and more exotic ones, that is languages and programming paradigms very from what JavaScript looks like today) to target & interoperate with the web.
+                Some of the currently discussed post-MVP features, such as GC integration, Web IDL integration, Threading & Tail Calls to name a few will make it possible for more languages to target & interoperate with the web. This also includes more "exotic" ones, that is, languages and programming paradigms potentially very different from what JavaScript looks like today.
                 
-                This of course nothing new, we live in an age of Babel, TypeScript, Elm, Reason… but WebAssembly will make this process even better. Way better.
+                This of course nothing new, we live in an age of Babel, TypeScript, Elm, Reason… but WebAssembly will make this process even better, and the end result much faster.
                 
-                This is not only important form a technology standpoint, but from Increasing the diversity & accessibility of developing for the web. Allowing people to use whatever language they feel most comfortable with (rather than mandating one particular one) on the Web can make the web platform much more diverse and resilient in the future.
+                This is not only interesting form a technology standpoint, but from increasing the diversity & accessibility of developing for the web. Allowing people to use whatever language they feel most comfortable with (rather than mandating one particular one) on the Web will make the web platform much more diverse and resilient in the future.
             </pre>
         </section>
 
@@ -402,11 +442,11 @@
             </h2>
 
             <pre class="notes">
-                https://www.youtube.com/watch?v=rZEQNH27y-k
+                <a href="https://www.youtube.com/watch?v=rZEQNH27y-k">https://www.youtube.com/watch?v=rZEQNH27y-k</a>
 
                 Tibor Vass in the above quote notes something that is frequently observed: the Web Platform's gravity have given WebAssembly's adoption an incredible boost. But not all usecases necessarily need to involve the browser.
                 
-                The browser may be a vehicle to popularize WebAssembly, but that generated code can later run in any WebAssembly-compatible runtime.
+                Sure, the web may be an excellent medium to popularize the use of WebAssembly -- but the same modules could later be adopted for (or, in certain cases, just ran out of the box) in <i>any</i> WebAssembly-compatible runtime.
             </pre>
         </section>
 
@@ -417,7 +457,11 @@
             </h2>
 
             <pre class="notes">
-                Would it be possible to take some of the values of safe and secure sandboxing in the browser beyond the web with WebAssembly? Would it be possible to still provide enough power and flexibility required by the other all other use cases? These are the questions that are being explored in the sister-specification of the WebAssembly System Interface, or WASI for short. What would it take to take WebAssembly into less restricted environments, providing more capabilities but still retaining most of the safety guarantees that make WebAssembly so unique.
+                And then, why would we restrict ourselves to the Browser? WebAssembly seems to have some properties that could come in handy in various other contexts, too, wouldn't they?
+                
+                Would it be possible to take some of the values of safe and secure sandboxing in the browser beyond the web with WebAssembly? Would it be possible to still provide enough power and flexibility required by the other all other use cases?
+                
+                These are the questions that are being explored in the sister-specification of WebAssembly, the WebAssembly System Interface, or WASI for short. What would it take to take WebAssembly into less restricted environments, providing more capabilities but still retaining most of the safety guarantees that make WebAssembly so unique.
             </pre>
         </section>
 
@@ -428,44 +472,55 @@
             </h2>
 
             <pre class="notes">
-                https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/
+                <a href="https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/">Standardizing WASI a WebAssembly System Interface - Mozilla Hacks</a>
 
-                WASI is another tremendous effort in re-imagining certain aspects of computing that we have grown to accept as given. The proposal, initially offered by Mozilla but now worked on in the open in its own WebAssembly subgroup has the potential to extend WebAssembly's usefulness in a standardized way across all non-web platforms and usecases.
+                WASI is another tremendous effort in re-imagining certain aspects of computing that we simply just never question, and take as a given. The proposal, initially presented by Mozilla but now worked on in the open in its own WebAssembly subgroup has the potential to extend WebAssembly's usefulness -- in a standardized way -- across a variety non-web platforms and usecases!
 
-                The Web, Embedded (microcontrollers), Cloud (edge computing)? At the end of the day, we might realize, that what seem vastly different usecases, are actually closer to each other than we think. Code size constraints of the web (reducing transmission time) correspond to requirements on edge computing servers (transmission/syncing & storage limitations) as well as microcontrollers (storage).
+                The Web, Embedded (microcontrollers), Cloud (edge computing)? At the end of the day, we might realize, that what seem vastly different usecases, are actually closer to each other than we think. Code size constraints of a web app (reducing bytes sent through the wire) may correspond to requirements on edge computing servers (storage limitations, sync time) as well as microcontrollers (storage).
                 
-                What we realize is not only WebAssembly is making its way to all of these platforms, but motivates the creation of small, self-contained libraries on the source code's side, transitively enriching the web ecosystem.
+                We can already see that it's not only that WebAssembly is making its way to all of these other platforms, but motivates the creation of small, self-contained libraries on the source code's side, transitively enriching the web ecosystem.
 
-                You can learn more about WASI and its potential in Mozilla's Hacks blog thanks to Lin Clark's amazing and accessible cartoon deep-dives (I will share the links in the slides' resources section)
+                You can learn more about WASI and its potential in Mozilla's Hacks blog thanks to Lin Clark's amazing and accessible cartoon deep-dives (I will share the links in the slides' resources section).
             </pre>
         </section>
 
         <section id=nasser class=no-effect>
             <img src="./assets/ra.svg" alt="The Korean characters &quot;영어로 말할 수 있어요?&quot; presented in the colors of the rainbow." />
-            <h4></h4>
+            <h4>nas.sr/%D9%82%D9%84%D8%A8/</h4>
 
             <pre class="notes">
                 And when we’ve done all that, why stop there?
-                What if anyone could use their language of your choice to program—but we were not talking about programming languages here, but human languages!
+
+                What if anyone could use their language of your choice to program -- but we did not stop at programming languages or different paradigms, but went all the way to liberating programming of the anglocentric <i>human language</i>?
                 
-                What if learning programming didn't have to start with learning the latin alphabet and all those "if"-s and "for"-s?
+                What if learning programming didn't have to start with learning english, the latin alphabet, what if you weren't hindered by knowing the difference between "if"-s and "for"-s? What if you could write code entirely in Korean?
                 
-                Ramsey Nasser’s amazing thought-provoking talk from Deconstruct conference earlier this year explored how a programming language/paradigm that was purely language-agnostic could look like. His design prototype was building on WebAssembly as the underlying machine-readable code storage, with language-specific metadata layered above to give everyone the chance to learn to code in their own native tongue!
+                Ramsey Nasser is the rather well-known creator of the first arabic programming language, قلب /qalb/. But he didn't stop there.
                 
-                https://twitter.com/ra/status/1153657792730927106
-                https://twitter.com/ra/status/1143675211000270849
-                https://twitter.com/hillelogram/status/1149443171274780672
+                His astounding, thought-provoking talk from Deconstruct Conference earlier this year explored how a purely language-agnostic programming language/paradigm could look like. His design prototype builds on WebAssembly as the underlying machine-readable code storage, with code fragments living on the distributed web, accessible for anyone, with language-specific metadata layered above to give anyone the chance to write and re-use code in their very own native tongue!
                 
-                As said, WebAssembly’s potential is seemingly limitless — in this case, its properties (a low level binary format) and platform-agnostic disposition made it an ideal choice for something truly fresh & unique.
+                Links: <a href="https://twitter.com/ra/status/1153657792730927106">[1]</a> <a href="https://twitter.com/ra/status/1143675211000270849">[2]</a> <a href="https://twitter.com/hillelogram/status/1149443171274780672">[3]</a>
                 
-                The last question that remains, is what will YOU do with it?
+                As said, WebAssembly’s potential is seemingly limitless — in this case, its properties (a low level binary format) and platform-agnostic disposition made it an ideal choice for something truly fresh & unique.The only question that remains, is what will YOU do with it?
             </pre>
         </section>
 
+        <section id=the-end>
+            <img src="./assets/thankyou.svg" alt="Thank You!" />
+            <ul>
+                <li>The Mozilla WebAssembly team for their amazing work on WebAssembly</li>
+                <li>Havi Hoffman, Pilar Huidobro & Jess Rose for reviews & support</li>
+                <li>Lin Clark for the incredibly detailed cartoon deep-dives</li>
+                <li>Jeff Lembeck, Alexander Pope & Lin Clark who inspired the format of the talk</li>
+                <li>The organizers, esp. Suzin for their kindness and tremendous effort!</li>
+                <li>Figma for the excellent in-browser vector editor they've built with Wasm!</li>
+            </ul>
+            <h2>and THANK YOU!</h2>
+        </section>
 
-        <section id=the-end class=no-effect>
-            <img src="./assets/" alt="Thank You!" />
-            <h2>THANK YOU!</h2>
+        <section id=one-more-thing>
+            <img src="./assets/one-more-thing.jpg" alt="One More Thing" />
+            <h2>talk.flak.is/wasm/jsconfkorea</h2>
         </section>
 
         <section id=resources>

@@ -53,19 +53,19 @@ function updateNotes(next) {
 
   let detailsElement = next.querySelector('.notes')
   let noteContents = detailsElement ? detailsElement.innerHTML : '-'
-  noteContents = noteContents.replace(/\n\s*/,'<br>')
+  noteContents = noteContents.replace(/\n\s*/g,'</p><p>')
 
   if (window.notesWindow) {
     const b = notesWindow.document.body
 
     if (!b.children.length) {
-      b.innerHTML = `<div style="font-size: 4vmin; line-height: 6vmin; padding: 8vmin;">
-      </div><iframe src="${window.location.href}" style="opacity: .4; position: absolute; bottom: 10px; right: 10px;" width="800" height="450">
+      b.innerHTML = `<div style="font-size: 1.9rem; line-height: 2.6rem; padding: 0 20vmin;">
+      </div><iframe src="${window.location.href}" style="opacity: 0.0; position: absolute; bottom: 10px; right: 10px;" width="800" height="450">
       </iframe>`
     }
 
     setTimeout(() => {
-      b.firstElementChild.innerHTML = noteContents
+      b.firstElementChild.innerHTML = `<p>${noteContents}</p>`
       b.lastElementChild.contentWindow.Slides.goToPage(window.currentSlide)
     }, 100)
   }
