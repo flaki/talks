@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="mobile-web-app-capable" content="yes">
+        
+        
+        <meta name="description" content="">
+        
+        <title>Step Into WebAssembly - 2021.05.26</title>
+        <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+        <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+        <meta name="twitter:image:src" content="https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=400" />
+
+        <meta name="twitter:site" content="@hackmdio" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Step Into WebAssembly - 2021.05.26" />
+
+        <meta name="twitter:description" content="" />
+
+
+        <meta property="og:image" content="https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=400" />
+
+        <meta property="og:site_name" content="HackMD" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Step Into WebAssembly - 2021.05.26" />
+
+        
+        <link rel="stylesheet" href="https://assets.hackmd.io/build/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href='https://assets.hackmd.io/build/emojify.js/dist/css/basic/emojify.min.css'>
+        <link href="https://assets.hackmd.io/build/font-vendor.b86e2bf451b246b1a88e.css" rel="stylesheet">
+        <link href="https://assets.hackmd.io/build/common-vendor.b8ecfc406ac0b5f77a26.css" rel="stylesheet">
+        <link href="https://assets.hackmd.io/build/slide-vendor.69891338bef7e9b58324.css" rel="stylesheet">
+        <link href="https://assets.hackmd.io/build/slide.5a0caa136893440d6363.css" rel="stylesheet">
+        
+
+        <!-- style-loader will insert style before this div in development -->
+        <!-- This prevents overwriting reveal.js theme css -->
+        <meta id="style-tag-insertion">
+
+        <!-- For reveal.js theme -->
+        
+        <link rel="stylesheet" href="https://assets.hackmd.io/build/reveal.js/css/theme/white.css" id="theme">
+        
+        <!-- For overwrite reveal.js -->
+        <link rel="stylesheet" href="https://hackmd.io/build/slide.css">
+
+        <!-- Printing and PDF exports -->
+        <script nonce="26135e45-ec41-45f9-9299-d1e896335e6a">
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'https://assets.hackmd.io/build/reveal.js/' + (window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css');
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+    </head>
+    <body>
+        <div class="container" data-hard-breaks="true">
+            <div class="reveal">
+                <div class="slides" style="display: none;">
+
+&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/TfLYSMY.jpg&#34; data-background-color=&#34;#1b1464&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;no-repeat&#34; --&gt;
+
+---
+
+&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/zqtZ2Uc.png&#34; data-background-color=&#34;#1d1e1d&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;no-repeat&#34; data-background-position=&#34;center right&#34; --&gt;
+
+---
+
+
+# WebAssembly
+
+##### In a *(fairly large)* nutshell…
+
+
+---
+
+## Let&#39;s start a bit of history, shall we?
+
+---
+
+&lt;a href=&#34;http://asmjs.org&#34;&gt;
+
+![asmjs.org](https://i.imgur.com/SHkXTNI.png)
+
+&lt;/a&gt;
+
+---
+
+&lt;a href=&#34;https://kripken.github.io/mloc_emscripten_talk/#/14&#34;&gt;
+
+![Alon Zakai&#39;s introduction to Asm.js](https://i.imgur.com/euygy4K.png)
+
+&lt;/a&gt;
+
+---
+
+## How Did This Happen?
+
+###### *but also, why did this happen?*
+
+---
+
+### Just JIT it
+
+![JIT](https://i.imgur.com/J4IsrNG.jpg =500x)
+
+---
+
+&lt;a href=&#34;https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070&#34;&gt;&lt;img src=&#34;https://i.imgur.com/wUkk9n3.jpg&#34; alt=&#34;JavaScript World Domination&#34;&gt;&lt;/a&gt;
+
+---
+
+![Screenshot explaining the asm.js format that enables JavaScript engine optimizations](https://i.imgur.com/RMM7iNq.jpg =500x)
+
+###### *&#34;With 1Mb of gzipped JavaScript, the average devices take more than 2s just to finish parsing&#34;* — [@mehigh](https://twitter.com/psaikali/status/1012732794349473792), 2018
+
+---
+
+### Over-The-Wire Download Size Matters!
+
+##### WebAssembly supports streaming compilation
+
+&lt;a href=&#34;https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/&#34;&gt;
+
+![Illustration of streaming WebAssembly compilation from Lin Clark&#39;s linked article](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/ezgif-5-73711fc5d3.gif)
+
+&lt;/a&gt;
+
+---
+
+## An MVP was born
+
+&lt;a href=&#34;https://www.zdnet.com/article/apple-google-microsoft-mozilla-close-in-on-making-web-run-as-fast-as-native-apps/&#34;&gt;
+
+![Article screenshot of the WebAssembly MVP announcement](https://i.imgur.com/fjdrxMa.png =600x)
+
+&lt;/a&gt;
+
+---
+
+{%youtube pDUhX4iY4aY %}
+
+---
+
+&lt;a href=&#34;https://webassembly.org/&#34;&gt;
+
+![Screenshot of the WebAssembly home page](https://i.imgur.com/0BNTcfG.png)
+
+&lt;/a&gt;
+
+---
+
+## The Wasm Usecase
+
+- I Need It
+- Something Else Needs It
+
+---
+
+## I Need WebAssembly
+
+A.k.a. the &#34;putting Wasm into all your things&#34; usecase.
+
+---
+
+#### Enhance web experiences
+
+&lt;a href=&#34;http://talk.flak.is/wasm/jsconfkorea/&#34;&gt;
+
+![Screenshot of the JSConf Korea talk slides showing a special effect generated by JS &amp; WebAssembly](https://i.imgur.com/Y9LXQaN.jpg)
+
+&lt;/a&gt;
+
+---
+
+#### Use pre-existing libraries on the web
+
+&lt;a href=&#34;https://squoosh.app/&#34;&gt;
+
+![Squoosh app logo](https://i.imgur.com/RntaG2S.png)
+
+&lt;/a&gt;
+
+---
+
+#### Tap into high performance computation
+
+![SIMD performance gains](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/9NFi12YDG360SlfMl1OP.png?auto=format&amp;w=720)
+
+###### [ClipChamp video editor](https://web.dev/clipchamp/) / [V8 Blog SIMD explainer](https://v8.dev/features/simd)
+
+---
+
+Play decade-old games!
+
+![Screenshot of the Internet Archive&#39;s old DOS games listing](http://talk.flak.is/wasm/ts-meetup/img/internetarchive-games.png)
+
+- https://archive.org/details/softwarelibrary_msdos_games&amp;tab=collection
+
+---
+
+#### Many and more emerging non-web usecases
+
+##### *(with WASI, more on this later later)*
+
+---
+
+## Creating Wasm Binaries
+
+- Compile from other languages (C/C++, Rust, etc)
+- Compile from WebAssembly-specific language (AssemblyScript, Grain)
+- Hand-write it yourself 😁
+
+---
+
+### Compiling to WebAssembly
+
+---
+
+![emscripten](https://emscripten.org/_static/Emscripten_logo_full.png)
+
+```shell
+# Get the emsdk repo
+git clone https://github.com/emscripten-core/emsdk.git
+
+# Install toolchain
+cd emsdk
+
+./emsdk install latest
+./emsdk activate latest
+source ./emsdk_env.sh
+
+# Ready to rumble!
+emcc 
+```
+
+###### [Getting started with emscripten](https://emscripten.org/docs/getting_started/downloads.html) / [Tutorial](https://emscripten.org/docs/getting_started/Tutorial.html)
+
+---
+
+#### Of course you can also do it [without Emscripten](https://surma.dev/things/c-to-webassembly/index.html), but it&#39;s a little bit more involved :)
+
+---
+
+### Rust + Wasm
+
+---
+
+&lt;a href=&#34;https://rustwasm.github.io/&#34;&gt;
+
+![Learn Rust and WebAssembly](https://i.imgur.com/WMKsApl.png)
+
+&lt;/a&gt;
+
+###### [Game of Life Rust-Wasm tutorial](https://rustwasm.github.io/docs/book/game-of-life/hello-world.html)
+
+---
+
+### Languages targeting WebAssembly
+
+- [AssemblyScript](https://www.assemblyscript.org/)
+- [Grain](https://grain-lang.org/)
+
+---
+
+### AssemblyScript
+
+---
+
+{%youtube u0Jgz6QVJqg %}
+
+---
+
+#### [Mandelbrot example](https://assemblyscript.github.io/examples/mandelbrot/) in AS
+
+&lt;iframe style=&#34;width: 100vh;height: 56vh&#34; src=&#34;https://www.assemblyscript.org/editor.html#IyFvcHRpbWl6ZT1zcGVlZCZydW50aW1lPXN0dWImaW1wb3J0TWVtb3J5JnVzZT1NYXRoPUpTTWF0aAovKiogTnVtYmVyIG9mIGRpc2NyZXRlIGNvbG9yIHZhbHVlcyBvbiB0aGUgSlMgc2lkZS4gKi8KY29uc3QgTlVNX0NPTE9SUyA9IDIwNDg7CgovKiogVXBkYXRlcyB0aGUgcmVjdGFuZ2xlIGB3aWR0aGAgeCBgaGVpZ2h0YC4gKi8KZXhwb3J0IGZ1bmN0aW9uIHVwZGF0ZSh3aWR0aDogdTMyLCBoZWlnaHQ6IHUzMiwgbGltaXQ6IHUzMik6IHZvaWQgewogIHZhciB0cmFuc2xhdGVYID0gd2lkdGggICogKDEuMCAvIDEuNik7CiAgdmFyIHRyYW5zbGF0ZVkgPSBoZWlnaHQgKiAoMS4wIC8gMi4wKTsKICB2YXIgc2NhbGUgICAgICA9IDEwLjAgLyBtaW4oMyAqIHdpZHRoLCA0ICogaGVpZ2h0KTsKICB2YXIgcmVhbE9mZnNldCA9IHRyYW5zbGF0ZVggKiBzY2FsZTsKICB2YXIgaW52TGltaXQgICA9IDEuMCAvIGxpbWl0OwoKICB2YXIgbWluSXRlcmF0aW9ucyA9IG1pbig4LCBsaW1pdCk7CgogIGZvciAobGV0IHk6IHUzMiA9IDA7IHkgPCBoZWlnaHQ7ICsreSkgewogICAgbGV0IGltYWdpbmFyeSA9ICh5IC0gdHJhbnNsYXRlWSkgKiBzY2FsZTsKICAgIGxldCB5T2Zmc2V0ICAgPSAoeSAqIHdpZHRoKSA8PCAxOwoKICAgIGZvciAobGV0IHg6IHUzMiA9IDA7IHggPCB3aWR0aDsgKyt4KSB7CiAgICAgIGxldCByZWFsID0geCAqIHNjYWxlIC0gcmVhbE9mZnNldDsKCiAgICAgIC8vIEl0ZXJhdGUgdW50aWwgZWl0aGVyIHRoZSBlc2NhcGUgcmFkaXVzIG9yIGl0ZXJhdGlvbiBsaW1pdCBpcyBleGNlZWRlZAogICAgICBsZXQgaXggPSAwLjAsIGl5ID0gMC4wLCBpeFNxOiBmNjQsIGl5U3E6IGY2NDsKICAgICAgbGV0IGl0ZXJhdGlvbjogdTMyID0gMDsKICAgICAgd2hpbGUgKChpeFNxID0gaXggKiBpeCkgKyAoaXlTcSA9IGl5ICogaXkpIDw9IDQuMCkgewogICAgICAgIGl5ID0gMi4wICogaXggKiBpeSArIGltYWdpbmFyeTsKICAgICAgICBpeCA9IGl4U3EgLSBpeVNxICsgcmVhbDsKICAgICAgICBpZiAoaXRlcmF0aW9uID49IGxpbWl0KSBicmVhazsKICAgICAgICArK2l0ZXJhdGlvbjsKICAgICAgfQoKICAgICAgLy8gRG8gYSBmZXcgZXh0cmEgaXRlcmF0aW9ucyBmb3IgcXVpY2sgZXNjYXBlcyB0byByZWR1Y2UgZXJyb3IgbWFyZ2luCiAgICAgIHdoaWxlIChpdGVyYXRpb24gPCBtaW5JdGVyYXRpb25zKSB7CiAgICAgICAgbGV0IGl4TmV3ID0gaXggKiBpeCAtIGl5ICogaXkgKyByZWFsOwogICAgICAgIGl5ID0gMi4wICogaXggKiBpeSArIGltYWdpbmFyeTsKICAgICAgICBpeCA9IGl4TmV3OwogICAgICAgICsraXRlcmF0aW9uOwogICAgICB9CgogICAgICAvLyBJdGVyYXRpb24gY291bnQgaXMgYSBkaXNjcmV0ZSB2YWx1ZSBpbiB0aGUgcmFuZ2UgWzAsIGxpbWl0XSBoZXJlLCBidXQgd2UnZCBsaWtlIGl0IHRvIGJlCiAgICAgIC8vIG5vcm1hbGl6ZWQgaW4gdGhlIHJhbmdlIFswLCAyMDQ3XSBzbyBpdCBtYXBzIHRvIHRoZSBncmFkaWVudCBjb21wdXRlZCBpbiBKUy4KICAgICAgLy8gc2VlIGFsc286IGh0dHA6Ly9saW5hcy5vcmcvYXJ0LWdhbGxlcnkvZXNjYXBlL2VzY2FwZS5odG1sCiAgICAgIGxldCBjb2xvckluZGV4ID0gTlVNX0NPTE9SUyAtIDE7CiAgICAgIGxldCBkaXN0YW5jZVNxID0gaXggKiBpeCArIGl5ICogaXk7CiAgICAgIGlmIChkaXN0YW5jZVNxID4gMS4wKSB7CiAgICAgICAgbGV0IGZyYWN0aW9uID0gTWF0aC5sb2cyKDAuNSAqIE1hdGgubG9nKGRpc3RhbmNlU3EpKTsKICAgICAgICBjb2xvckluZGV4ID0gPHUzMj4oKE5VTV9DT0xPUlMgLSAxKSAqIGNsYW1wPGY2ND4oKGl0ZXJhdGlvbiArIDEgLSBmcmFjdGlvbikgKiBpbnZMaW1pdCwgMC4wLCAxLjApKTsKICAgICAgfQogICAgICBzdG9yZTx1MTY+KHlPZmZzZXQgKyAoeCA8PCAxKSwgY29sb3JJbmRleCk7CiAgICB9CiAgfQp9CgovKiogQ2xhbXBzIGEgdmFsdWUgYmV0d2VlbiB0aGUgZ2l2ZW4gbWluaW11bSBhbmQgbWF4aW11bS4gKi8KZnVuY3Rpb24gY2xhbXA8VD4odmFsdWU6IFQsIG1pblZhbHVlOiBULCBtYXhWYWx1ZTogVCk6IFQgewogIHJldHVybiBtaW4obWF4KHZhbHVlLCBtaW5WYWx1ZSksIG1heFZhbHVlKTsKfQojIWh0bWwKPGNhbnZhcyBpZD0iY2FudmFzIiBzdHlsZT0id2lkdGg6IDEwMCU7IGhlaWdodDogMTAwJSI+PC9jYW52YXM+CjxzY3JpcHQ+CgovLyBTZXQgdXAgdGhlIGNhbnZhcyB3aXRoIGEgMkQgcmVuZGVyaW5nIGNvbnRleHQKY29uc3QgY2FudmFzID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImNhbnZhcyIpOwpjb25zdCBib3VuZGluZ1JlY3QgPSBjYW52YXMuZ2V0Qm91bmRpbmdDbGllbnRSZWN0KCk7CmNvbnN0IGN0eCA9IGNhbnZhcy5nZXRDb250ZXh0KCIyZCIpOwoKLy8gQ29tcHV0ZSB0aGUgc2l6ZSBvZiB0aGUgdmlld3BvcnQKY29uc3QgcmF0aW8gID0gd2luZG93LmRldmljZVBpeGVsUmF0aW8gfHwgMTsKY29uc3Qgd2lkdGggID0gKGJvdW5kaW5nUmVjdC53aWR0aCAgfCAwKSAqIHJhdGlvOwpjb25zdCBoZWlnaHQgPSAoYm91bmRpbmdSZWN0LmhlaWdodCB8IDApICogcmF0aW87CmNvbnN0IHNpemUgPSB3aWR0aCAqIGhlaWdodDsKY29uc3QgYnl0ZVNpemUgPSBzaXplIDw8IDE7IC8vIGRpc2NyZXRlIGNvbG9yIGluZGljZXMgaW4gcmFuZ2UgWzAsIDIwNDddICgyIGJ5dGVzIHBlciBwaXhlbCkKCmNhbnZhcy53aWR0aCAgPSB3aWR0aDsKY2FudmFzLmhlaWdodCA9IGhlaWdodDsKCmN0eC5zY2FsZShyYXRpbywgcmF0aW8pOwoKLy8gQ29tcHV0ZSB0aGUgc2l6ZSAoaW4gcGFnZXMpIG9mIGFuZCBpbnN0YW50aWF0ZSB0aGUgbW9kdWxlJ3MgbWVtb3J5LgovLyBQYWdlcyBhcmUgNjRrYi4gUm91bmRzIHVwIHVzaW5nIG1hc2sgMHhmZmZmIGJlZm9yZSBzaGlmdGluZyB0byBwYWdlcy4KY29uc3QgbWVtb3J5ID0gbmV3IFdlYkFzc2VtYmx5Lk1lbW9yeSh7IGluaXRpYWw6ICgoYnl0ZVNpemUgKyAweGZmZmYpICYgfjB4ZmZmZikgPj4+IDE2IH0pOwpjb25zdCBidWZmZXIgPSBuZXcgVWludDE2QXJyYXkobWVtb3J5LmJ1ZmZlcik7CmNvbnN0IGltYWdlRGF0YSA9IGN0eC5jcmVhdGVJbWFnZURhdGEod2lkdGgsIGhlaWdodCk7CmNvbnN0IGFyZ2IgPSBuZXcgVWludDMyQXJyYXkoaW1hZ2VEYXRhLmRhdGEuYnVmZmVyKTsKCmxvYWRlci5pbnN0YW50aWF0ZShtb2R1bGVfd2FzbSwgewogIGVudjogewogICAgbWVtb3J5CiAgfQp9KS50aGVuKCh7IGV4cG9ydHMgfSkgPT4gewoKICAvLyBEZXRhaWwgbGV2ZWwKICBsZXQgZGV0YWlsID0gMTsKICBleHBvcnRzLnVwZGF0ZSh3aWR0aCwgaGVpZ2h0LCBkZXRhaWwpOwoKICAvLyBJbmNyZXNlIGRldGFpbAogIGxldCBpdHYgPSBzZXRJbnRlcnZhbCgKICAgICgpID0+IHsKICAgICAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgZGV0YWlsKTsKICAgICAgcmVuZGVyVmlldygpOwogICAgICBkZXRhaWwrKzsKICAgICAgaWYgKGRldGFpbD4zMikgcmV0dXJuIGNsZWFySW50ZXJ2YWwoaXR2KTsKICAgICAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgZGV0YWlsKTsKICAgIH0KICAgICwgMjAwCiAgKQp9KTsKCi8qKiBVcGRhdGVzIHRoZSB2aWV3ICovCmZ1bmN0aW9uIHJlbmRlclZpZXcoKSB7CiAgLy8gVHJhbnNsYXRlIDE2LWJpdCBjb2xvciBpbmRpY2VzIHRvIGNvbG9ycwogIGZvciAobGV0IHkgPSAwOyB5IDwgaGVpZ2h0OyArK3kpIHsKICAgIGNvbnN0IHl4ID0geSAqIHdpZHRoOwogICAgZm9yIChsZXQgeCA9IDA7IHggPCB3aWR0aDsgKyt4KSB7CiAgICAgIGFyZ2JbeXggKyB4XSA9IGNvbG9yc1tidWZmZXJbeXggKyB4XV07CiAgICB9CiAgfQoKICAvLyBSZW5kZXIgdGhlIGltYWdlIGJ1ZmZlci4KICBjdHgucHV0SW1hZ2VEYXRhKGltYWdlRGF0YSwgMCwgMCk7Cn0KCi8qKiBDb21wdXRlcyBhIG5pY2Ugc2V0IG9mIGNvbG9ycyB1c2luZyBhIGdyYWRpZW50LiAqLwpmdW5jdGlvbiBjb21wdXRlQ29sb3JzKCkgewogIGNvbnN0IGNhbnZhcyA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImNhbnZhcyIpOwogIGNhbnZhcy53aWR0aCA9IDIwNDg7CiAgY2FudmFzLmhlaWdodCA9IDE7CiAgY29uc3QgY3R4ID0gY2FudmFzLmdldENvbnRleHQoIjJkIik7CiAgY29uc3QgZ3JkID0gY3R4LmNyZWF0ZUxpbmVhckdyYWRpZW50KDAsIDAsIDIwNDgsIDApOwogIGdyZC5hZGRDb2xvclN0b3AoMC4wMCwgIiMwMDA3NjQiKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuMTYsICIjMjA2OENCIik7CiAgZ3JkLmFkZENvbG9yU3RvcCgwLjQyLCAiI0VERkZGRiIpOwogIGdyZC5hZGRDb2xvclN0b3AoMC42NDI1LCAiI0ZGQUEwMCIpOwogIGdyZC5hZGRDb2xvclN0b3AoMC44NTc1LCAiIzAwMDIwMCIpOwogIGN0eC5maWxsU3R5bGUgPSBncmQ7CiAgY3R4LmZpbGxSZWN0KDAsIDAsIDIwNDgsIDEpOwogIHJldHVybiBuZXcgVWludDMyQXJyYXkoY3R4LmdldEltYWdlRGF0YSgwLCAwLCAyMDQ4LCAxKS5kYXRhLmJ1ZmZlcik7Cn0KCmNvbnN0IGNvbG9ycyA9IGNvbXB1dGVDb2xvcnMoKTsKPC9zY3JpcHQ+&#34;&gt;&lt;/iframe&gt;
+
+---
+
+#### Mandelbrot example in AS
+
+&lt;iframe style=&#34;width: 100vh;height: 56vh&#34; src=&#34;https://www.assemblyscript.org/editor.html#IyFvcHRpbWl6ZT1zcGVlZCZydW50aW1lPXN0dWImaW1wb3J0TWVtb3J5JnVzZT1NYXRoPUpTTWF0aAovKiogTnVtYmVyIG9mIGRpc2NyZXRlIGNvbG9yIHZhbHVlcyBvbiB0aGUgSlMgc2lkZS4gKi8KY29uc3QgTlVNX0NPTE9SUyA9IDIwNDg7CgovKiogVXBkYXRlcyB0aGUgcmVjdGFuZ2xlIGB3aWR0aGAgeCBgaGVpZ2h0YC4gKi8KZXhwb3J0IGZ1bmN0aW9uIHVwZGF0ZSh3aWR0aDogdTMyLCBoZWlnaHQ6IHUzMiwgem9vbTogZjY0KTogdm9pZCB7CiAgdmFyIGxpbWl0OiB1MzIgPSAzMjsKICB2YXIgdHJhbnNsYXRlWCA9IHdpZHRoICAqICgxLjAgLyAxLjYgKyB6b29tIC8gMy4yNSk7CiAgdmFyIHRyYW5zbGF0ZVkgPSBoZWlnaHQgKiAoMS4wIC8gMi4wKTsKICB2YXIgc2NhbGUgICAgICA9IDEwLjAgLyB6b29tIC8gbWluKDMgKiB3aWR0aCwgNCAqIGhlaWdodCk7CiAgdmFyIHJlYWxPZmZzZXQgPSB0cmFuc2xhdGVYICogc2NhbGU7CiAgdmFyIGludkxpbWl0ICAgPSAxLjAgLyBsaW1pdDsKCiAgdmFyIG1pbkl0ZXJhdGlvbnMgPSBtaW4oOCwgbGltaXQpOwoKICBmb3IgKGxldCB5OiB1MzIgPSAwOyB5IDwgaGVpZ2h0OyArK3kpIHsKICAgIGxldCBpbWFnaW5hcnkgPSAoeSAtIHRyYW5zbGF0ZVkpICogc2NhbGU7CiAgICBsZXQgeU9mZnNldCAgID0gKHkgKiB3aWR0aCkgPDwgMTsKCiAgICBmb3IgKGxldCB4OiB1MzIgPSAwOyB4IDwgd2lkdGg7ICsreCkgewogICAgICBsZXQgcmVhbCA9IHggKiBzY2FsZSAtIHJlYWxPZmZzZXQ7CgogICAgICAvLyBJdGVyYXRlIHVudGlsIGVpdGhlciB0aGUgZXNjYXBlIHJhZGl1cyBvciBpdGVyYXRpb24gbGltaXQgaXMgZXhjZWVkZWQKICAgICAgbGV0IGl4ID0gMC4wLCBpeSA9IDAuMCwgaXhTcTogZjY0LCBpeVNxOiBmNjQ7CiAgICAgIGxldCBpdGVyYXRpb246IHUzMiA9IDA7CiAgICAgIHdoaWxlICgoaXhTcSA9IGl4ICogaXgpICsgKGl5U3EgPSBpeSAqIGl5KSA8PSA0LjApIHsKICAgICAgICBpeSA9IDIuMCAqIGl4ICogaXkgKyBpbWFnaW5hcnk7CiAgICAgICAgaXggPSBpeFNxIC0gaXlTcSArIHJlYWw7CiAgICAgICAgaWYgKGl0ZXJhdGlvbiA+PSBsaW1pdCkgYnJlYWs7CiAgICAgICAgKytpdGVyYXRpb247CiAgICAgIH0KCiAgICAgIC8vIERvIGEgZmV3IGV4dHJhIGl0ZXJhdGlvbnMgZm9yIHF1aWNrIGVzY2FwZXMgdG8gcmVkdWNlIGVycm9yIG1hcmdpbgogICAgICB3aGlsZSAoaXRlcmF0aW9uIDwgbWluSXRlcmF0aW9ucykgewogICAgICAgIGxldCBpeE5ldyA9IGl4ICogaXggLSBpeSAqIGl5ICsgcmVhbDsKICAgICAgICBpeSA9IDIuMCAqIGl4ICogaXkgKyBpbWFnaW5hcnk7CiAgICAgICAgaXggPSBpeE5ldzsKICAgICAgICArK2l0ZXJhdGlvbjsKICAgICAgfQoKICAgICAgLy8gSXRlcmF0aW9uIGNvdW50IGlzIGEgZGlzY3JldGUgdmFsdWUgaW4gdGhlIHJhbmdlIFswLCBsaW1pdF0gaGVyZSwgYnV0IHdlJ2QgbGlrZSBpdCB0byBiZQogICAgICAvLyBub3JtYWxpemVkIGluIHRoZSByYW5nZSBbMCwgMjA0N10gc28gaXQgbWFwcyB0byB0aGUgZ3JhZGllbnQgY29tcHV0ZWQgaW4gSlMuCiAgICAgIC8vIHNlZSBhbHNvOiBodHRwOi8vbGluYXMub3JnL2FydC1nYWxsZXJ5L2VzY2FwZS9lc2NhcGUuaHRtbAogICAgICBsZXQgY29sb3JJbmRleCA9IE5VTV9DT0xPUlMgLSAxOwogICAgICBsZXQgZGlzdGFuY2VTcSA9IGl4ICogaXggKyBpeSAqIGl5OwogICAgICBpZiAoZGlzdGFuY2VTcSA+IDEuMCkgewogICAgICAgIGxldCBmcmFjdGlvbiA9IE1hdGgubG9nMigwLjUgKiBNYXRoLmxvZyhkaXN0YW5jZVNxKSk7CiAgICAgICAgY29sb3JJbmRleCA9IDx1MzI+KChOVU1fQ09MT1JTIC0gMSkgKiBjbGFtcDxmNjQ+KChpdGVyYXRpb24gKyAxIC0gZnJhY3Rpb24pICogaW52TGltaXQsIDAuMCwgMS4wKSk7CiAgICAgIH0KICAgICAgc3RvcmU8dTE2Pih5T2Zmc2V0ICsgKHggPDwgMSksIGNvbG9ySW5kZXgpOwogICAgfQogIH0KfQoKLyoqIENsYW1wcyBhIHZhbHVlIGJldHdlZW4gdGhlIGdpdmVuIG1pbmltdW0gYW5kIG1heGltdW0uICovCmZ1bmN0aW9uIGNsYW1wPFQ+KHZhbHVlOiBULCBtaW5WYWx1ZTogVCwgbWF4VmFsdWU6IFQpOiBUIHsKICByZXR1cm4gbWluKG1heCh2YWx1ZSwgbWluVmFsdWUpLCBtYXhWYWx1ZSk7Cn0KIyFodG1sCjxjYW52YXMgaWQ9ImNhbnZhcyIgc3R5bGU9IndpZHRoOiAxMDAlOyBoZWlnaHQ6IDEwMCUiPjwvY2FudmFzPgo8c2NyaXB0PgoKLy8gU2V0IHVwIHRoZSBjYW52YXMgd2l0aCBhIDJEIHJlbmRlcmluZyBjb250ZXh0CmNvbnN0IGNhbnZhcyA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJjYW52YXMiKTsKY29uc3QgYm91bmRpbmdSZWN0ID0gY2FudmFzLmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpOwpjb25zdCBjdHggPSBjYW52YXMuZ2V0Q29udGV4dCgiMmQiKTsKCi8vIENvbXB1dGUgdGhlIHNpemUgb2YgdGhlIHZpZXdwb3J0CmNvbnN0IHJhdGlvICA9IHdpbmRvdy5kZXZpY2VQaXhlbFJhdGlvIHx8IDE7CmNvbnN0IHdpZHRoICA9IChib3VuZGluZ1JlY3Qud2lkdGggIHwgMCkgKiByYXRpbzsKY29uc3QgaGVpZ2h0ID0gKGJvdW5kaW5nUmVjdC5oZWlnaHQgfCAwKSAqIHJhdGlvOwpjb25zdCBzaXplID0gd2lkdGggKiBoZWlnaHQ7CmNvbnN0IGJ5dGVTaXplID0gc2l6ZSA8PCAxOyAvLyBkaXNjcmV0ZSBjb2xvciBpbmRpY2VzIGluIHJhbmdlIFswLCAyMDQ3XSAoMiBieXRlcyBwZXIgcGl4ZWwpCgpjYW52YXMud2lkdGggID0gd2lkdGg7CmNhbnZhcy5oZWlnaHQgPSBoZWlnaHQ7CgpjdHguc2NhbGUocmF0aW8sIHJhdGlvKTsKCi8vIENvbXB1dGUgdGhlIHNpemUgKGluIHBhZ2VzKSBvZiBhbmQgaW5zdGFudGlhdGUgdGhlIG1vZHVsZSdzIG1lbW9yeS4KLy8gUGFnZXMgYXJlIDY0a2IuIFJvdW5kcyB1cCB1c2luZyBtYXNrIDB4ZmZmZiBiZWZvcmUgc2hpZnRpbmcgdG8gcGFnZXMuCmNvbnN0IG1lbW9yeSA9IG5ldyBXZWJBc3NlbWJseS5NZW1vcnkoeyBpbml0aWFsOiAoKGJ5dGVTaXplICsgMHhmZmZmKSAmIH4weGZmZmYpID4+PiAxNiB9KTsKY29uc3QgYnVmZmVyID0gbmV3IFVpbnQxNkFycmF5KG1lbW9yeS5idWZmZXIpOwpjb25zdCBpbWFnZURhdGEgPSBjdHguY3JlYXRlSW1hZ2VEYXRhKHdpZHRoLCBoZWlnaHQpOwpjb25zdCBhcmdiID0gbmV3IFVpbnQzMkFycmF5KGltYWdlRGF0YS5kYXRhLmJ1ZmZlcik7Cgpsb2FkZXIuaW5zdGFudGlhdGUobW9kdWxlX3dhc20sIHsKICBlbnY6IHsKICAgIG1lbW9yeQogIH0KfSkudGhlbigoeyBleHBvcnRzIH0pID0+IHsKCiAgLy8gRGV0YWlsIGxldmVsCiAgbGV0IHpvb20gPSAxLjA7CiAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgem9vbSk7CgogIC8vIEluY3Jlc2UgZGV0YWlsCiAgbGV0IGl0diA9IHNldEludGVydmFsKAogICAgKCkgPT4gewogICAgICBleHBvcnRzLnVwZGF0ZSh3aWR0aCwgaGVpZ2h0LCB6b29tKTsKICAgICAgcmVuZGVyVmlldygpOwogICAgICB6b29tICo9IDEuMjsKICAgICAgaWYgKHpvb20gPiAxNikgcmV0dXJuIGNsZWFySW50ZXJ2YWwoaXR2KTsKICAgICAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgem9vbSk7CiAgICB9CiAgICAsIDEwMAogICkKfSk7CgovKiogVXBkYXRlcyB0aGUgdmlldyAqLwpmdW5jdGlvbiByZW5kZXJWaWV3KCkgewogIC8vIFRyYW5zbGF0ZSAxNi1iaXQgY29sb3IgaW5kaWNlcyB0byBjb2xvcnMKICBmb3IgKGxldCB5ID0gMDsgeSA8IGhlaWdodDsgKyt5KSB7CiAgICBjb25zdCB5eCA9IHkgKiB3aWR0aDsKICAgIGZvciAobGV0IHggPSAwOyB4IDwgd2lkdGg7ICsreCkgewogICAgICBhcmdiW3l4ICsgeF0gPSBjb2xvcnNbYnVmZmVyW3l4ICsgeF1dOwogICAgfQogIH0KCiAgLy8gUmVuZGVyIHRoZSBpbWFnZSBidWZmZXIuCiAgY3R4LnB1dEltYWdlRGF0YShpbWFnZURhdGEsIDAsIDApOwp9CgovKiogQ29tcHV0ZXMgYSBuaWNlIHNldCBvZiBjb2xvcnMgdXNpbmcgYSBncmFkaWVudC4gKi8KZnVuY3Rpb24gY29tcHV0ZUNvbG9ycygpIHsKICBjb25zdCBjYW52YXMgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJjYW52YXMiKTsKICBjYW52YXMud2lkdGggPSAyMDQ4OwogIGNhbnZhcy5oZWlnaHQgPSAxOwogIGNvbnN0IGN0eCA9IGNhbnZhcy5nZXRDb250ZXh0KCIyZCIpOwogIGNvbnN0IGdyZCA9IGN0eC5jcmVhdGVMaW5lYXJHcmFkaWVudCgwLCAwLCAyMDQ4LCAwKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuMDAsICIjMDAwNzY0Iik7CiAgZ3JkLmFkZENvbG9yU3RvcCgwLjE2LCAiIzIwNjhDQiIpOwogIGdyZC5hZGRDb2xvclN0b3AoMC40MiwgIiNFREZGRkYiKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuNjQyNSwgIiNGRkFBMDAiKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuODU3NSwgIiMwMDAyMDAiKTsKICBjdHguZmlsbFN0eWxlID0gZ3JkOwogIGN0eC5maWxsUmVjdCgwLCAwLCAyMDQ4LCAxKTsKICByZXR1cm4gbmV3IFVpbnQzMkFycmF5KGN0eC5nZXRJbWFnZURhdGEoMCwgMCwgMjA0OCwgMSkuZGF0YS5idWZmZXIpOwp9Cgpjb25zdCBjb2xvcnMgPSBjb21wdXRlQ29sb3JzKCk7Cjwvc2NyaXB0Pg==&#34;&gt;&lt;/iframe&gt;
+
+---
+
+[Learn WebAssembly through code examples](https://wasmbyexample.dev/)
+
+---
+
+### Learn more about Grain
+
+{%youtube O8tyml3xBMM %}
+
+---
+
+### Hand-Written Wasm
+
+&lt;span&gt;WebAssembly is intended to be compiled to from another language&lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;1&#34; --&gt;&lt;/span&gt; &lt;span&gt;— but that doesn’t mean you *can’t* write it by hand!&lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;2&#34; --&gt;&lt;/span&gt;
+
+#### &lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;3&#34; --&gt; [WAT] + [WABT]
+
+[WAT]: https://webassembly.github.io/spec/core/text/conventions.html
+[WABT]: https://github.com/WebAssembly/wabt#wabt-the-webassembly-binary-toolkit800
+
+---
+
+&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/uVL8f7S.jpg&#34; data-background-size=&#34;cover&#34; data-background-repeat=&#34;no-repeat&#34; --&gt;
+
+---
+
+#### The WebAssembly Text Format
+
+```wasm
+(module
+  (type $t0 (func (param i32 i32) (result i32)))
+  (func $add (export &#34;add&#34;) (type $t0) (param $lhs i32) (param $rhs i32) (result i32)
+    get_local $lhs
+    get_local $rhs
+    i32.add))
+
+```
+
+##### [WebAssembly Studio](https://webassembly.studio/) / [Understanding the WAT format](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)
+
+---
+
+```x86asm
+wasm-function[0]:
+  sub rsp, 8
+  mov ecx, edi    ; store parameters
+  mov eax, ecx    ; in CPU registers
+  add eax, esi    ; execute the add
+  nop
+  add rsp, 8      ; increment the stack pointer
+  ret             ; return the result
+```
+
+[X86-64 registers cheat sheet](https://wiki.cdot.senecacollege.ca/wiki/X86_64_Register_and_Instruction_Quick_Start)
+
+---
+
+
+#### [The WebAssembly code Explorer](https://wasdk.github.io/wasmcodeexplorer/)
+
+---
+
+### Raw Wasm
+
+All-organic, Artisanal, Hand-crafted WebAssembly!
+
+###### [Raw Wasm Talk Slides](https://binji.github.io/wasmsummit2021-talk/)
+
+&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/QV50Mle.png&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;repeat-x&#34; data-background-position=&#34;bottom&#34; --&gt;
+
+---
+
+{%youtube qEq3F9Z8z6w %}
+
+---
+
+### Free Performance?
+
+- WebAsssembly is [not a silver bullet](https://surma.dev/things/js-to-asc/index.html)
+- But it can make it easier [to create straightforward &amp; performant code](https://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html)
+- As with the above, it always &#39;depends&#39;
+- A lot of your choices will come with tradeoffs
+
+---
+
+###### *and now onto the another group of usecases…*
+
+---
+
+## Something Else Needs WebAssembly
+
+A.k.a. the &#34;extreme portability&#34; usecase
+
+---
+
+### Crate and run WebAssembly modules in:
+##### [Node.js](https://neon-bindings.com/) | [PHP](https://wasmbyexample.dev/home.en-us.html)
+
+---
+
+### Wasm3
+
+- [Tiny WebAssembly interpreter](https://github.com/wasm3/wasm3)
+- So small it even fits an [Arduino](https://www.arduino.cc/reference/en/libraries/wasm3/)
+- [Tiny WebAssembly IoT!](https://twitter.com/wasm3_engine/status/1222872374363770882)
+
+---
+
+&lt;!-- .slide: data-background-image=&#34;https://media.giphy.com/media/TsbDdPYYXn98UCXWKu/giphy.gif&#34; data-background-color=&#34;black&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;no-repeat&#34; --&gt;
+
+---
+
+{%youtube lDAN46s0r1U %}
+
+---
+
+### The Lucet WebAssembly runtime
+
+[![asciicast](https://asciinema.org/a/249302.svg)](https://asciinema.org/a/249302)
+
+---
+
+### WebAssembly on the Edge
+
+##### [CloudFlare Workers](https://blog.cloudflare.com/webassembly-on-cloudflare-workers/) | [Fastly Terrarium](https://wasm.fastlylabs.com/)
+
+![Renee Shah&#39;s tweet quoted below](https://i.imgur.com/qMCRXHI.png =600x)
+
+###### “Wasm’s portability, low resource consumption, and lack of a cold start problem make it ideal for the edge.” -- [Renee Shah](https://twitter.com/reneeshah123/status/1392208270626934784?s=20)
+
+---
+
+## WASI
+
+![WASI illustration from Lin Clark&#39;s linked article](https://i.imgur.com/hXWA2Pa.png)
+
+
+###### [Standardizing WASI, the WebAssembly System Interface](https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/) -- by Lin Clark
+
+---
+
+### WASI APIs in the works
+
+##### [WASI Proposals](https://github.com/WebAssembly/WASI/blob/main/docs/Proposals.md) | [Wasmtime](https://wasmtime.dev/)
+
+- I/O
+- Filesystem
+- &#34;Classic&#34; Command-Line
+- Clocks
+- Random
+- Machine Learning (wasi-nn)
+- Crypto(graphy)
+
+
+---
+
+## [The future of WebAssembly core](https://github.com/WebAssembly/proposals)
+
+---
+
+## One More Thing
+
+&gt; *“Running user-submitted code for bug reproductions is also becoming a major security risk for open source maintainers and Fortune 100 companies alike, and these types of supply chain attacks are on the rise.”* -- [StackBlitz](https://blog.stackblitz.com/posts/introducing-webcontainers/)
+
+###### a.k.a.: &#34;mitigating against Ellátólánctámadás&#34; with WebAssembly &amp; WebContainers
+
+---
+
+## That&#39;s All Folks!
+</div>
+            </div>
+
+            <div id="meta" style="display: none;">{&#34;slideOptions&#34;:{&#34;transition&#34;:&#34;fade&#34;,&#34;theme&#34;:&#34;white&#34;}}</div>
+
+            <div class="footer">
+                <div class="unselectable hidden-print" style="color: #777; line-height: 22px;">
+                    <small>
+                        <span>
+                            
+                                <span class="ui-lastchangeuser" data-profile="flaki">&thinsp;<a class="ui-user-icon small" style="background-image: url(https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=96);" target="_blank"></a></span>
+                            
+                            &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
+                            <span class="ui-lastchange text-uppercase" data-createtime="Wed May 26 2021 09:14:18 GMT+0000 (Coordinated Universal Time)" data-updatetime="Thu May 27 2021 10:02:22 GMT+0000 (Coordinated Universal Time)"></span>
+                        </span>
+                        <span class="pull-right">
+                            97 views
+                            <a href="#" class="ui-edit" title="Edit this note">
+                                <i class="fa fa-fw fa-pencil"></i>
+                            </a>
+                            <a href="#" class="ui-print" title="Print slide">
+                                <i class="fa fa-fw fa-print"></i>
+                            </a>
+                        </span>
+                        <br>
+                        
+                        
+                    </small>
+                </div>
+                
+            </div>
+        </div>
+
+        <script src="https://hackmd.io/api/i18n.js"></script>
+        
+         <script src="https://assets.hackmd.io/build/font-vendor.ccacc592dd3744f39fee.js" defer="defer"></script><script src="https://assets.hackmd.io/build/common-vendor.2c0fe9e96c3a5bac87cc.js" defer="defer"></script><script src="https://assets.hackmd.io/build/slide-vendor.e92399c542d36a33c365.js" defer="defer"></script><script src="https://assets.hackmd.io/build/slide-common.ab580dc41a15de9745b0.js" defer="defer"></script><script src="https://assets.hackmd.io/build/slide.1219192f03a1dff06ff2.js" defer="defer"></script>
+        
+    </body>
+</html>
