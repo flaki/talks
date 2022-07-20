@@ -42,6 +42,8 @@ echo "Running initialization script inside the container..."
 pct push 506 proxmox_create.sh /init.sh -perms 700
 pct exec 506 /bin/sh -- -c "CONTAINER_INIT=1 /init.sh && rm /init.sh"
 
+exit 0
+
 fi
 
 apk update

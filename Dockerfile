@@ -2,7 +2,7 @@
 FROM alpine:latest
 RUN apk add nginx bash
 
-COPY www /var/www/talks
+COPY www /var/www/talk
 COPY .nginx/config/*.conf /etc/nginx/http.d/
 
 EXPOSE 80
