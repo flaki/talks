@@ -58,5 +58,8 @@ mv ./talks/www /var/www/talks
 cd
 rm -rf /tmp/talks
 
+# Add the WebAssembly content type to the mime types served by Nginx
+sed -i "s/}/\n    # WebAssembly\n    application\/wasm    wasm;\n}/" /etc/nginx/mime.types
+
 rc-update add nginx
 /etc/init.d/nginx start
