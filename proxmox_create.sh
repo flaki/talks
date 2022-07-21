@@ -31,9 +31,13 @@ CMD="pct create $CTID $CTOS\
     -ssh-public-keys $DEFAULTSSH\
     -start 1"
 
-echo "$CMD"
-
-/bin/sh -c "$CMD"
+if [ -z "$CONTAINER_REINIT" ]
+then
+    echo "$CMD"
+    /bin/sh -c "$CMD"
+else
+    echo "Not recreating existing container"
+fi
 
 # The rest of the script executes inside the container
 sleep 2
@@ -50,16 +54,21 @@ apk update
 apk upgrade
 apk add nginx nginx-openrc git
 
-cd /tmp
-git clone https://github.com/flaki/talks.git --branch main --single-branch
+# Reuse existing repo if already checked out
+if [ -e /tmp/talks ]
+then
+    cd /tmp/talks && git pull
+else
+    cd /tmp
+    git clone https://github.com/flaki/talks.git --branch main --single-branch
+fi
 
-mv ./talks/.nginx/config/*.conf /etc/nginx/http.d/
-mv ./talks/www /var/www/talks
+cp -fr ./talks/.nginx/config/*.conf /etc/nginx/http.d/
+cp -fr ./talks/www /var/www/talks
 cd
-rm -rf /tmp/talks
 
 # Add the WebAssembly content type to the mime types served by Nginx
 grep -c wasm /etc/nginx/mime.types || sed -i "s/}/\n    # WebAssembly\n    application\/wasm    wasm;\n}/" /etc/nginx/mime.types
 
-rc-update add nginx
-/etc/init.d/nginx start
+# Start or restart nginx
+rc-service -e nginx && rc-service nginx restart || ( rc-update add nginx && rc-service nginx start )
