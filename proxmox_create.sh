@@ -63,8 +63,8 @@ else
     git clone https://github.com/flaki/talks.git --branch main --single-branch
 fi
 
-cp -fr ./talks/.nginx/config/*.conf /etc/nginx/http.d/
-cp -fr ./talks/www /var/www/talks
+cp -fr /tmp/talks/.nginx/config/*.conf /etc/nginx/http.d/
+cp -fr /tmp/talks/www /var/www/talks
 cd
 
 # Add the WebAssembly content type to the mime types served by Nginx
