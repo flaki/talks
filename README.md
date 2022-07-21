@@ -19,7 +19,7 @@
 
 ![WebAssembly Field Guide](https://talk.flak.is/wasm/jsconfkorea/assets/social.png)
 
-[A WebAssembly Field Guide (Easily Worth Like 70 Bottle Caps) @ JSConf Korea 2019](https://talk.flak.is/wasm/ext/rustau/) ([recording](https://pityu.flaki.hu/videos/watch/962bdc3c-7525-4a84-87af-084a9420a893), 30 minutes)
+[A WebAssembly Field Guide (Easily Worth Like 70 Bottle Caps) @ JSConf Korea 2019](https://talk.flak.is/wasm/jsconfkorea/) ([recording](https://pityu.flaki.hu/videos/watch/962bdc3c-7525-4a84-87af-084a9420a893), 30 minutes)
 
 [Approaching the JavaScript Singularity @ JSHeroes 2019](https://talk.flak.is/singularity/jsheroes/) ([recording](https://pityu.flaki.hu/videos/watch/73af0357-d00c-41f0-9f0e-50fe98ecc531), 37 minutes)
 
