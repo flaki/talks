@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -7,72 +7,68 @@
         <meta name="mobile-web-app-capable" content="yes">
         
         
-        <meta name="description" content="">
+        <meta name="description" content=" &lt;style&gt; .reveal section img {   border: none;   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); } &lt;/style">
         
         <title>Step Into WebAssembly - 2021.05.26</title>
-        <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
-        <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
-
-        <meta name="twitter:image:src" content="https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=400" />
-
-        <meta name="twitter:site" content="@hackmdio" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Step Into WebAssembly - 2021.05.26" />
-
-        <meta name="twitter:description" content="" />
-
-
-        <meta property="og:image" content="https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=400" />
-
-        <meta property="og:site_name" content="HackMD" />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content="Step Into WebAssembly - 2021.05.26" />
+        <link rel="icon" type="image/png" href="https://markdown.flak.is/favicon.png">
+        <link rel="apple-touch-icon" href="https://markdown.flak.is/apple-touch-icon.png">
 
         
-        <link rel="stylesheet" href="https://assets.hackmd.io/build/reveal.js/css/reveal.css">
-        <link rel="stylesheet" href='https://assets.hackmd.io/build/emojify.js/dist/css/basic/emojify.min.css'>
-        <link href="https://assets.hackmd.io/build/font-vendor.b86e2bf451b246b1a88e.css" rel="stylesheet">
-        <link href="https://assets.hackmd.io/build/common-vendor.b8ecfc406ac0b5f77a26.css" rel="stylesheet">
-        <link href="https://assets.hackmd.io/build/slide-vendor.69891338bef7e9b58324.css" rel="stylesheet">
-        <link href="https://assets.hackmd.io/build/slide.5a0caa136893440d6363.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://markdown.flak.is/build/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href='https://markdown.flak.is/build/emojify.js/dist/css/basic/emojify.min.css'>
+        <link rel="stylesheet" href='https://markdown.flak.is/css/font.css'>
+        <link rel="stylesheet" href='https://markdown.flak.is/build/fork-awesome/css/fork-awesome.min.css'>
+        <link href="https://markdown.flak.is/build/slide-styles-pack.css" rel="stylesheet"><link href="https://markdown.flak.is/build/slide-styles.css" rel="stylesheet"><link href="https://markdown.flak.is/build/slide.css" rel="stylesheet">
         
-
-        <!-- style-loader will insert style before this div in development -->
-        <!-- This prevents overwriting reveal.js theme css -->
-        <meta id="style-tag-insertion">
 
         <!-- For reveal.js theme -->
         
-        <link rel="stylesheet" href="https://assets.hackmd.io/build/reveal.js/css/theme/white.css" id="theme">
+        <link rel="stylesheet" href="https://markdown.flak.is/build/reveal.js/css/theme/white.css" id="theme">
         
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="https://markdown.flak.is/build/reveal.js/lib/css/zenburn.css">
         <!-- For overwrite reveal.js -->
-        <link rel="stylesheet" href="https://hackmd.io/build/slide.css">
+        <link rel="stylesheet" href="https://markdown.flak.is/css/slide.css">
 
         <!-- Printing and PDF exports -->
-        <script nonce="26135e45-ec41-45f9-9299-d1e896335e6a">
+        <script nonce="39752b91-2af0-40af-aada-c6e103ecddd3">
             var link = document.createElement( 'link' );
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = 'https://assets.hackmd.io/build/reveal.js/' + (window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css');
+            link.href = 'https://markdown.flak.is/build/reveal.js/' + (window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css');
             document.getElementsByTagName( 'head' )[0].appendChild( link );
         </script>
-
+        <style>
+            .reveal h1,
+            .reveal h2,
+            .reveal h3,
+            .reveal h4,
+            .reveal h5,
+            .reveal h6 {
+                text-transform: uppercase;
+            }
+            .reveal section img {
+                border: none;
+                box-shadow: none;
+            }
+        </style>
+        <link rel="stylesheet" href='style/font.css'>
     </head>
     <body>
-        <div class="container" data-hard-breaks="true">
+        <div class="container">
             <div class="reveal">
-                <div class="slides" style="display: none;">
+                <div class="slides">
 
-&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/TfLYSMY.jpg&#34; data-background-color=&#34;#1b1464&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;no-repeat&#34; --&gt;
-
----
-
-&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/zqtZ2Uc.png&#34; data-background-color=&#34;#1d1e1d&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;no-repeat&#34; data-background-position=&#34;center right&#34; --&gt;
+&lt;!-- .slide: data-background-image=&#34;img/title.jpg&#34; data-background-color=&#34;#1b1464&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;no-repeat&#34; --&gt;
 
 ---
 
+&lt;!-- .slide: data-background-image=&#34;img/whoami.png&#34; data-background-color=&#34;#1d1e1d&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;no-repeat&#34; data-background-position=&#34;center right&#34; --&gt;
 
-# WebAssembly
+---
+
+
+# &lt;small&gt;Step Into&lt;/small&gt;&lt;br&gt;WebAssembly
 
 ##### In a *(fairly large)* nutshell…
 
@@ -85,7 +81,7 @@
 
 &lt;a href=&#34;http://asmjs.org&#34;&gt;
 
-![asmjs.org](https://i.imgur.com/SHkXTNI.png)
+![asmjs.org](./img/asm-js.png)
 
 &lt;/a&gt;
 
@@ -93,7 +89,7 @@
 
 &lt;a href=&#34;https://kripken.github.io/mloc_emscripten_talk/#/14&#34;&gt;
 
-![Alon Zakai&#39;s introduction to Asm.js](https://i.imgur.com/euygy4K.png)
+![Alon Zakai&#39;s introduction to Asm.js](./img/asm-intro.png)
 
 &lt;/a&gt;
 
@@ -107,15 +103,15 @@
 
 ### Just JIT it
 
-![JIT](https://i.imgur.com/J4IsrNG.jpg =500x)
+![JIT](./img/js-jit.jpg =500x)
 
 ---
 
-&lt;a href=&#34;https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070&#34;&gt;&lt;img src=&#34;https://i.imgur.com/wUkk9n3.jpg&#34; alt=&#34;JavaScript World Domination&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070&#34;&gt;&lt;img src=&#34;img/js-domination.jpg&#34; alt=&#34;JavaScript World Domination&#34;&gt;&lt;/a&gt;
 
 ---
 
-![Screenshot explaining the asm.js format that enables JavaScript engine optimizations](https://i.imgur.com/RMM7iNq.jpg =500x)
+![Screenshot explaining the asm.js format that enables JavaScript engine optimizations](./img/js-parsing.jpg =500x)
 
 ###### *&#34;With 1Mb of gzipped JavaScript, the average devices take more than 2s just to finish parsing&#34;* — [@mehigh](https://twitter.com/psaikali/status/1012732794349473792), 2018
 
@@ -137,7 +133,7 @@
 
 &lt;a href=&#34;https://www.zdnet.com/article/apple-google-microsoft-mozilla-close-in-on-making-web-run-as-fast-as-native-apps/&#34;&gt;
 
-![Article screenshot of the WebAssembly MVP announcement](https://i.imgur.com/fjdrxMa.png =600x)
+![Article screenshot of the WebAssembly MVP announcement](./img/mvp-announcement.png =600x)
 
 &lt;/a&gt;
 
@@ -149,7 +145,7 @@
 
 &lt;a href=&#34;https://webassembly.org/&#34;&gt;
 
-![Screenshot of the WebAssembly home page](https://i.imgur.com/0BNTcfG.png)
+![Screenshot of the WebAssembly home page](./img/webassembly-org.png)
 
 &lt;/a&gt;
 
@@ -168,27 +164,27 @@ A.k.a. the &#34;putting Wasm into all your things&#34; usecase.
 
 ---
 
-#### Enhance web experiences
+### Enhance web experiences
 
 &lt;a href=&#34;http://talk.flak.is/wasm/jsconfkorea/&#34;&gt;
 
-![Screenshot of the JSConf Korea talk slides showing a special effect generated by JS &amp; WebAssembly](https://i.imgur.com/Y9LXQaN.jpg)
+![Screenshot of the JSConf Korea talk slides showing a special effect generated by JS &amp; WebAssembly](./img/jsconfkorea.jpg)
 
 &lt;/a&gt;
 
 ---
 
-#### Use pre-existing libraries on the web
+### Use pre-existing libraries on the web
 
 &lt;a href=&#34;https://squoosh.app/&#34;&gt;
 
-![Squoosh app logo](https://i.imgur.com/RntaG2S.png)
+![Squoosh app logo](./img/squoosh.png)
 
 &lt;/a&gt;
 
 ---
 
-#### Tap into high performance computation
+### Tap into high performance computation
 
 ![SIMD performance gains](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/9NFi12YDG360SlfMl1OP.png?auto=format&amp;w=720)
 
@@ -204,7 +200,7 @@ Play decade-old games!
 
 ---
 
-#### Many and more emerging non-web usecases
+### Many and more emerging non-web usecases
 
 ##### *(with WASI, more on this later later)*
 
@@ -253,7 +249,7 @@ emcc
 
 &lt;a href=&#34;https://rustwasm.github.io/&#34;&gt;
 
-![Learn Rust and WebAssembly](https://i.imgur.com/WMKsApl.png)
+![Learn Rust and WebAssembly](./img/rustwasm.png)
 
 &lt;/a&gt;
 
@@ -300,16 +296,16 @@ emcc
 
 ### Hand-Written Wasm
 
-&lt;span&gt;WebAssembly is intended to be compiled to from another language&lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;1&#34; --&gt;&lt;/span&gt; &lt;span&gt;— but that doesn’t mean you *can’t* write it by hand!&lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;2&#34; --&gt;&lt;/span&gt;
+&lt;span&gt;&lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;0&#34; --&gt;WebAssembly is intended to be compiled to from another language&lt;/span&gt;&lt;span&gt;&lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;1&#34; --&gt; — but that doesn’t mean you *can’t* write it by hand!&lt;/span&gt;
 
-#### &lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;3&#34; --&gt; [WAT] + [WABT]
+#### &lt;!-- .element: class=&#34;fragment&#34; data-fragment-index=&#34;2&#34; --&gt; [WAT] + [WABT]
 
 [WAT]: https://webassembly.github.io/spec/core/text/conventions.html
 [WABT]: https://github.com/WebAssembly/wabt#wabt-the-webassembly-binary-toolkit800
 
 ---
 
-&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/uVL8f7S.jpg&#34; data-background-size=&#34;cover&#34; data-background-repeat=&#34;no-repeat&#34; --&gt;
+&lt;!-- .slide: data-background-image=&#34;img/wat.jpg&#34; data-background-size=&#34;cover&#34; data-background-repeat=&#34;no-repeat&#34; --&gt;
 
 ---
 
@@ -325,7 +321,7 @@ emcc
 
 ```
 
-##### [WebAssembly Studio](https://webassembly.studio/) / [Understanding the WAT format](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)
+###### [WebAssembly Studio](https://webassembly.studio/) / [Understanding the WAT format](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)
 
 ---
 
@@ -355,7 +351,7 @@ All-organic, Artisanal, Hand-crafted WebAssembly!
 
 ###### [Raw Wasm Talk Slides](https://binji.github.io/wasmsummit2021-talk/)
 
-&lt;!-- .slide: data-background-image=&#34;https://i.imgur.com/QV50Mle.png&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;repeat-x&#34; data-background-position=&#34;bottom&#34; --&gt;
+&lt;!-- .slide: data-background-image=&#34;img/dino.png&#34; data-background-size=&#34;contain&#34; data-background-repeat=&#34;repeat-x&#34; data-background-position=&#34;bottom&#34; --&gt;
 
 ---
 
@@ -365,14 +361,14 @@ All-organic, Artisanal, Hand-crafted WebAssembly!
 
 ### Free Performance?
 
-- WebAsssembly is [not a silver bullet](https://surma.dev/things/js-to-asc/index.html)
+- WebAssembly is [not a silver bullet](https://surma.dev/things/js-to-asc/index.html)
 - But it can make it easier [to create straightforward &amp; performant code](https://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html)
 - As with the above, it always &#39;depends&#39;
 - A lot of your choices will come with tradeoffs
 
 ---
 
-###### *and now onto the another group of usecases…*
+###### *and now onto yet another group of usecases…*
 
 ---
 
@@ -383,6 +379,7 @@ A.k.a. the &#34;extreme portability&#34; usecase
 ---
 
 ### Crate and run WebAssembly modules in:
+
 ##### [Node.js](https://neon-bindings.com/) | [PHP](https://wasmbyexample.dev/home.en-us.html)
 
 ---
@@ -413,7 +410,7 @@ A.k.a. the &#34;extreme portability&#34; usecase
 
 ##### [CloudFlare Workers](https://blog.cloudflare.com/webassembly-on-cloudflare-workers/) | [Fastly Terrarium](https://wasm.fastlylabs.com/)
 
-![Renee Shah&#39;s tweet quoted below](https://i.imgur.com/qMCRXHI.png =600x)
+![Renee Shah&#39;s tweet quoted below](./img/reneeshah.png =600x)
 
 ###### “Wasm’s portability, low resource consumption, and lack of a cold start problem make it ideal for the edge.” -- [Renee Shah](https://twitter.com/reneeshah123/status/1392208270626934784?s=20)
 
@@ -421,7 +418,7 @@ A.k.a. the &#34;extreme portability&#34; usecase
 
 ## WASI
 
-![WASI illustration from Lin Clark&#39;s linked article](https://i.imgur.com/hXWA2Pa.png)
+![WASI illustration from Lin Clark&#39;s linked article](./img/wasi.png)
 
 
 ###### [Standardizing WASI, the WebAssembly System Interface](https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/) -- by Lin Clark
@@ -440,7 +437,6 @@ A.k.a. the &#34;extreme portability&#34; usecase
 - Machine Learning (wasi-nn)
 - Crypto(graphy)
 
-
 ---
 
 ## [The future of WebAssembly core](https://github.com/WebAssembly/proposals)
@@ -456,32 +452,25 @@ A.k.a. the &#34;extreme portability&#34; usecase
 ---
 
 ## That&#39;s All Folks!
+
+##### Have questions? Need help? Reach out at [flak.is](https://flak.is)
 </div>
             </div>
 
-            <div id="meta" style="display: none;">{&#34;slideOptions&#34;:{&#34;transition&#34;:&#34;fade&#34;,&#34;theme&#34;:&#34;white&#34;}}</div>
+            <div id="meta">{&#34;slideOptions&#34;:{&#34;transition&#34;:&#34;fade&#34;,&#34;theme&#34;:&#34;white&#34;}}</div>
 
             <div class="footer">
-                <div class="unselectable hidden-print" style="color: #777; line-height: 22px;">
+                <div class="unselectable hidden-print gray-font">
                     <small>
                         <span>
                             
-                                <span class="ui-lastchangeuser" data-profile="flaki">&thinsp;<a class="ui-user-icon small" style="background-image: url(https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=96);" target="_blank"></a></span>
+                                <span class="ui-lastchangeuser">&thinsp;<i class="ui-user-icon small" style="background-image: url(https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=96);" data-toggle="tooltip" data-placement="right" title="me"></i></span>
                             
                             &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
-                            <span class="ui-lastchange text-uppercase" data-createtime="Wed May 26 2021 09:14:18 GMT+0000 (Coordinated Universal Time)" data-updatetime="Thu May 27 2021 10:02:22 GMT+0000 (Coordinated Universal Time)"></span>
+                            <span class="ui-lastchange text-uppercase" data-createtime="Tue Jul 19 2022 19:25:24 GMT+0000 (Coordinated Universal Time)" data-updatetime="Thu Jul 21 2022 14:07:46 GMT+0000 (Coordinated Universal Time)"></span>
                         </span>
-                        <span class="pull-right">
-                            97 views
-                            <a href="#" class="ui-edit" title="Edit this note">
-                                <i class="fa fa-fw fa-pencil"></i>
-                            </a>
-                            <a href="#" class="ui-print" title="Print slide">
-                                <i class="fa fa-fw fa-print"></i>
-                            </a>
-                        </span>
+                        <span class="pull-right">18 views <a href="#" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a><a class="ui-print" href="" title="Open print view"><i class="fa fa-fw fa-print"></i></a></span>
                         <br>
-                        
                         
                     </small>
                 </div>
@@ -489,9 +478,12 @@ A.k.a. the &#34;extreme portability&#34; usecase
             </div>
         </div>
 
-        <script src="https://hackmd.io/api/i18n.js"></script>
+        <script src="https://markdown.flak.is/js/mathjax-config-extra.js"></script>
         
-         <script src="https://assets.hackmd.io/build/font-vendor.ccacc592dd3744f39fee.js" defer="defer"></script><script src="https://assets.hackmd.io/build/common-vendor.2c0fe9e96c3a5bac87cc.js" defer="defer"></script><script src="https://assets.hackmd.io/build/slide-vendor.e92399c542d36a33c365.js" defer="defer"></script><script src="https://assets.hackmd.io/build/slide-common.ab580dc41a15de9745b0.js" defer="defer"></script><script src="https://assets.hackmd.io/build/slide.1219192f03a1dff06ff2.js" defer="defer"></script>
+        <script src="https://markdown.flak.is/build/MathJax/MathJax.js" defer></script>
+        <script src="https://markdown.flak.is/build/MathJax/config/TeX-AMS-MML_HTMLorMML.js" defer></script>
+        <script src="https://markdown.flak.is/build/MathJax/config/Safe.js" defer></script>
+        <script src="https://markdown.flak.is/config"></script><script src="https://markdown.flak.is/build/slide-pack.07ce89ce085b22f44df2.js" defer="defer"></script>
         
     </body>
 </html>
