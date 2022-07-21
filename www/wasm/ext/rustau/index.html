@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="mobile-web-app-capable" content="yes">
+        
+        
+        <meta name="description" content=" &lt;style&gt; .reveal section img {   border: none;   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); } &lt;/style">
+        
+        <title>WebAssembly Extensibility with JavaScript — and Rust!</title>
+        <link rel="icon" type="image/png" href="https://markdown.flak.is/favicon.png">
+        <link rel="apple-touch-icon" href="https://markdown.flak.is/apple-touch-icon.png">
+
+        
+        <link rel="stylesheet" href="https://markdown.flak.is/build/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href='https://markdown.flak.is/build/emojify.js/dist/css/basic/emojify.min.css'>
+        <link rel="stylesheet" href='https://markdown.flak.is/css/font.css'>
+        <link rel="stylesheet" href='https://markdown.flak.is/build/fork-awesome/css/fork-awesome.min.css'>
+        <link href="https://markdown.flak.is/build/slide-styles-pack.css" rel="stylesheet"><link href="https://markdown.flak.is/build/slide-styles.css" rel="stylesheet"><link href="https://markdown.flak.is/build/slide.css" rel="stylesheet">
+        
+
+        <!-- For reveal.js theme -->
+        
+        <link rel="stylesheet" href="https://markdown.flak.is/build/reveal.js/css/theme/white.css" id="theme">
+        
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="https://markdown.flak.is/build/reveal.js/lib/css/zenburn.css">
+        <!-- For overwrite reveal.js -->
+        <link rel="stylesheet" href="https://markdown.flak.is/css/slide.css">
+
+        <!-- Printing and PDF exports -->
+        <script nonce="39752b91-2af0-40af-aada-c6e103ecddd3">
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'https://markdown.flak.is/build/reveal.js/' + (window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css');
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <style>
+            .reveal h1,
+            .reveal h2,
+            .reveal h3,
+            .reveal h4,
+            .reveal h5,
+            .reveal h6 {
+                text-transform: uppercase;
+            }
+            .reveal section img {
+                border-color: rgba(0,128,255,.4);
+                border-radius: 2em;
+            }
+            .reveal h1 {
+                color: #654ff0;
+                text-shadow: 0 5px white;
+                font-family: Dela Gothic One;
+                font-size: 1em;
+                padding-bottom: 50vh;
+            }
+            .reveal h6 {
+                padding: 1em;
+            }
+            .reveal blockquote {
+                width: auto;
+            }
+        </style>
+        <link rel="stylesheet" href='style/font.css'>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="reveal">
+                <div class="slides">
+
+&lt;!-- .slide: data-background=&#34;https://markdown.flak.is/uploads/upload_e7ab490e6489473a8b511ffb738a9cec.png&#34; data-background-color=&#34;#fff&#34; data-background-size=&#34;60vh&#34; --&gt;
+
+# WebAssembly Extensibility&lt;br /&gt;with JavaScript — and Rust!
+
+---
+
+![It me!](https://flak.is/s/flaki.png =128x128)
+
+Hi, I&#39;m Flaki!
+&lt;small&gt;(the short for &#34;Istvan Szmozsanszky&#34;)&lt;/small&gt;
+
+[@flakoot@toot.cafe](https://toot.cafe/@flakoot/) | [@slsoftworks](https://twitter.com/slsoftworks)
+
+
+&lt;a href=&#34;https://suborbital.dev/&#34;&gt;&lt;img src=&#34;https://ucarecdn.com/f429371c-399f-43dc-90fa-0a047a8da2f3/&#34; style=&#34;height: 10vh&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://rustfest.world/&#34;&gt;&lt;img src=&#34;https://rustfest.world/assets/posts/project/rustfest-project-header.png&#34; style=&#34;height: 10vh&#34;&gt;&lt;/a&gt;
+
+
+---
+
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; sandbox=&#34;allow-same-origin allow-scripts allow-popups&#34; title=&#34;A WebAssembly Field Guide easily worth like 70 bottle caps — Flaki @ JSConf Korea 2019&#34; src=&#34;https://pityu.flaki.hu/videos/embed/962bdc3c-7525-4a84-87af-084a9420a893&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;
+
+###### [A WebAssembly Field Guide easily worth like 70 bottle caps — Flaki @ JSConf Korea 2019](https://pityu.flaki.hu/videos/watch/962bdc3c-7525-4a84-87af-084a9420a893)
+
+---
+
+&lt;img src=&#34;https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-01-but-why.png&#34; style=&#34;height: 50vh; border: none; box-shadow: none&#34;&gt;
+
+
+###### &#34;&lt;a href=&#34;https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly&#34;&gt;Making JavaScript run fast on WebAssembly&lt;/a&gt;&#34;,&lt;br/&gt; image &amp; blogpost by Lin Clark
+
+---
+
+&gt; - Good for the browser, great for the cloud 
+&gt; - Security and sandboxing
+&gt; - Cross-platform and cross-architecture
+&gt; 
+&gt; — [&#34;Why WebAssembly Belongs Outside the Browser&#34;](https://www.wasm.builders/thomastaylor312/why-webassembly-belongs-outside-the-browser-331a)
+&gt; 
+&lt;!--
+WebAssembly in the *Web browser* was hailed by many as our lord &amp; savior from JavaScript&#39;s terror. Many, except the people who were actually building the technology. WebAssembly *is* intended to break the haegemony of JS on the Web -- but in cooperation with JS and not via *[defenestration](https://en.wikipedia.org/wiki/Defenestration)*.
+
+I stress *the Web browser*, because it&#39;s an important distinction to make. When it comes to outside-of-the-browser usecases...
+--&gt;
+
+---
+
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube-nocookie.com/embed/rPf7llaTWvg&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+
+Using [Javy](https://github.com/Shopify/javy/tree/main/crates) in the WebAssembly Edge with [Suborbital](https://github.com/suborbital/javy)
+
+
+
+---
+
+[`wit-bindgen`](https://github.com/bytecodealliance/wit-bindgen)
+
+[WebAssembly Interface Types](https://github.com/WebAssembly/interface-types)
+
+###### Check out Radu&#39;s blogpost on [WebAssembly Components](https://radu-matei.com/blog/intro-wasm-components/)!
+
+---
+
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube-nocookie.com/embed/dlPVdzcgECQ?start=2233&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+
+###### [Using JavaScript &amp; TypeScript in Suborbital Reactr](https://youtu.be/dlPVdzcgECQ?t=2233) &lt;br&gt; — by Oscar Spencer
+
+---
+
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube-nocookie.com/embed/C6pcWRpHWG0&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+
+###### &#34;[Wasm Snapshots for Fast Startup](https://www.youtube.com/watch?v=C6pcWRpHWG0)&#34; using [Wizer](https://github.com/bytecodealliance/wizer) &lt;br&gt; — by Nick Fitzgerald
+
+---
+
+**Thank you!**
+
+Slides:
+
+&lt;a href=&#34;https://markdown.flak.is/s/8zdlNI4Tq&#34;&gt;&lt;img src=&#34;https://markdown.flak.is/uploads/upload_da1c045ebc7d3df53f797243c51ea081.png&#34; style=&#34;height: 33vh; border: none; box-shadow: none; border-radius: 0&#34;&gt;&lt;/a&gt;
+</div>
+            </div>
+
+            <div id="meta">{&#34;type&#34;:&#34;slide&#34;,&#34;slideOptions&#34;:{&#34;theme&#34;:&#34;white&#34;,&#34;transition&#34;:&#34;slide&#34;}}</div>
+
+            <div class="footer">
+                <div class="unselectable hidden-print gray-font">
+                    <small>
+                        <span>
+                            
+                                <span class="ui-lastchangeuser">&thinsp;<i class="ui-user-icon small" style="background-image: url(https://www.gravatar.com/avatar/d083c391b5848caf7270c83e5a793a3e?s=96);" data-toggle="tooltip" data-placement="right" title="me"></i></span>
+                            
+                            &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
+                            <span class="ui-lastchange text-uppercase" data-createtime="Mon Jul 18 2022 18:44:04 GMT+0000 (Coordinated Universal Time)" data-updatetime="Tue Jul 19 2022 09:39:24 GMT+0000 (Coordinated Universal Time)"></span>
+                        </span>
+                        <span class="pull-right">73 views <a href="#" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a><a class="ui-print" href="" title="Open print view"><i class="fa fa-fw fa-print"></i></a></span>
+                        <br>
+                        
+                    </small>
+                </div>
+                
+            </div>
+        </div>
+
+        <script src="https://markdown.flak.is/js/mathjax-config-extra.js"></script>
+        
+        <script src="https://markdown.flak.is/build/MathJax/MathJax.js" defer></script>
+        <script src="https://markdown.flak.is/build/MathJax/config/TeX-AMS-MML_HTMLorMML.js" defer></script>
+        <script src="https://markdown.flak.is/build/MathJax/config/Safe.js" defer></script>
+        <script src="https://markdown.flak.is/config"></script><script src="https://markdown.flak.is/build/slide-pack.07ce89ce085b22f44df2.js" defer="defer"></script>
+        
+    </body>
+</html>
