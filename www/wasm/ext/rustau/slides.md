@@ -1,407 +1,107 @@
 ---
+type: slide
 slideOptions:
-  transition: fade
   theme: white
+  transition: slide
 ---
+
 <style>
-.reveal section img {
-  border: none;
-  box-shadow: none;
-}
+    .reveal section img {
+        border-color: rgba(0,128,255,.4);
+        border-radius: 2em;
+    }
+    .reveal h1 {
+        color: #654ff0;
+        text-shadow: 0 5px white;
+        font-family: Dela Gothic One;
+        font-size: 1em;
+        padding-bottom: 50vh;
+    }
+    .reveal h6 {
+        padding: 1em;
+    }
+    .reveal blockquote {
+        width: auto;
+    }
 </style>
 
-<!-- .slide: data-background-image="http://talks.local:3000/stepinto/img/title.jpg" data-background-color="#1b1464" data-background-size="contain" data-background-repeat="no-repeat" -->
+<!-- .slide: data-background="https://markdown.flak.is/uploads/upload_e7ab490e6489473a8b511ffb738a9cec.png" data-background-color="#fff" data-background-size="60vh" -->
+
+# WebAssembly Extensibility<br />with JavaScript — and Rust!
 
 ---
 
-<!-- .slide: data-background-image="http://talks.local:3000/stepinto/img/whoami.png" data-background-color="#1d1e1d" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center right" -->
+![It me!](https://flak.is/s/flaki.png =128x128)
+
+Hi, I'm Flaki!
+<small>(the short for "Istvan Szmozsanszky")</small>
+
+[@flakoot@toot.cafe](https://toot.cafe/@flakoot/) | [@slsoftworks](https://twitter.com/slsoftworks)
+
+
+<a href="https://suborbital.dev/"><img src="https://ucarecdn.com/f429371c-399f-43dc-90fa-0a047a8da2f3/" style="height: 10vh"></a>
+<a href="https://rustfest.world/"><img src="https://rustfest.world/assets/posts/project/rustfest-project-header.png" style="height: 10vh"></a>
+
 
 ---
 
+<iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" title="A WebAssembly Field Guide easily worth like 70 bottle caps — Flaki @ JSConf Korea 2019" src="https://pityu.flaki.hu/videos/embed/962bdc3c-7525-4a84-87af-084a9420a893" frameborder="0" allowfullscreen></iframe>
 
-# <small>Step Into</small><br>WebAssembly
+###### [A WebAssembly Field Guide easily worth like 70 bottle caps — Flaki @ JSConf Korea 2019](https://pityu.flaki.hu/videos/watch/962bdc3c-7525-4a84-87af-084a9420a893)
 
-##### In a *(fairly large)* nutshell…
+---
+
+<img src="https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-01-but-why.png" style="height: 50vh; border: none; box-shadow: none">
+
+
+###### "<a href="https://bytecodealliance.org/articles/making-javascript-run-fast-on-webassembly">Making JavaScript run fast on WebAssembly</a>",<br/> image & blogpost by Lin Clark
+
+---
+
+> - Good for the browser, great for the cloud 
+> - Security and sandboxing
+> - Cross-platform and cross-architecture
+> 
+> — ["Why WebAssembly Belongs Outside the Browser"](https://www.wasm.builders/thomastaylor312/why-webassembly-belongs-outside-the-browser-331a)
+> 
+<!--
+WebAssembly in the *Web browser* was hailed by many as our lord & savior from JavaScript's terror. Many, except the people who were actually building the technology. WebAssembly *is* intended to break the haegemony of JS on the Web -- but in cooperation with JS and not via *[defenestration](https://en.wikipedia.org/wiki/Defenestration)*.
+
+I stress *the Web browser*, because it's an important distinction to make. When it comes to outside-of-the-browser usecases...
+-->
+
+---
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/rPf7llaTWvg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Using [Javy](https://github.com/Shopify/javy/tree/main/crates) in the WebAssembly Edge with [Suborbital](https://github.com/suborbital/javy)
+
 
 
 ---
 
-## Let's start a bit of history, shall we?
+[`wit-bindgen`](https://github.com/bytecodealliance/wit-bindgen)
+
+[WebAssembly Interface Types](https://github.com/WebAssembly/interface-types)
+
+###### Check out Radu's blogpost on [WebAssembly Components](https://radu-matei.com/blog/intro-wasm-components/)!
 
 ---
 
-<a href="http://asmjs.org">
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dlPVdzcgECQ?start=2233" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-![asmjs.org](http://talks.local:3000/stepinto/img/asm-js.png)
-
-</a>
+###### [Using JavaScript & TypeScript in Suborbital Reactr](https://youtu.be/dlPVdzcgECQ?t=2233) <br> — by Oscar Spencer
 
 ---
 
-<a href="https://kripken.github.io/mloc_emscripten_talk/#/14">
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/C6pcWRpHWG0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-![Alon Zakai's introduction to Asm.js](http://talks.local:3000/stepinto/img/asm-intro.png)
-
-</a>
+###### "[Wasm Snapshots for Fast Startup](https://www.youtube.com/watch?v=C6pcWRpHWG0)" using [Wizer](https://github.com/bytecodealliance/wizer) <br> — by Nick Fitzgerald
 
 ---
 
-## How Did This Happen?
+**Thank you!**
 
-###### *but also, why did this happen?*
+Slides:
 
----
-
-### Just JIT it
-
-![JIT](http://talks.local:3000/stepinto/img/js-jit.jpg =500x)
-
----
-
-<a href="https://medium.com/@slsoftworks/javascript-world-domination-af9ca2ee5070"><img src="http://talks.local:3000/stepinto/img/js-domination.jpg" alt="JavaScript World Domination"></a>
-
----
-
-![Screenshot explaining the asm.js format that enables JavaScript engine optimizations](http://talks.local:3000/stepinto/img/js-parsing.jpg =500x)
-
-###### *"With 1Mb of gzipped JavaScript, the average devices take more than 2s just to finish parsing"* — [@mehigh](https://twitter.com/psaikali/status/1012732794349473792), 2018
-
----
-
-### Over-The-Wire Download Size Matters!
-
-##### WebAssembly supports streaming compilation
-
-<a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/">
-
-![Illustration of streaming WebAssembly compilation from Lin Clark's linked article](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/ezgif-5-73711fc5d3.gif)
-
-</a>
-
----
-
-## An MVP was born
-
-<a href="https://www.zdnet.com/article/apple-google-microsoft-mozilla-close-in-on-making-web-run-as-fast-as-native-apps/">
-
-![Article screenshot of the WebAssembly MVP announcement](http://talks.local:3000/stepinto/img/mvp-announcement.png =600x)
-
-</a>
-
----
-
-{%youtube pDUhX4iY4aY %}
-
----
-
-<a href="https://webassembly.org/">
-
-![Screenshot of the WebAssembly home page](http://talks.local:3000/stepinto/img/webassembly-org.png)
-
-</a>
-
----
-
-## The Wasm Usecase
-
-- I Need It
-- Something Else Needs It
-
----
-
-## I Need WebAssembly
-
-A.k.a. the "putting Wasm into all your things" usecase.
-
----
-
-### Enhance web experiences
-
-<a href="http://talk.flak.is/wasm/jsconfkorea/">
-
-![Screenshot of the JSConf Korea talk slides showing a special effect generated by JS & WebAssembly](http://talks.local:3000/stepinto/img/jsconfkorea.jpg)
-
-</a>
-
----
-
-### Use pre-existing libraries on the web
-
-<a href="https://squoosh.app/">
-
-![Squoosh app logo](http://talks.local:3000/stepinto/img/squoosh.png)
-
-</a>
-
----
-
-### Tap into high performance computation
-
-![SIMD performance gains](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/9NFi12YDG360SlfMl1OP.png?auto=format&w=720)
-
-###### [ClipChamp video editor](https://web.dev/clipchamp/) / [V8 Blog SIMD explainer](https://v8.dev/features/simd)
-
----
-
-Play decade-old games!
-
-![Screenshot of the Internet Archive's old DOS games listing](http://talk.flak.is/wasm/ts-meetup/img/internetarchive-games.png)
-
-- https://archive.org/details/softwarelibrary_msdos_games&tab=collection
-
----
-
-### Many and more emerging non-web usecases
-
-##### *(with WASI, more on this later later)*
-
----
-
-## Creating Wasm Binaries
-
-- Compile from other languages (C/C++, Rust, etc)
-- Compile from WebAssembly-specific language (AssemblyScript, Grain)
-- Hand-write it yourself 😁
-
----
-
-### Compiling to WebAssembly
-
----
-
-![emscripten](https://emscripten.org/_static/Emscripten_logo_full.png)
-
-```shell
-# Get the emsdk repo
-git clone https://github.com/emscripten-core/emsdk.git
-
-# Install toolchain
-cd emsdk
-
-./emsdk install latest
-./emsdk activate latest
-source ./emsdk_env.sh
-
-# Ready to rumble!
-emcc 
-```
-
-###### [Getting started with emscripten](https://emscripten.org/docs/getting_started/downloads.html) / [Tutorial](https://emscripten.org/docs/getting_started/Tutorial.html)
-
----
-
-#### Of course you can also do it [without Emscripten](https://surma.dev/things/c-to-webassembly/index.html), but it's a little bit more involved :)
-
----
-
-### Rust + Wasm
-
----
-
-<a href="https://rustwasm.github.io/">
-
-![Learn Rust and WebAssembly](http://talks.local:3000/stepinto/img/rustwasm.png)
-
-</a>
-
-###### [Game of Life Rust-Wasm tutorial](https://rustwasm.github.io/docs/book/game-of-life/hello-world.html)
-
----
-
-### Languages targeting WebAssembly
-
-- [AssemblyScript](https://www.assemblyscript.org/)
-- [Grain](https://grain-lang.org/)
-
----
-
-### AssemblyScript
-
----
-
-{%youtube u0Jgz6QVJqg %}
-
----
-
-#### [Mandelbrot example](https://assemblyscript.github.io/examples/mandelbrot/) in AS
-
-<iframe style="width: 100vh;height: 56vh" src="https://www.assemblyscript.org/editor.html#IyFvcHRpbWl6ZT1zcGVlZCZydW50aW1lPXN0dWImaW1wb3J0TWVtb3J5JnVzZT1NYXRoPUpTTWF0aAovKiogTnVtYmVyIG9mIGRpc2NyZXRlIGNvbG9yIHZhbHVlcyBvbiB0aGUgSlMgc2lkZS4gKi8KY29uc3QgTlVNX0NPTE9SUyA9IDIwNDg7CgovKiogVXBkYXRlcyB0aGUgcmVjdGFuZ2xlIGB3aWR0aGAgeCBgaGVpZ2h0YC4gKi8KZXhwb3J0IGZ1bmN0aW9uIHVwZGF0ZSh3aWR0aDogdTMyLCBoZWlnaHQ6IHUzMiwgbGltaXQ6IHUzMik6IHZvaWQgewogIHZhciB0cmFuc2xhdGVYID0gd2lkdGggICogKDEuMCAvIDEuNik7CiAgdmFyIHRyYW5zbGF0ZVkgPSBoZWlnaHQgKiAoMS4wIC8gMi4wKTsKICB2YXIgc2NhbGUgICAgICA9IDEwLjAgLyBtaW4oMyAqIHdpZHRoLCA0ICogaGVpZ2h0KTsKICB2YXIgcmVhbE9mZnNldCA9IHRyYW5zbGF0ZVggKiBzY2FsZTsKICB2YXIgaW52TGltaXQgICA9IDEuMCAvIGxpbWl0OwoKICB2YXIgbWluSXRlcmF0aW9ucyA9IG1pbig4LCBsaW1pdCk7CgogIGZvciAobGV0IHk6IHUzMiA9IDA7IHkgPCBoZWlnaHQ7ICsreSkgewogICAgbGV0IGltYWdpbmFyeSA9ICh5IC0gdHJhbnNsYXRlWSkgKiBzY2FsZTsKICAgIGxldCB5T2Zmc2V0ICAgPSAoeSAqIHdpZHRoKSA8PCAxOwoKICAgIGZvciAobGV0IHg6IHUzMiA9IDA7IHggPCB3aWR0aDsgKyt4KSB7CiAgICAgIGxldCByZWFsID0geCAqIHNjYWxlIC0gcmVhbE9mZnNldDsKCiAgICAgIC8vIEl0ZXJhdGUgdW50aWwgZWl0aGVyIHRoZSBlc2NhcGUgcmFkaXVzIG9yIGl0ZXJhdGlvbiBsaW1pdCBpcyBleGNlZWRlZAogICAgICBsZXQgaXggPSAwLjAsIGl5ID0gMC4wLCBpeFNxOiBmNjQsIGl5U3E6IGY2NDsKICAgICAgbGV0IGl0ZXJhdGlvbjogdTMyID0gMDsKICAgICAgd2hpbGUgKChpeFNxID0gaXggKiBpeCkgKyAoaXlTcSA9IGl5ICogaXkpIDw9IDQuMCkgewogICAgICAgIGl5ID0gMi4wICogaXggKiBpeSArIGltYWdpbmFyeTsKICAgICAgICBpeCA9IGl4U3EgLSBpeVNxICsgcmVhbDsKICAgICAgICBpZiAoaXRlcmF0aW9uID49IGxpbWl0KSBicmVhazsKICAgICAgICArK2l0ZXJhdGlvbjsKICAgICAgfQoKICAgICAgLy8gRG8gYSBmZXcgZXh0cmEgaXRlcmF0aW9ucyBmb3IgcXVpY2sgZXNjYXBlcyB0byByZWR1Y2UgZXJyb3IgbWFyZ2luCiAgICAgIHdoaWxlIChpdGVyYXRpb24gPCBtaW5JdGVyYXRpb25zKSB7CiAgICAgICAgbGV0IGl4TmV3ID0gaXggKiBpeCAtIGl5ICogaXkgKyByZWFsOwogICAgICAgIGl5ID0gMi4wICogaXggKiBpeSArIGltYWdpbmFyeTsKICAgICAgICBpeCA9IGl4TmV3OwogICAgICAgICsraXRlcmF0aW9uOwogICAgICB9CgogICAgICAvLyBJdGVyYXRpb24gY291bnQgaXMgYSBkaXNjcmV0ZSB2YWx1ZSBpbiB0aGUgcmFuZ2UgWzAsIGxpbWl0XSBoZXJlLCBidXQgd2UnZCBsaWtlIGl0IHRvIGJlCiAgICAgIC8vIG5vcm1hbGl6ZWQgaW4gdGhlIHJhbmdlIFswLCAyMDQ3XSBzbyBpdCBtYXBzIHRvIHRoZSBncmFkaWVudCBjb21wdXRlZCBpbiBKUy4KICAgICAgLy8gc2VlIGFsc286IGh0dHA6Ly9saW5hcy5vcmcvYXJ0LWdhbGxlcnkvZXNjYXBlL2VzY2FwZS5odG1sCiAgICAgIGxldCBjb2xvckluZGV4ID0gTlVNX0NPTE9SUyAtIDE7CiAgICAgIGxldCBkaXN0YW5jZVNxID0gaXggKiBpeCArIGl5ICogaXk7CiAgICAgIGlmIChkaXN0YW5jZVNxID4gMS4wKSB7CiAgICAgICAgbGV0IGZyYWN0aW9uID0gTWF0aC5sb2cyKDAuNSAqIE1hdGgubG9nKGRpc3RhbmNlU3EpKTsKICAgICAgICBjb2xvckluZGV4ID0gPHUzMj4oKE5VTV9DT0xPUlMgLSAxKSAqIGNsYW1wPGY2ND4oKGl0ZXJhdGlvbiArIDEgLSBmcmFjdGlvbikgKiBpbnZMaW1pdCwgMC4wLCAxLjApKTsKICAgICAgfQogICAgICBzdG9yZTx1MTY+KHlPZmZzZXQgKyAoeCA8PCAxKSwgY29sb3JJbmRleCk7CiAgICB9CiAgfQp9CgovKiogQ2xhbXBzIGEgdmFsdWUgYmV0d2VlbiB0aGUgZ2l2ZW4gbWluaW11bSBhbmQgbWF4aW11bS4gKi8KZnVuY3Rpb24gY2xhbXA8VD4odmFsdWU6IFQsIG1pblZhbHVlOiBULCBtYXhWYWx1ZTogVCk6IFQgewogIHJldHVybiBtaW4obWF4KHZhbHVlLCBtaW5WYWx1ZSksIG1heFZhbHVlKTsKfQojIWh0bWwKPGNhbnZhcyBpZD0iY2FudmFzIiBzdHlsZT0id2lkdGg6IDEwMCU7IGhlaWdodDogMTAwJSI+PC9jYW52YXM+CjxzY3JpcHQ+CgovLyBTZXQgdXAgdGhlIGNhbnZhcyB3aXRoIGEgMkQgcmVuZGVyaW5nIGNvbnRleHQKY29uc3QgY2FudmFzID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImNhbnZhcyIpOwpjb25zdCBib3VuZGluZ1JlY3QgPSBjYW52YXMuZ2V0Qm91bmRpbmdDbGllbnRSZWN0KCk7CmNvbnN0IGN0eCA9IGNhbnZhcy5nZXRDb250ZXh0KCIyZCIpOwoKLy8gQ29tcHV0ZSB0aGUgc2l6ZSBvZiB0aGUgdmlld3BvcnQKY29uc3QgcmF0aW8gID0gd2luZG93LmRldmljZVBpeGVsUmF0aW8gfHwgMTsKY29uc3Qgd2lkdGggID0gKGJvdW5kaW5nUmVjdC53aWR0aCAgfCAwKSAqIHJhdGlvOwpjb25zdCBoZWlnaHQgPSAoYm91bmRpbmdSZWN0LmhlaWdodCB8IDApICogcmF0aW87CmNvbnN0IHNpemUgPSB3aWR0aCAqIGhlaWdodDsKY29uc3QgYnl0ZVNpemUgPSBzaXplIDw8IDE7IC8vIGRpc2NyZXRlIGNvbG9yIGluZGljZXMgaW4gcmFuZ2UgWzAsIDIwNDddICgyIGJ5dGVzIHBlciBwaXhlbCkKCmNhbnZhcy53aWR0aCAgPSB3aWR0aDsKY2FudmFzLmhlaWdodCA9IGhlaWdodDsKCmN0eC5zY2FsZShyYXRpbywgcmF0aW8pOwoKLy8gQ29tcHV0ZSB0aGUgc2l6ZSAoaW4gcGFnZXMpIG9mIGFuZCBpbnN0YW50aWF0ZSB0aGUgbW9kdWxlJ3MgbWVtb3J5LgovLyBQYWdlcyBhcmUgNjRrYi4gUm91bmRzIHVwIHVzaW5nIG1hc2sgMHhmZmZmIGJlZm9yZSBzaGlmdGluZyB0byBwYWdlcy4KY29uc3QgbWVtb3J5ID0gbmV3IFdlYkFzc2VtYmx5Lk1lbW9yeSh7IGluaXRpYWw6ICgoYnl0ZVNpemUgKyAweGZmZmYpICYgfjB4ZmZmZikgPj4+IDE2IH0pOwpjb25zdCBidWZmZXIgPSBuZXcgVWludDE2QXJyYXkobWVtb3J5LmJ1ZmZlcik7CmNvbnN0IGltYWdlRGF0YSA9IGN0eC5jcmVhdGVJbWFnZURhdGEod2lkdGgsIGhlaWdodCk7CmNvbnN0IGFyZ2IgPSBuZXcgVWludDMyQXJyYXkoaW1hZ2VEYXRhLmRhdGEuYnVmZmVyKTsKCmxvYWRlci5pbnN0YW50aWF0ZShtb2R1bGVfd2FzbSwgewogIGVudjogewogICAgbWVtb3J5CiAgfQp9KS50aGVuKCh7IGV4cG9ydHMgfSkgPT4gewoKICAvLyBEZXRhaWwgbGV2ZWwKICBsZXQgZGV0YWlsID0gMTsKICBleHBvcnRzLnVwZGF0ZSh3aWR0aCwgaGVpZ2h0LCBkZXRhaWwpOwoKICAvLyBJbmNyZXNlIGRldGFpbAogIGxldCBpdHYgPSBzZXRJbnRlcnZhbCgKICAgICgpID0+IHsKICAgICAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgZGV0YWlsKTsKICAgICAgcmVuZGVyVmlldygpOwogICAgICBkZXRhaWwrKzsKICAgICAgaWYgKGRldGFpbD4zMikgcmV0dXJuIGNsZWFySW50ZXJ2YWwoaXR2KTsKICAgICAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgZGV0YWlsKTsKICAgIH0KICAgICwgMjAwCiAgKQp9KTsKCi8qKiBVcGRhdGVzIHRoZSB2aWV3ICovCmZ1bmN0aW9uIHJlbmRlclZpZXcoKSB7CiAgLy8gVHJhbnNsYXRlIDE2LWJpdCBjb2xvciBpbmRpY2VzIHRvIGNvbG9ycwogIGZvciAobGV0IHkgPSAwOyB5IDwgaGVpZ2h0OyArK3kpIHsKICAgIGNvbnN0IHl4ID0geSAqIHdpZHRoOwogICAgZm9yIChsZXQgeCA9IDA7IHggPCB3aWR0aDsgKyt4KSB7CiAgICAgIGFyZ2JbeXggKyB4XSA9IGNvbG9yc1tidWZmZXJbeXggKyB4XV07CiAgICB9CiAgfQoKICAvLyBSZW5kZXIgdGhlIGltYWdlIGJ1ZmZlci4KICBjdHgucHV0SW1hZ2VEYXRhKGltYWdlRGF0YSwgMCwgMCk7Cn0KCi8qKiBDb21wdXRlcyBhIG5pY2Ugc2V0IG9mIGNvbG9ycyB1c2luZyBhIGdyYWRpZW50LiAqLwpmdW5jdGlvbiBjb21wdXRlQ29sb3JzKCkgewogIGNvbnN0IGNhbnZhcyA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImNhbnZhcyIpOwogIGNhbnZhcy53aWR0aCA9IDIwNDg7CiAgY2FudmFzLmhlaWdodCA9IDE7CiAgY29uc3QgY3R4ID0gY2FudmFzLmdldENvbnRleHQoIjJkIik7CiAgY29uc3QgZ3JkID0gY3R4LmNyZWF0ZUxpbmVhckdyYWRpZW50KDAsIDAsIDIwNDgsIDApOwogIGdyZC5hZGRDb2xvclN0b3AoMC4wMCwgIiMwMDA3NjQiKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuMTYsICIjMjA2OENCIik7CiAgZ3JkLmFkZENvbG9yU3RvcCgwLjQyLCAiI0VERkZGRiIpOwogIGdyZC5hZGRDb2xvclN0b3AoMC42NDI1LCAiI0ZGQUEwMCIpOwogIGdyZC5hZGRDb2xvclN0b3AoMC44NTc1LCAiIzAwMDIwMCIpOwogIGN0eC5maWxsU3R5bGUgPSBncmQ7CiAgY3R4LmZpbGxSZWN0KDAsIDAsIDIwNDgsIDEpOwogIHJldHVybiBuZXcgVWludDMyQXJyYXkoY3R4LmdldEltYWdlRGF0YSgwLCAwLCAyMDQ4LCAxKS5kYXRhLmJ1ZmZlcik7Cn0KCmNvbnN0IGNvbG9ycyA9IGNvbXB1dGVDb2xvcnMoKTsKPC9zY3JpcHQ+"></iframe>
-
----
-
-#### Mandelbrot example in AS
-
-<iframe style="width: 100vh;height: 56vh" src="https://www.assemblyscript.org/editor.html#IyFvcHRpbWl6ZT1zcGVlZCZydW50aW1lPXN0dWImaW1wb3J0TWVtb3J5JnVzZT1NYXRoPUpTTWF0aAovKiogTnVtYmVyIG9mIGRpc2NyZXRlIGNvbG9yIHZhbHVlcyBvbiB0aGUgSlMgc2lkZS4gKi8KY29uc3QgTlVNX0NPTE9SUyA9IDIwNDg7CgovKiogVXBkYXRlcyB0aGUgcmVjdGFuZ2xlIGB3aWR0aGAgeCBgaGVpZ2h0YC4gKi8KZXhwb3J0IGZ1bmN0aW9uIHVwZGF0ZSh3aWR0aDogdTMyLCBoZWlnaHQ6IHUzMiwgem9vbTogZjY0KTogdm9pZCB7CiAgdmFyIGxpbWl0OiB1MzIgPSAzMjsKICB2YXIgdHJhbnNsYXRlWCA9IHdpZHRoICAqICgxLjAgLyAxLjYgKyB6b29tIC8gMy4yNSk7CiAgdmFyIHRyYW5zbGF0ZVkgPSBoZWlnaHQgKiAoMS4wIC8gMi4wKTsKICB2YXIgc2NhbGUgICAgICA9IDEwLjAgLyB6b29tIC8gbWluKDMgKiB3aWR0aCwgNCAqIGhlaWdodCk7CiAgdmFyIHJlYWxPZmZzZXQgPSB0cmFuc2xhdGVYICogc2NhbGU7CiAgdmFyIGludkxpbWl0ICAgPSAxLjAgLyBsaW1pdDsKCiAgdmFyIG1pbkl0ZXJhdGlvbnMgPSBtaW4oOCwgbGltaXQpOwoKICBmb3IgKGxldCB5OiB1MzIgPSAwOyB5IDwgaGVpZ2h0OyArK3kpIHsKICAgIGxldCBpbWFnaW5hcnkgPSAoeSAtIHRyYW5zbGF0ZVkpICogc2NhbGU7CiAgICBsZXQgeU9mZnNldCAgID0gKHkgKiB3aWR0aCkgPDwgMTsKCiAgICBmb3IgKGxldCB4OiB1MzIgPSAwOyB4IDwgd2lkdGg7ICsreCkgewogICAgICBsZXQgcmVhbCA9IHggKiBzY2FsZSAtIHJlYWxPZmZzZXQ7CgogICAgICAvLyBJdGVyYXRlIHVudGlsIGVpdGhlciB0aGUgZXNjYXBlIHJhZGl1cyBvciBpdGVyYXRpb24gbGltaXQgaXMgZXhjZWVkZWQKICAgICAgbGV0IGl4ID0gMC4wLCBpeSA9IDAuMCwgaXhTcTogZjY0LCBpeVNxOiBmNjQ7CiAgICAgIGxldCBpdGVyYXRpb246IHUzMiA9IDA7CiAgICAgIHdoaWxlICgoaXhTcSA9IGl4ICogaXgpICsgKGl5U3EgPSBpeSAqIGl5KSA8PSA0LjApIHsKICAgICAgICBpeSA9IDIuMCAqIGl4ICogaXkgKyBpbWFnaW5hcnk7CiAgICAgICAgaXggPSBpeFNxIC0gaXlTcSArIHJlYWw7CiAgICAgICAgaWYgKGl0ZXJhdGlvbiA+PSBsaW1pdCkgYnJlYWs7CiAgICAgICAgKytpdGVyYXRpb247CiAgICAgIH0KCiAgICAgIC8vIERvIGEgZmV3IGV4dHJhIGl0ZXJhdGlvbnMgZm9yIHF1aWNrIGVzY2FwZXMgdG8gcmVkdWNlIGVycm9yIG1hcmdpbgogICAgICB3aGlsZSAoaXRlcmF0aW9uIDwgbWluSXRlcmF0aW9ucykgewogICAgICAgIGxldCBpeE5ldyA9IGl4ICogaXggLSBpeSAqIGl5ICsgcmVhbDsKICAgICAgICBpeSA9IDIuMCAqIGl4ICogaXkgKyBpbWFnaW5hcnk7CiAgICAgICAgaXggPSBpeE5ldzsKICAgICAgICArK2l0ZXJhdGlvbjsKICAgICAgfQoKICAgICAgLy8gSXRlcmF0aW9uIGNvdW50IGlzIGEgZGlzY3JldGUgdmFsdWUgaW4gdGhlIHJhbmdlIFswLCBsaW1pdF0gaGVyZSwgYnV0IHdlJ2QgbGlrZSBpdCB0byBiZQogICAgICAvLyBub3JtYWxpemVkIGluIHRoZSByYW5nZSBbMCwgMjA0N10gc28gaXQgbWFwcyB0byB0aGUgZ3JhZGllbnQgY29tcHV0ZWQgaW4gSlMuCiAgICAgIC8vIHNlZSBhbHNvOiBodHRwOi8vbGluYXMub3JnL2FydC1nYWxsZXJ5L2VzY2FwZS9lc2NhcGUuaHRtbAogICAgICBsZXQgY29sb3JJbmRleCA9IE5VTV9DT0xPUlMgLSAxOwogICAgICBsZXQgZGlzdGFuY2VTcSA9IGl4ICogaXggKyBpeSAqIGl5OwogICAgICBpZiAoZGlzdGFuY2VTcSA+IDEuMCkgewogICAgICAgIGxldCBmcmFjdGlvbiA9IE1hdGgubG9nMigwLjUgKiBNYXRoLmxvZyhkaXN0YW5jZVNxKSk7CiAgICAgICAgY29sb3JJbmRleCA9IDx1MzI+KChOVU1fQ09MT1JTIC0gMSkgKiBjbGFtcDxmNjQ+KChpdGVyYXRpb24gKyAxIC0gZnJhY3Rpb24pICogaW52TGltaXQsIDAuMCwgMS4wKSk7CiAgICAgIH0KICAgICAgc3RvcmU8dTE2Pih5T2Zmc2V0ICsgKHggPDwgMSksIGNvbG9ySW5kZXgpOwogICAgfQogIH0KfQoKLyoqIENsYW1wcyBhIHZhbHVlIGJldHdlZW4gdGhlIGdpdmVuIG1pbmltdW0gYW5kIG1heGltdW0uICovCmZ1bmN0aW9uIGNsYW1wPFQ+KHZhbHVlOiBULCBtaW5WYWx1ZTogVCwgbWF4VmFsdWU6IFQpOiBUIHsKICByZXR1cm4gbWluKG1heCh2YWx1ZSwgbWluVmFsdWUpLCBtYXhWYWx1ZSk7Cn0KIyFodG1sCjxjYW52YXMgaWQ9ImNhbnZhcyIgc3R5bGU9IndpZHRoOiAxMDAlOyBoZWlnaHQ6IDEwMCUiPjwvY2FudmFzPgo8c2NyaXB0PgoKLy8gU2V0IHVwIHRoZSBjYW52YXMgd2l0aCBhIDJEIHJlbmRlcmluZyBjb250ZXh0CmNvbnN0IGNhbnZhcyA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJjYW52YXMiKTsKY29uc3QgYm91bmRpbmdSZWN0ID0gY2FudmFzLmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpOwpjb25zdCBjdHggPSBjYW52YXMuZ2V0Q29udGV4dCgiMmQiKTsKCi8vIENvbXB1dGUgdGhlIHNpemUgb2YgdGhlIHZpZXdwb3J0CmNvbnN0IHJhdGlvICA9IHdpbmRvdy5kZXZpY2VQaXhlbFJhdGlvIHx8IDE7CmNvbnN0IHdpZHRoICA9IChib3VuZGluZ1JlY3Qud2lkdGggIHwgMCkgKiByYXRpbzsKY29uc3QgaGVpZ2h0ID0gKGJvdW5kaW5nUmVjdC5oZWlnaHQgfCAwKSAqIHJhdGlvOwpjb25zdCBzaXplID0gd2lkdGggKiBoZWlnaHQ7CmNvbnN0IGJ5dGVTaXplID0gc2l6ZSA8PCAxOyAvLyBkaXNjcmV0ZSBjb2xvciBpbmRpY2VzIGluIHJhbmdlIFswLCAyMDQ3XSAoMiBieXRlcyBwZXIgcGl4ZWwpCgpjYW52YXMud2lkdGggID0gd2lkdGg7CmNhbnZhcy5oZWlnaHQgPSBoZWlnaHQ7CgpjdHguc2NhbGUocmF0aW8sIHJhdGlvKTsKCi8vIENvbXB1dGUgdGhlIHNpemUgKGluIHBhZ2VzKSBvZiBhbmQgaW5zdGFudGlhdGUgdGhlIG1vZHVsZSdzIG1lbW9yeS4KLy8gUGFnZXMgYXJlIDY0a2IuIFJvdW5kcyB1cCB1c2luZyBtYXNrIDB4ZmZmZiBiZWZvcmUgc2hpZnRpbmcgdG8gcGFnZXMuCmNvbnN0IG1lbW9yeSA9IG5ldyBXZWJBc3NlbWJseS5NZW1vcnkoeyBpbml0aWFsOiAoKGJ5dGVTaXplICsgMHhmZmZmKSAmIH4weGZmZmYpID4+PiAxNiB9KTsKY29uc3QgYnVmZmVyID0gbmV3IFVpbnQxNkFycmF5KG1lbW9yeS5idWZmZXIpOwpjb25zdCBpbWFnZURhdGEgPSBjdHguY3JlYXRlSW1hZ2VEYXRhKHdpZHRoLCBoZWlnaHQpOwpjb25zdCBhcmdiID0gbmV3IFVpbnQzMkFycmF5KGltYWdlRGF0YS5kYXRhLmJ1ZmZlcik7Cgpsb2FkZXIuaW5zdGFudGlhdGUobW9kdWxlX3dhc20sIHsKICBlbnY6IHsKICAgIG1lbW9yeQogIH0KfSkudGhlbigoeyBleHBvcnRzIH0pID0+IHsKCiAgLy8gRGV0YWlsIGxldmVsCiAgbGV0IHpvb20gPSAxLjA7CiAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgem9vbSk7CgogIC8vIEluY3Jlc2UgZGV0YWlsCiAgbGV0IGl0diA9IHNldEludGVydmFsKAogICAgKCkgPT4gewogICAgICBleHBvcnRzLnVwZGF0ZSh3aWR0aCwgaGVpZ2h0LCB6b29tKTsKICAgICAgcmVuZGVyVmlldygpOwogICAgICB6b29tICo9IDEuMjsKICAgICAgaWYgKHpvb20gPiAxNikgcmV0dXJuIGNsZWFySW50ZXJ2YWwoaXR2KTsKICAgICAgZXhwb3J0cy51cGRhdGUod2lkdGgsIGhlaWdodCwgem9vbSk7CiAgICB9CiAgICAsIDEwMAogICkKfSk7CgovKiogVXBkYXRlcyB0aGUgdmlldyAqLwpmdW5jdGlvbiByZW5kZXJWaWV3KCkgewogIC8vIFRyYW5zbGF0ZSAxNi1iaXQgY29sb3IgaW5kaWNlcyB0byBjb2xvcnMKICBmb3IgKGxldCB5ID0gMDsgeSA8IGhlaWdodDsgKyt5KSB7CiAgICBjb25zdCB5eCA9IHkgKiB3aWR0aDsKICAgIGZvciAobGV0IHggPSAwOyB4IDwgd2lkdGg7ICsreCkgewogICAgICBhcmdiW3l4ICsgeF0gPSBjb2xvcnNbYnVmZmVyW3l4ICsgeF1dOwogICAgfQogIH0KCiAgLy8gUmVuZGVyIHRoZSBpbWFnZSBidWZmZXIuCiAgY3R4LnB1dEltYWdlRGF0YShpbWFnZURhdGEsIDAsIDApOwp9CgovKiogQ29tcHV0ZXMgYSBuaWNlIHNldCBvZiBjb2xvcnMgdXNpbmcgYSBncmFkaWVudC4gKi8KZnVuY3Rpb24gY29tcHV0ZUNvbG9ycygpIHsKICBjb25zdCBjYW52YXMgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJjYW52YXMiKTsKICBjYW52YXMud2lkdGggPSAyMDQ4OwogIGNhbnZhcy5oZWlnaHQgPSAxOwogIGNvbnN0IGN0eCA9IGNhbnZhcy5nZXRDb250ZXh0KCIyZCIpOwogIGNvbnN0IGdyZCA9IGN0eC5jcmVhdGVMaW5lYXJHcmFkaWVudCgwLCAwLCAyMDQ4LCAwKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuMDAsICIjMDAwNzY0Iik7CiAgZ3JkLmFkZENvbG9yU3RvcCgwLjE2LCAiIzIwNjhDQiIpOwogIGdyZC5hZGRDb2xvclN0b3AoMC40MiwgIiNFREZGRkYiKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuNjQyNSwgIiNGRkFBMDAiKTsKICBncmQuYWRkQ29sb3JTdG9wKDAuODU3NSwgIiMwMDAyMDAiKTsKICBjdHguZmlsbFN0eWxlID0gZ3JkOwogIGN0eC5maWxsUmVjdCgwLCAwLCAyMDQ4LCAxKTsKICByZXR1cm4gbmV3IFVpbnQzMkFycmF5KGN0eC5nZXRJbWFnZURhdGEoMCwgMCwgMjA0OCwgMSkuZGF0YS5idWZmZXIpOwp9Cgpjb25zdCBjb2xvcnMgPSBjb21wdXRlQ29sb3JzKCk7Cjwvc2NyaXB0Pg=="></iframe>
-
----
-
-[Learn WebAssembly through code examples](https://wasmbyexample.dev/)
-
----
-
-### Learn more about Grain
-
-{%youtube O8tyml3xBMM %}
-
----
-
-### Hand-Written Wasm
-
-<span><!-- .element: class="fragment" data-fragment-index="0" -->WebAssembly is intended to be compiled to from another language</span><span><!-- .element: class="fragment" data-fragment-index="1" --> — but that doesn’t mean you *can’t* write it by hand!</span>
-
-#### <!-- .element: class="fragment" data-fragment-index="2" --> [WAT] + [WABT]
-
-[WAT]: https://webassembly.github.io/spec/core/text/conventions.html
-[WABT]: https://github.com/WebAssembly/wabt#wabt-the-webassembly-binary-toolkit800
-
----
-
-<!-- .slide: data-background-image="http://talks.local:3000/stepinto/img/wat.jpg" data-background-size="cover" data-background-repeat="no-repeat" -->
-
----
-
-#### The WebAssembly Text Format
-
-```wasm
-(module
-  (type $t0 (func (param i32 i32) (result i32)))
-  (func $add (export "add") (type $t0) (param $lhs i32) (param $rhs i32) (result i32)
-    get_local $lhs
-    get_local $rhs
-    i32.add))
-
-```
-
-###### [WebAssembly Studio](https://webassembly.studio/) / [Understanding the WAT format](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)
-
----
-
-```x86asm
-wasm-function[0]:
-  sub rsp, 8
-  mov ecx, edi    ; store parameters
-  mov eax, ecx    ; in CPU registers
-  add eax, esi    ; execute the add
-  nop
-  add rsp, 8      ; increment the stack pointer
-  ret             ; return the result
-```
-
-[X86-64 registers cheat sheet](https://wiki.cdot.senecacollege.ca/wiki/X86_64_Register_and_Instruction_Quick_Start)
-
----
-
-
-#### [The WebAssembly code Explorer](https://wasdk.github.io/wasmcodeexplorer/)
-
----
-
-### Raw Wasm
-
-All-organic, Artisanal, Hand-crafted WebAssembly!
-
-###### [Raw Wasm Talk Slides](https://binji.github.io/wasmsummit2021-talk/)
-
-<!-- .slide: data-background-image="http://talks.local:3000/stepinto/img/dino.png" data-background-size="contain" data-background-repeat="repeat-x" data-background-position="bottom" -->
-
----
-
-{%youtube qEq3F9Z8z6w %}
-
----
-
-### Free Performance?
-
-- WebAssembly is [not a silver bullet](https://surma.dev/things/js-to-asc/index.html)
-- But it can make it easier [to create straightforward & performant code](https://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html)
-- As with the above, it always 'depends'
-- A lot of your choices will come with tradeoffs
-
----
-
-###### *and now onto yet another group of usecases…*
-
----
-
-## Something Else Needs WebAssembly
-
-A.k.a. the "extreme portability" usecase
-
----
-
-### Crate and run WebAssembly modules in:
-
-##### [Node.js](https://neon-bindings.com/) | [PHP](https://wasmbyexample.dev/home.en-us.html)
-
----
-
-### Wasm3
-
-- [Tiny WebAssembly interpreter](https://github.com/wasm3/wasm3)
-- So small it even fits an [Arduino](https://www.arduino.cc/reference/en/libraries/wasm3/)
-- [Tiny WebAssembly IoT!](https://twitter.com/wasm3_engine/status/1222872374363770882)
-
----
-
-<!-- .slide: data-background-image="https://media.giphy.com/media/TsbDdPYYXn98UCXWKu/giphy.gif" data-background-color="black" data-background-size="contain" data-background-repeat="no-repeat" -->
-
----
-
-{%youtube lDAN46s0r1U %}
-
----
-
-### The Lucet WebAssembly runtime
-
-[![asciicast](https://asciinema.org/a/249302.svg)](https://asciinema.org/a/249302)
-
----
-
-### WebAssembly on the Edge
-
-##### [CloudFlare Workers](https://blog.cloudflare.com/webassembly-on-cloudflare-workers/) | [Fastly Terrarium](https://wasm.fastlylabs.com/)
-
-![Renee Shah's tweet quoted below](http://talks.local:3000/stepinto/img/reneeshah.png =600x)
-
-###### “Wasm’s portability, low resource consumption, and lack of a cold start problem make it ideal for the edge.” -- [Renee Shah](https://twitter.com/reneeshah123/status/1392208270626934784?s=20)
-
----
-
-## WASI
-
-![WASI illustration from Lin Clark's linked article](http://talks.local:3000/stepinto/img/wasi.png)
-
-
-###### [Standardizing WASI, the WebAssembly System Interface](https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/) -- by Lin Clark
-
----
-
-### WASI APIs in the works
-
-##### [WASI Proposals](https://github.com/WebAssembly/WASI/blob/main/docs/Proposals.md) | [Wasmtime](https://wasmtime.dev/)
-
-- I/O
-- Filesystem
-- "Classic" Command-Line
-- Clocks
-- Random
-- Machine Learning (wasi-nn)
-- Crypto(graphy)
-
----
-
-## [The future of WebAssembly core](https://github.com/WebAssembly/proposals)
-
----
-
-## One More Thing
-
-> *“Running user-submitted code for bug reproductions is also becoming a major security risk for open source maintainers and Fortune 100 companies alike, and these types of supply chain attacks are on the rise.”* -- [StackBlitz](https://blog.stackblitz.com/posts/introducing-webcontainers/)
-
-###### a.k.a.: "mitigating against Ellátólánctámadás" with WebAssembly & WebContainers
-
----
-
-## That's All Folks!
-
-##### Have questions? Need help? Reach out at [flak.is](https://flak.is)
+https://talk.flak.is/wasm/ext/rustau
