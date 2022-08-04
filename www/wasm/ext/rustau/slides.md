@@ -8,7 +8,7 @@ slideOptions:
 <style>
     .reveal section img {
         border-color: rgba(0,128,255,.4);
-        border-radius: 2em;
+        border-radius: 10px;
     }
     .reveal h1 {
         color: #654ff0;
@@ -104,4 +104,6 @@ Using [Javy](https://github.com/Shopify/javy/tree/main/crates) in the WebAssembl
 
 Slides:
 
-https://talk.flak.is/wasm/ext/rustau
+![QR code version of the link below](img/qr-rustau.png)
+
+[talk.flak.is/wasm/ext/rustau](https://talk.flak.is/wasm/ext/rustau)
